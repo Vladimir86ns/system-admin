@@ -30,7 +30,7 @@
                     <a class="hiddenanchor" id="toforgot"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
-                            <form action="{{ route('signin') }}" autocomplete="on" method="post" role="form" id="login_form">
+                            <form action="{{ route('investment-signin') }}" autocomplete="on" method="post" role="form" id="login_form">
                                 <h3 class="black_bg">
                                     <!-- Add picture logo here when create it -->
                                     <!-- <img src="{{ asset('assets/img/logo.png') }}" alt="josh logo"> -->
@@ -77,7 +77,7 @@
                             </form>
                         </div>
                         <div id="register" class="animate form">
-                            <form action="{{ route('signup') }}" autocomplete="on" method="post" role="form" id="register_here">
+                            <form action="{{ route('investment-signup') }}" autocomplete="on" method="post" role="form" id="register_here">
                                 <h3 class="black_bg">
                                     <!-- Add picture logo here when create it -->
                                     <!-- <img src="{{ asset('assets/img/logo.png') }}" alt="josh logo"> -->

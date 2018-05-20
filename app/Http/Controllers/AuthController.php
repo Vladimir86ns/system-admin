@@ -44,7 +44,6 @@ class AuthController extends JoshController
      */
     public function postSignin(Request $request)
     {
-        \Log::info('2');
         $user = User::where('email', $request->email)->get();
         $user = Sentinel::findById($user[0]->id);
         try {
@@ -74,7 +73,6 @@ class AuthController extends JoshController
      */
     public function postSignup(UserRequest $request)
     {
-
         try {
             // Register the user
             $user = Sentinel::registerAndActivate([

@@ -18,5 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group([ 'prefix' => 'investment'], function () {
-    Route::get('signin', 'InvestmentController@getSignin')->name('getSignin');
+    Route::get('signin', 'InvestmentController@getSignin')->name('investment-signin');
+    Route::get('login', 'InvestmentController@getSignin')->name('investment-login');
+    Route::post('investment-signup', 'InvestmentController@postSignup')->name('investment-signup');
+
+        # Dashboard / Index
+        Route::get('/', 'InvestmentController@showHome')->name('investor-dashboard');
 });
