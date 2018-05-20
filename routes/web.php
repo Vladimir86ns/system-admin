@@ -74,6 +74,10 @@ Route::group([ 'middleware' => 'admin'], function () {
     Route::get('{name?}', 'JoshController@showView');
 });
 
+Route::group([ 'prefix' => 'investment'], function () {
+    Route::get('signin', 'InvestmentController@getSignin')->name('investment-signin');
+});
+
 # Remaining pages will be called from below controller method
 # in real world scenario, you may be required to define all routes manually
 
