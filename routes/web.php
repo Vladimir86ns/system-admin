@@ -25,6 +25,7 @@ Route::pattern('slug', '[a-z0-9- _]+');
     Route::post('signup', 'AuthController@postSignup')->name('signup');
     Route::post('forgot-password', 'AuthController@postForgotPassword')->name('signup');
 
+    //  INVESTMENT
     Route::group([ 'prefix' => 'investment'], function () {
         # Dashboard / Index
         Route::get('/', 'InvestmentController@showHome')->name('investor-dashboard');
