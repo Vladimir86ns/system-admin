@@ -6,6 +6,7 @@
             <span class="title">Dashboard</span>
         </a>
     </li>
+
     <li {!! (Request::is('users') || Request::is('users/create') || Request::is('user_profile') || Request::is('users/*') || Request::is('deleted_users') ? 'class="active"' : '') !!}>
         <a href="#">
             <i class="livicon" data-name="user" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
