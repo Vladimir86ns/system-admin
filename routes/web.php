@@ -25,6 +25,16 @@ Route::pattern('slug', '[a-z0-9- _]+');
     Route::post('signup', 'AuthController@postSignup')->name('signup');
     Route::post('forgot-password', 'AuthController@postForgotPassword')->name('signup');
 
+    //  INVESTMENTS-ONLY-ADMIN
+    Route::group([ 'prefix' => 'investments-admin'], function () {
+        # Dashboard / Index
+        Route::get('/', 'InvestmentsAdminController@showHome')->name('investments-admin-dashboard');
+
+        Route::post('signin', 'InvestmentsAdminController@postSignIn')->name('investments-admin-sign-in');
+        Route::get('login', 'InvestmentsAdminController@getSignIn')->name('investments-admin-login');
+        Route::post('investment-signup', 'InvestmentsAdminController@postSignup')->name('investments-admin-sign-up');
+    });
+
     //  INVESTMENT
     Route::group([ 'prefix' => 'investment'], function () {
         # Dashboard / Index
