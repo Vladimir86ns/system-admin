@@ -19,18 +19,20 @@ Blank Page
 @section('content')
 
 <section class="content-header">
-                <h1>Blank page</h1>
-                <ol class="breadcrumb">
-                    <li>
-                        <a href="{{ route('dashboard') }}">
-                            <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
-                            Dashboard
-                        </a>
-                    </li>
-                    <li class="active">Blank page</li>
-                </ol>
-            </section>
-            <section class="content"></section>
+    <h1>Blank page</h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="{{ route('dashboard') }}">
+                <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
+                Dashboard
+            </a>
+        </li>
+        <li class="active">Blank page</li>
+    </ol>
+</section>
+
+<section class="content">
+</section>
 
         
     @stop
