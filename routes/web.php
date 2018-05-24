@@ -29,6 +29,7 @@ Route::pattern('slug', '[a-z0-9- _]+');
     Route::group([ 'prefix' => 'investments-admin'], function () {
         # Dashboard / Index
         Route::get('/', 'InvestmentsAdminController@showHome')->name('investments-admin-dashboard');
+        Route::get('/all-investments', 'InvestmentsAdminController@getAllInvestments')->name('investments-admin-all-investments');
 
         Route::post('signin', 'InvestmentsAdminController@postSignIn')->name('investments-admin-sign-in');
         Route::get('login', 'InvestmentsAdminController@getSignIn')->name('investments-admin-login');

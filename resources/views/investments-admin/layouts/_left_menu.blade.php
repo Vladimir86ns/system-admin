@@ -18,17 +18,18 @@
         </a>
         <ul class="sub-menu">
             <li {!! (Request::is('groups') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('groups') }}">
+                <a href="{{ route('investments-admin-all-investments') }}">
                     <i class="fa fa-angle-double-right"></i>
-                    New Investments
+                    Get All Investments
                 </a>
             </li>
         </ul>
+
         <ul class="sub-menu">
             <li {!! (Request::is('groups') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('groups') }}">
                     <i class="fa fa-angle-double-right"></i>
-                    Get All Investments
+                    New Investments
                 </a>
             </li>
         </ul>

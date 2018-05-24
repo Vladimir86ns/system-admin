@@ -6,6 +6,7 @@ use Sentinel;
 use Redirect;
 use App\Investment;
 use App\User;
+use App\InvestmentsAdmin;
 use App\Http\Requests\InvestorRequest;
 use App\Http\Controllers\JoshController;
 use Illuminate\Http\Request;
@@ -178,5 +179,21 @@ class InvestmentsAdminController extends Controller
     public function destroy(InvestmentsAdmin $investmentsAdmin)
     {
         //
+    }
+
+    /**
+     * Display a listing of the all investments.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAllInvestments()
+    {
+        \Log::info('getAllInvestments');
+
+        $allInvestments = InvestmentsAdmin::get();
+        \Log::info(print_r($allInvestments, true));
+
+        // return redirect::route('investments-admin-dashboard');
+        return view('investments-admin.all_investments', compact('allInvestments'));
     }
 }
