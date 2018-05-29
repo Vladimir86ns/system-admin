@@ -11,11 +11,19 @@ use App\Services\InvestmentsAdmin\InvestmentsAdminService;
 use App\Http\Requests\InvestorRequest;
 use App\Http\Controllers\JoshController;
 use App\Http\Requests\CreateInvestmentsRequest;
+use App\Transformers\InvestmentsAdminTransformer;
 use Illuminate\Http\Request;
+use League\Fractal\Resource\Collection;
+use League\Fractal\Manager as FractalManager;
 
 class InvestmentsAdminController extends Controller
 {
     const USER_INVESTOR_ROLE = 'admin_investitions';
+
+    /**
+     * @var InvestmentsAdminTransformer
+     */
+    protected $investmentsAdminTransformer;
 
     /**
      * @var \App\Services\InvestmentsAdmin\InvestmentsAdminService
@@ -23,13 +31,25 @@ class InvestmentsAdminController extends Controller
     private $investmentsAdminService;
 
     /**
+     * @var FractalManager
+     */
+    protected $fractal;
+
+    /**
      * InvestmentsAdminController
      *
      * @param InvestmentsAdminService $investmentsAdminService
+     * @param InvestmentsAdminTransformer $investmentsAdminTransformer
+     * @param FractalManager $fractal
      */
-    public function __construct(InvestmentsAdminService $investmentsAdminService)
-    {
+    public function __construct(
+        InvestmentsAdminService $investmentsAdminService,
+        InvestmentsAdminTransformer $investmentsAdminTransformer,
+        FractalManager $fractalManager
+    ) {
         $this->investmentsAdminService = $investmentsAdminService;
+        $this->investmentsAdminTransformer = $investmentsAdminTransformer;
+        $this->fractal = $fractalManager;
     }
 
     /**
@@ -210,6 +230,8 @@ class InvestmentsAdminController extends Controller
     public function getAllInvestments()
     {
         $allInvestments = InvestmentsAdmin::get();
+        $result = new Collection($allInvestments, $this->investmentsAdminTransformer);
+        $allInvestments = $this->fractal->createData($result)->toArray();
 
         return view('investments-admin.all_investments', compact('allInvestments'));
     }
