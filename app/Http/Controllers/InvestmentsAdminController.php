@@ -230,16 +230,8 @@ class InvestmentsAdminController extends Controller
     public function getAllInvestments()
     {
         $allInvestments = InvestmentsAdmin::get();
-
         $result = new Collection($allInvestments, $this->investmentsAdminTransformer);
-
-        // \Log::info(print_r($result, true));
-
         $allInvestments = $this->fractal->createData($result)->toArray();
-
-        \Log::info(print_r($allInvestments, true));
-
-        // $transformed = $this->investmentsAdminTransformer->transform($allInvestments);
 
         return view('investments-admin.all_investments', compact('allInvestments'));
     }
