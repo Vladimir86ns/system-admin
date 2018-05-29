@@ -7,13 +7,30 @@ use Redirect;
 use App\Investment;
 use App\User;
 use App\InvestmentsAdmin;
+use App\Services\InvestmentsAdmin\InvestmentsAdminService;
 use App\Http\Requests\InvestorRequest;
 use App\Http\Controllers\JoshController;
+use App\Http\Requests\CreateInvestmentsRequest;
 use Illuminate\Http\Request;
 
 class InvestmentsAdminController extends Controller
 {
     const USER_INVESTOR_ROLE = 'admin_investitions';
+
+    /**
+     * @var \App\Services\InvestmentsAdmin\InvestmentsAdminService
+     */
+    private $investmentsAdminService;
+
+    /**
+     * InvestmentsAdminController
+     *
+     * @param InvestmentsAdminService $investmentsAdminService
+     */
+    public function __construct(InvestmentsAdminService $investmentsAdminService)
+    {
+        $this->investmentsAdminService = $investmentsAdminService;
+    }
 
     /**
      * Account sign in.
@@ -116,13 +133,13 @@ class InvestmentsAdminController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new investments.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('investments-admin.create_new_investments');
     }
 
     /**
@@ -131,9 +148,13 @@ class InvestmentsAdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(CreateInvestmentsRequest $request)
+    {   
+        $inputs = $request->all();
+
+        $this->investmentsAdminService->storeInvestments($inputs);
+
+        return Redirect::route("investments-admin-all-investments")->with('success', 'Created new investments successfully!');
     }
 
     /**
@@ -188,12 +209,8 @@ class InvestmentsAdminController extends Controller
      */
     public function getAllInvestments()
     {
-        \Log::info('getAllInvestments');
-
         $allInvestments = InvestmentsAdmin::get();
-        \Log::info(print_r($allInvestments, true));
 
-        // return redirect::route('investments-admin-dashboard');
         return view('investments-admin.all_investments', compact('allInvestments'));
     }
 }

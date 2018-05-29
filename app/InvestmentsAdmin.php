@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class InvestmentsAdmin extends Model
 {
+    const PENDING = 'PENDING';
+
     protected $fillable = [
         'name',
         'total_investition',
