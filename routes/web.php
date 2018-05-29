@@ -30,6 +30,8 @@ Route::pattern('slug', '[a-z0-9- _]+');
         # Dashboard / Index
         Route::get('/', 'InvestmentsAdminController@showHome')->name('investments-admin-dashboard');
         Route::get('/all-investments', 'InvestmentsAdminController@getAllInvestments')->name('investments-admin-all-investments');
+        Route::get('/create-investments', 'InvestmentsAdminController@create')->name('investments-admin-create-investments');
+        Route::post('/store-investments', 'InvestmentsAdminController@store')->name('investments-admin-store-investments');
 
         Route::post('signin', 'InvestmentsAdminController@postSignIn')->name('investments-admin-sign-in');
         Route::get('login', 'InvestmentsAdminController@getSignIn')->name('investments-admin-login');

@@ -77,7 +77,7 @@
                             </form>
                         </div>
                         <div id="register" class="animate form">
-                            <form action="{{ route('investments-admin-sign-up') }}" autocomplete="on" method="post" role="form" id="register_here">
+                            <form action="{{ route('investments-admin-sign-up') }}" autocomplete="on" method="post" role="form" id="create_investments">
                                 <h3 class="black_bg">
                                     <!-- Add picture logo here when create it -->
                                     <!-- <img src="{{ asset('assets/img/logo.png') }}" alt="josh logo"> -->

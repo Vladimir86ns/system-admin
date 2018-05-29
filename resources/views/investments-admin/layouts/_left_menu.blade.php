@@ -24,10 +24,9 @@
                 </a>
             </li>
         </ul>
-
         <ul class="sub-menu">
             <li {!! (Request::is('groups') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('groups') }}">
+                <a href="{{ route('investments-admin-create-investments') }}">
                     <i class="fa fa-angle-double-right"></i>
                     New Investments
                 </a>
