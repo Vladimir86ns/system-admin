@@ -57,18 +57,18 @@ Blank Page
               </tr>
             </thead>
             <tbody>
-              @foreach ($allInvestments as $investment)
+              @foreach ($allInvestments['data'] as $investment)
                 <tr>
-                  <td>{{ $investment->id }}</td>
-                  <td>{{ $investment->name }}</td>
-                  <td class="numeric">{{ $investment->total_investition }}</td>
-                  <td class="numeric">{{ $investment->city }}</td>
-                  <td class="numeric">{{ $investment->country }}</td>
-                  <td class="numeric">{{ $investment->address }}</td>
-                  <td class="numeric">{{ $investment->collected_to_date }}</td>
-                  <td class="numeric">{{ $investment->closed ? 'Yes' : 'No' }}</td>
+                  <td>{{ $investment['id'] }}</td>
+                  <td>{{ $investment['name'] }}</td>
+                  <td class="numeric">{{ $investment['total_investition'] }}</td>
+                  <td class="numeric">{{ $investment['city'] }}</td>
+                  <td class="numeric">{{ $investment['country'] }}</td>
+                  <td class="numeric">{{ $investment['address'] }}</td>
+                  <td class="numeric">{{ $investment['collected_to_date'] }}</td>
+                  <td class="numeric">{{ $investment['closed'] ? 'Yes' : 'No' }}</td>
                   <td>
-                      <span class="label label-sm label-info">{{ $investment->status }}</span>
+                      <span class="label label-sm label-info">{{ $investment['status'] }}</span>
                   </td>
                 </tr>
               @endforeach

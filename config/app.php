@@ -169,6 +169,8 @@ return [
          * Package Service Providers...
          */
 
+        Spatie\Fractal\FractalServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -183,6 +185,7 @@ return [
          * Local Service Provider to load development related packages
          */
        // App\Providers\LocalServiceProvider::class,
+
 
         /*
          * Third party Service Providers
