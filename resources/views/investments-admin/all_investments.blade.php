@@ -54,6 +54,7 @@ Blank Page
                 <th class="numeric">Collected To Date</th>
                 <th class="numeric">Closed</th>
                 <th class="numeric">Status</th>
+                <th class="numeric">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -69,6 +70,17 @@ Blank Page
                   <td class="numeric">{{ $investment['closed'] ? 'Yes' : 'No' }}</td>
                   <td>
                       <span class="label label-sm label-info">{{ $investment['status'] }}</span>
+                  </td>
+                  <td>
+                    <a href="/investments-admin/all-and-selected-investments/{{ $investment['id'] }}">
+                      <i class="fa fa-fw fa-pencil"></i>
+                    </a>
+                    <a href="/investments-admin/all-and-selected-investments/{{ $investment['id'] }}">
+                      <i class="fa fa-fw fa-check"></i>
+                    </a>     
+                    <a href="/investments-admin/all-and-selected-investments/{{ $investment['id'] }}">
+                      <i class="fa fa-fw fa-trash-o"></i>
+                    </a>                                 
                   </td>
                 </tr>
               @endforeach

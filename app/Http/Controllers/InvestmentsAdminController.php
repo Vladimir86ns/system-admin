@@ -235,4 +235,22 @@ class InvestmentsAdminController extends Controller
 
         return view('investments-admin.all_investments', compact('allInvestments'));
     }
+
+    /**
+     * Display a listing of the all investments and selected investment.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAllInvestmentsAndSelected($id)
+    {
+        \Log::info('usao');
+        $allInvestments = InvestmentsAdmin::get();
+        $result = new Collection($allInvestments, $this->investmentsAdminTransformer);
+        $allInvestments = $this->fractal->createData($result)->toArray();
+
+        $investment = InvestmentsAdmin::find($id);
+        $transformedInvestment = $this->investmentsAdminTransformer->transform($investment);
+
+        return view('investments-admin.all_investments', compact(['allInvestments', 'transformedInvestment']));
+    }
 }
