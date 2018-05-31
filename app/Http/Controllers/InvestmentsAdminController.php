@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Sentinel;
 use Redirect;
+use Alert;
 use App\Investment;
 use App\User;
 use App\InvestmentsAdmin;
@@ -15,6 +16,7 @@ use App\Transformers\InvestmentsAdminTransformer;
 use Illuminate\Http\Request;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Manager as FractalManager;
+
 
 class InvestmentsAdminController extends Controller
 {
@@ -233,6 +235,27 @@ class InvestmentsAdminController extends Controller
         $result = new Collection($allInvestments, $this->investmentsAdminTransformer);
         $allInvestments = $this->fractal->createData($result)->toArray();
 
-        return view('investments-admin.all_investments', compact('allInvestments'));
+        // selected investment is not included
+        $transformedInvestment = null;
+
+        return view('investments-admin.all_investments', compact(['allInvestments', 'transformedInvestment']));
+    }
+
+    /**
+     * Display a listing of the all investments and selected investment.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAllInvestmentsAndSelected($id)
+    {
+        $allInvestments = InvestmentsAdmin::get();
+        $result = new Collection($allInvestments, $this->investmentsAdminTransformer);
+        $allInvestments = $this->fractal->createData($result)->toArray();
+
+        // selected investment is included
+        $investment = InvestmentsAdmin::find($id);
+        $transformedInvestment = $this->investmentsAdminTransformer->transform($investment);
+
+        return view('investments-admin.all_investments', compact(['allInvestments', 'transformedInvestment']));
     }
 }

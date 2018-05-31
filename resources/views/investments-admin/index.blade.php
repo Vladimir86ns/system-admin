@@ -1,4 +1,4 @@
-@extends('investments-admin.layouts.default')
+@extends('investments-admin/layouts/default')
 
 {{-- Page title --}}
 @section('title')
