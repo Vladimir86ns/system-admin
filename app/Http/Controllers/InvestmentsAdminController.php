@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Sentinel;
 use Redirect;
+use Alert;
 use App\Investment;
 use App\User;
 use App\InvestmentsAdmin;
@@ -15,6 +16,7 @@ use App\Transformers\InvestmentsAdminTransformer;
 use Illuminate\Http\Request;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Manager as FractalManager;
+
 
 class InvestmentsAdminController extends Controller
 {
