@@ -233,7 +233,10 @@ class InvestmentsAdminController extends Controller
         $result = new Collection($allInvestments, $this->investmentsAdminTransformer);
         $allInvestments = $this->fractal->createData($result)->toArray();
 
-        return view('investments-admin.all_investments', compact('allInvestments'));
+        // selected investment is not included
+        $transformedInvestment = null;
+
+        return view('investments-admin.all_investments', compact(['allInvestments', 'transformedInvestment']));
     }
 
     /**
@@ -243,11 +246,11 @@ class InvestmentsAdminController extends Controller
      */
     public function getAllInvestmentsAndSelected($id)
     {
-        \Log::info('usao');
         $allInvestments = InvestmentsAdmin::get();
         $result = new Collection($allInvestments, $this->investmentsAdminTransformer);
         $allInvestments = $this->fractal->createData($result)->toArray();
 
+        // selected investment is included
         $investment = InvestmentsAdmin::find($id);
         $transformedInvestment = $this->investmentsAdminTransformer->transform($investment);
 

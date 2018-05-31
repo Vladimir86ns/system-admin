@@ -76,7 +76,7 @@ Blank Page
                       <i class="fa fa-fw fa-pencil"></i>
                     </a>
                     <a href="/investments-admin/all-and-selected-investments/{{ $investment['id'] }}">
-                      <i class="fa fa-fw fa-check"></i>
+                      <i class="fa fa-fw fa-sign-in"></i>
                     </a>     
                     <a href="/investments-admin/all-and-selected-investments/{{ $investment['id'] }}">
                       <i class="fa fa-fw fa-trash-o"></i>
@@ -91,6 +91,62 @@ Blank Page
       <!-- END ALL INVESTMENTS TABLE-->
     </div>
   </div>
+  @if ($transformedInvestment)
+  <div class="row">
+    <div class="col-md-12">
+      <!-- BEGIN ALL INVESTMENTS TABLE-->
+      <div class="portlet box primary">
+        <div class="portlet-title">
+          <div class="caption">
+            <i data-name="responsive" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i> Details before accept
+          </div>
+        </div>
+        <div class="portlet-body flip-scroll">
+          <table class="table table-bordered table-striped table-condensed flip-content">
+            <thead class="flip-content">
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th class="numeric">Total Investition</th>
+                <th class="numeric">City</th>
+                <th class="numeric">Country</th>
+                <th class="numeric">Address</th>
+                <th class="numeric">Collected To Date</th>
+                <th class="numeric">Closed</th>
+                <th class="numeric">Status</th>
+                <th class="numeric">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td>{{ $transformedInvestment['id'] }}</td>
+                  <td>{{ $transformedInvestment['name'] }}</td>
+                  <td class="numeric">{{ $transformedInvestment['total_investition'] }}</td>
+                  <td class="numeric">{{ $transformedInvestment['city'] }}</td>
+                  <td class="numeric">{{ $transformedInvestment['country'] }}</td>
+                  <td class="numeric">{{ $transformedInvestment['address'] }}</td>
+                  <td class="numeric">{{ $transformedInvestment['collected_to_date'] }}</td>
+                  <td class="numeric">{{ $transformedInvestment['closed'] ? 'Yes' : 'No' }}</td>
+                  <td>
+                      <span class="label label-sm label-info">{{ $transformedInvestment['status'] }}</span>
+                  </td>
+                  <td>
+                    <a href="/investments-admin/all-and-selected-investments/{{ $investment['id'] }}">
+                      <i class="fa fa-fw fa-eraser"></i>
+                    </a>
+                    <a href="/investments-admin/all-and-selected-investments/{{ $investment['id'] }}">
+                      <i class="fa fa-fw  fa-check"></i>
+                    </a>                                    
+                  </td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- END ALL INVESTMENTS TABLE-->
+    </div>
+  </div>
+  @endif
 </section>        
     @stop
 
