@@ -258,4 +258,49 @@ class InvestmentsAdminController extends Controller
 
         return view('investments-admin.all_investments', compact(['allInvestments', 'transformedInvestment']));
     }
+
+    /**
+     * Approve investment
+     *
+     * @param  \App\InvestmentsAdmin  $investmentsAdmin
+     * @return \Illuminate\Http\Response
+     */
+    public function approveOrUnApproveInvestment($id)
+    {
+        $this->investmentsAdminService->approveOrUnApproveInvestment($id);
+
+        $allInvestments = InvestmentsAdmin::get();
+        $result = new Collection($allInvestments, $this->investmentsAdminTransformer);
+        $allInvestments = $this->fractal->createData($result)->toArray();
+
+        // selected investment is included
+        $investment = InvestmentsAdmin::find($id);
+        $transformedInvestment = $this->investmentsAdminTransformer->transform($investment);
+
+        return view('investments-admin.all_investments', compact(['allInvestments', 'transformedInvestment']));
+    }
+
+    /**
+     * Approve investment
+     *
+     * @param  \App\InvestmentsAdmin  $investmentsAdmin
+     * @return \Illuminate\Http\Response
+     */
+    public function rejectOrDelete($id)
+    {
+        $this->investmentsAdminService->rejectOrDelete($id);
+
+        $allInvestments = InvestmentsAdmin::get();
+        $result = new Collection($allInvestments, $this->investmentsAdminTransformer);
+        $allInvestments = $this->fractal->createData($result)->toArray();
+
+        // selected investment is included
+        $transformedInvestment = false;
+        $investment = InvestmentsAdmin::find($id);
+        if ($investment) {
+            $transformedInvestment = $this->investmentsAdminTransformer->transform($investment);
+        }
+
+        return view('investments-admin.all_investments', compact(['allInvestments', 'transformedInvestment']));
+    }
 }

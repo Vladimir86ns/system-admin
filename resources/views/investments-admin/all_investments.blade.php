@@ -68,8 +68,14 @@ Blank Page
                   <td class="numeric">{{ $investment['address'] }}</td>
                   <td class="numeric">{{ $investment['collected_to_date'] }}</td>
                   <td class="numeric">{{ $investment['closed'] ? 'Yes' : 'No' }}</td>
-                  <td>
+                  <td>  
+                    @if ($investment['status'] === 'PENDING')
                       <span class="label label-sm label-info">{{ $investment['status'] }}</span>
+                    @elseif  ($investment['status'] === 'APPROVED')
+                      <span class="label label-sm label-success">{{ $investment['status'] }}</span>
+                    @elseif  ($investment['status'] === 'REJECTED')
+                      <span class="label label-sm label-danger">{{ $investment['status'] }}</span>
+                    @endif
                   </td>
                   <td>
                     <a href="/investments-admin/all-and-selected-investments/{{ $investment['id'] }}">
@@ -77,10 +83,12 @@ Blank Page
                     </a>
                     <a href="/investments-admin/all-and-selected-investments/{{ $investment['id'] }}">
                       <i class="fa fa-fw fa-sign-in"></i>
-                    </a>     
-                    <a href="/investments-admin/all-and-selected-investments/{{ $investment['id'] }}">
-                      <i class="fa fa-fw fa-trash-o"></i>
-                    </a>                                 
+                    </a>
+                    @if ($investment['status'] === 'REJECTED')
+                      <a href="/investments-admin/rejected-or-delete-investment/{{ $investment['id'] }}">
+                        <i class="fa fa-fw fa-trash-o"></i>
+                      </a>  
+                    @endif                               
                   </td>
                 </tr>
               @endforeach
@@ -128,15 +136,29 @@ Blank Page
                   <td class="numeric">{{ $transformedInvestment['collected_to_date'] }}</td>
                   <td class="numeric">{{ $transformedInvestment['closed'] ? 'Yes' : 'No' }}</td>
                   <td>
+                    @if ($transformedInvestment['status'] === 'PENDING')
                       <span class="label label-sm label-info">{{ $transformedInvestment['status'] }}</span>
+                    @elseif  ($transformedInvestment['status'] === 'APPROVED')
+                      <span class="label label-sm label-success">{{ $transformedInvestment['status'] }}</span>
+                    @elseif  ($transformedInvestment['status'] === 'REJECTED')
+                      <span class="label label-sm label-danger">{{ $transformedInvestment['status'] }}</span>
+                    @endif
                   </td>
                   <td>
-                    <a href="/investments-admin/all-and-selected-investments/{{ $investment['id'] }}">
-                      <i class="fa fa-fw fa-eraser"></i>
+                    @if ($transformedInvestment['status'] != 'REJECTED')
+                    <a href="/investments-admin/rejected-or-delete-investment/{{ $investment['id'] }}">
+                      <i class="fa fa-fw fa-times"></i>
                     </a>
-                    <a href="/investments-admin/all-and-selected-investments/{{ $investment['id'] }}">
-                      <i class="fa fa-fw  fa-check"></i>
-                    </a>                                    
+                    @endif
+                    @if ($transformedInvestment['status'] === 'PENDING' || $transformedInvestment['status'] === 'REJECTED')
+                      <a href="/investments-admin/approve-or-un-approve-investment/{{ $investment['id'] }}">
+                        <i class="fa fa-fw fa-thumbs-o-up"></i>
+                      </a>
+                    @elseif  ($transformedInvestment['status'] === 'APPROVED')
+                      <a href="/investments-admin/approve-or-un-approve-investment/{{ $investment['id'] }}">
+                        <i class="fa fa-fw fa-thumbs-o-down"></i>
+                      </a>
+                    @endif
                   </td>
                 </tr>
             </tbody>
