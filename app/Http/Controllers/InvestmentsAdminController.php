@@ -185,7 +185,7 @@ class InvestmentsAdminController extends Controller
      * @param  \App\InvestmentsAdmin  $investmentsAdmin
      * @return \Illuminate\Http\Response
      */
-    public function show(InvestmentsAdmin $investmentsAdmin)
+    public function show(CreateInvestmentsRequest $request, $id)
     {
         //
     }
@@ -218,20 +218,13 @@ class InvestmentsAdminController extends Controller
      * @param  \App\InvestmentsAdmin  $investmentsAdmin
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, InvestmentsAdmin $investmentsAdmin)
+    public function update(CreateInvestmentsRequest $request, $id)
     {
-        $allInvestments = $this->investmentsAdminService->getAllInvestmentsFromTransformer();
+        $inputs = $request->except(['_token', 'btnSubmit']);
 
-        // selected investment is included
-        $transformedInvestment = false;
+        $this->investmentsAdminService->updateInvestment($inputs, $id);
 
-        $editInvestment = $this->investmentsAdminService->getInvestment($id);
-
-        return view('investments-admin.all_investments', compact([
-            'allInvestments',
-            'transformedInvestment',
-            'editInvestment',
-            ]));
+        return Redirect::route("investments-admin-all-investments")->with('success', 'Updated investment successfully!');
     }
 
     /**
