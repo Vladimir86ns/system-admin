@@ -24,7 +24,7 @@ class CreateInvestmentsRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:investments_admins|min:3|max:50',
+            'name' => 'required|min:3|max:50',
             'city' => 'required|min:3|max:50',
             'country' => 'required|min:3|max:50',
             'address' => 'required|min:3|max:100',

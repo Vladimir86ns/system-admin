@@ -86,6 +86,17 @@ class InvestmentsAdminService
     }
 
     /**
+     * Update investment
+     * 
+     * @param array $attributes
+     * @param int $id
+     */
+    public function updateInvestment(array $attributes, int $id)
+    {
+        InvestmentsAdmin::where('id', $id)->update($attributes);
+    }
+
+    /**
      * Approve investment
      * 
      * @param array $attributes

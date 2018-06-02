@@ -36,6 +36,7 @@ Route::pattern('slug', '[a-z0-9- _]+');
         Route::get('/approve-or-un-approve-investment/{id}', 'InvestmentsAdminController@approveOrUnApproveInvestment');
         Route::get('/rejected-or-delete-investment/{id}', 'InvestmentsAdminController@rejectOrDelete');
         Route::get('/edit-investments/{id}', 'InvestmentsAdminController@edit');
+        Route::post('/update-investments/{id}', 'InvestmentsAdminController@update');
 
         Route::post('signin', 'InvestmentsAdminController@postSignIn')->name('investments-admin-sign-in');
         Route::get('login', 'InvestmentsAdminController@getSignIn')->name('investments-admin-login');
