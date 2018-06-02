@@ -146,16 +146,16 @@ Blank Page
                   </td>
                   <td>
                     @if ($transformedInvestment['status'] != 'REJECTED')
-                    <a href="/investments-admin/rejected-or-delete-investment/{{ $investment['id'] }}">
+                    <a href="/investments-admin/rejected-or-delete-investment/{{ $transformedInvestment['id'] }}">
                       <i class="fa fa-fw fa-times"></i>
                     </a>
                     @endif
                     @if ($transformedInvestment['status'] === 'PENDING' || $transformedInvestment['status'] === 'REJECTED')
-                      <a href="/investments-admin/approve-or-un-approve-investment/{{ $investment['id'] }}">
+                      <a href="/investments-admin/approve-or-un-approve-investment/{{ $transformedInvestment['id'] }}">
                         <i class="fa fa-fw fa-thumbs-o-up"></i>
                       </a>
                     @elseif  ($transformedInvestment['status'] === 'APPROVED')
-                      <a href="/investments-admin/approve-or-un-approve-investment/{{ $investment['id'] }}">
+                      <a href="/investments-admin/approve-or-un-approve-investment/{{ $transformedInvestment['id'] }}">
                         <i class="fa fa-fw fa-thumbs-o-down"></i>
                       </a>
                     @endif
