@@ -78,7 +78,7 @@ Blank Page
                     @endif
                   </td>
                   <td>
-                    <a href="/investments-admin/all-and-selected-investments/{{ $investment['id'] }}">
+                    <a href="/investments-admin/edit-investments/{{ $investment['id'] }}">
                       <i class="fa fa-fw fa-pencil"></i>
                     </a>
                     <a href="/investments-admin/all-and-selected-investments/{{ $investment['id'] }}">
@@ -102,7 +102,7 @@ Blank Page
   @if ($transformedInvestment)
   <div class="row">
     <div class="col-md-12">
-      <!-- BEGIN ALL INVESTMENTS TABLE-->
+      <!-- BEGIN SINGLE INVESTMENT TABLE-->
       <div class="portlet box primary">
         <div class="portlet-title">
           <div class="caption">
@@ -170,12 +170,16 @@ Blank Page
           </table>
         </div>
       </div>
-      <!-- END ALL INVESTMENTS TABLE-->
+      <!-- END SINGLE INVESTMENT TABLE-->
     </div>
   </div>
   @endif
+  @if ($editInvestment)
+    <!--JUST INCLUDED FORM COMPONENT IN THIS PAGE-->
+    @include('investments-admin.form.edit-investment')
+  @endif
 </section>        
-    @stop
+  @stop
 
 {{-- page level scripts --}}
 @section('footer_scripts')
