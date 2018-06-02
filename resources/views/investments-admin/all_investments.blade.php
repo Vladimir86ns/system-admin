@@ -107,6 +107,11 @@ Blank Page
         <div class="portlet-title">
           <div class="caption">
             <i data-name="responsive" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i> Details before accept
+            <span class="pull-right">
+              <a href="/investments-admin/all-investments">
+                <i style="color: white;" class="fa fa-fw fa-times removepanel clickable"></i>
+              </a>
+            </span>
           </div>
         </div>
         <div class="portlet-body flip-scroll">
