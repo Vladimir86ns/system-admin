@@ -196,9 +196,19 @@ class InvestmentsAdminController extends Controller
      * @param  \App\InvestmentsAdmin  $investmentsAdmin
      * @return \Illuminate\Http\Response
      */
-    public function edit(InvestmentsAdmin $investmentsAdmin)
+    public function edit($id)
     {
-        //
+        $allInvestments = $this->investmentsAdminService->getAllInvestmentsFromTransformer();
+        $editInvestment = $this->investmentsAdminService->getInvestment($id);
+        
+        // selected investment is not included
+        $transformedInvestment = null;
+
+        return view('investments-admin.all_investments', compact([
+            'allInvestments',
+            'transformedInvestment',
+            'editInvestment',
+            ]));
     }
 
     /**
@@ -210,7 +220,18 @@ class InvestmentsAdminController extends Controller
      */
     public function update(Request $request, InvestmentsAdmin $investmentsAdmin)
     {
-        //
+        $allInvestments = $this->investmentsAdminService->getAllInvestmentsFromTransformer();
+
+        // selected investment is included
+        $transformedInvestment = false;
+
+        $editInvestment = $this->investmentsAdminService->getInvestment($id);
+
+        return view('investments-admin.all_investments', compact([
+            'allInvestments',
+            'transformedInvestment',
+            'editInvestment',
+            ]));
     }
 
     /**
@@ -233,10 +254,15 @@ class InvestmentsAdminController extends Controller
     {
         $allInvestments = $this->investmentsAdminService->getAllInvestmentsFromTransformer();
 
-        // selected investment is not included
+        // selected and edit investment is not included
         $transformedInvestment = null;
+        $editInvestment = null;
 
-        return view('investments-admin.all_investments', compact(['allInvestments', 'transformedInvestment']));
+        return view('investments-admin.all_investments', compact([
+            'allInvestments',
+            'transformedInvestment',
+            'editInvestment',
+            ]));
     }
 
     /**
@@ -251,7 +277,14 @@ class InvestmentsAdminController extends Controller
         // selected investment is included
         $transformedInvestment = $this->investmentsAdminService->getInvestmentFromTransformer($id);
 
-        return view('investments-admin.all_investments', compact(['allInvestments', 'transformedInvestment']));
+        // edit investment is not included
+        $editInvestment = null;
+
+        return view('investments-admin.all_investments', compact([
+            'allInvestments',
+            'transformedInvestment',
+            'editInvestment',
+            ]));
     }
 
     /**
@@ -269,7 +302,14 @@ class InvestmentsAdminController extends Controller
         // selected investment is included
         $transformedInvestment = $this->investmentsAdminService->getInvestmentFromTransformer($id);
 
-        return view('investments-admin.all_investments', compact(['allInvestments', 'transformedInvestment']));
+        // edit investment is not included
+        $editInvestment = null;
+
+        return view('investments-admin.all_investments', compact([
+            'allInvestments',
+            'transformedInvestment',
+            'editInvestment',
+            ]));
     }
 
     /**
@@ -291,6 +331,13 @@ class InvestmentsAdminController extends Controller
             $transformedInvestment = $this->investmentsAdminService->getInvestmentFromTransformer($id);;
         }
 
-        return view('investments-admin.all_investments', compact(['allInvestments', 'transformedInvestment']));
+        // edit investment is not included
+        $editInvestment = null;
+
+        return view('investments-admin.all_investments', compact([
+            'allInvestments',
+            'transformedInvestment',
+            'editInvestment',
+            ]));
     }
 }
