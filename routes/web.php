@@ -27,29 +27,21 @@ Route::pattern('slug', '[a-z0-9- _]+');
 
     //  INVESTMENTS-ONLY-ADMIN
     Route::group([ 'prefix' => 'investments-admin'], function () {
-        # Dashboard / Index
-        Route::get('/', 'InvestmentsAdminController@showHome')
-            ->name('investments-admin-dashboard')
-            ->middleware('admin-investments');
-        Route::get('/all-investments', 'InvestmentsAdminController@getAllInvestments')
-            ->name('investments-admin-all-investments')
-            ->middleware('admin-investments');
-        Route::get('/create-investments', 'InvestmentsAdminController@create')
-            ->name('investments-admin-create-investments')
-            ->middleware('admin-investments');
-        Route::post('/store-investments', 'InvestmentsAdminController@store')
-            ->name('investments-admin-store-investments')
-            ->middleware('admin-investments');
-        Route::get('/all-and-selected-investments/{id}', 'InvestmentsAdminController@getAllInvestmentsAndSelected')
-            ->middleware('admin-investments');
-        Route::get('/approve-or-un-approve-investment/{id}', 'InvestmentsAdminController@approveOrUnApproveInvestment')
-            ->middleware('admin-investments');
-        Route::get('/rejected-or-delete-investment/{id}', 'InvestmentsAdminController@rejectOrDelete')
-            ->middleware('admin-investments');
-        Route::get('/edit-investments/{id}', 'InvestmentsAdminController@edit')
-            ->middleware('admin-investments');
-        Route::post('/update-investments/{id}', 'InvestmentsAdminController@update')
-            ->middleware('admin-investments');
+        Route::group(['middleware' => ['admin-investments']], function () {
+            Route::get('/', 'InvestmentsAdminController@showHome')
+                ->name('investments-admin-dashboard');
+            Route::get('/all-investments', 'InvestmentsAdminController@getAllInvestments')
+                ->name('investments-admin-all-investments');
+            Route::get('/create-investments', 'InvestmentsAdminController@create')
+                ->name('investments-admin-create-investments');
+            Route::post('/store-investments', 'InvestmentsAdminController@store')
+                ->name('investments-admin-store-investments');
+            Route::get('/all-and-selected-investments/{id}', 'InvestmentsAdminController@getAllInvestmentsAndSelected');
+            Route::get('/approve-or-un-approve-investment/{id}', 'InvestmentsAdminController@approveOrUnApproveInvestment');
+            Route::get('/rejected-or-delete-investment/{id}', 'InvestmentsAdminController@rejectOrDelete');
+            Route::get('/edit-investments/{id}', 'InvestmentsAdminController@edit');
+            Route::post('/update-investments/{id}', 'InvestmentsAdminController@update');
+        });
 
         Route::post('signin', 'InvestmentsAdminController@postSignIn')
             ->name('investments-admin-sign-in');
