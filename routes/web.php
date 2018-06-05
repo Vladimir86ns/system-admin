@@ -42,7 +42,7 @@ Route::pattern('slug', '[a-z0-9- _]+');
             Route::get('/edit-investments/{id}', 'InvestmentsAdminController@edit');
             Route::post('/update-investments/{id}', 'InvestmentsAdminController@update');
         });
-
+        // WITHOUT MIDDLEWARE
         Route::get('login', 'InvestmentsAdminController@getSignIn')
             ->name('investments-admin-login');
         Route::get('logout', 'InvestmentsAdminController@getLogout')
@@ -58,8 +58,9 @@ Route::pattern('slug', '[a-z0-9- _]+');
         # Dashboard / Index
         Route::get('/', 'InvestmentController@showHome')->name('investor-dashboard');
 
-        Route::post('signin', 'InvestmentController@postSignIn')->name('investment-signin');
+        // WITHOUT MIDDLEWARE
         Route::get('login', 'InvestmentController@getSignIn')->name('investment-login');
+        Route::post('signin', 'InvestmentController@postSignIn')->name('investment-signin');
         Route::post('investment-signup', 'InvestmentController@postSignup')->name('investment-signup');
     });
 

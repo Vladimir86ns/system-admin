@@ -24,7 +24,7 @@ class RedirectIfAuthenticatedInvestments
 
         $permissions = Sentinel::getUser()->permissions;
 
-        if ($permissions['investor'] == 1) {
+        if ($permissions['admin_investitions'] == 1) {
             return $next($request);
         }
         
