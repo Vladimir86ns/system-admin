@@ -116,6 +116,10 @@ class InvestmentsAdminController extends Controller
      */
     public function postSignup(InvestorRequest $request)
     {
+        $permissions = [
+            'investor' => 1,
+        ];
+
         try {
             // Register the user as investor
             $user = Sentinel::registerAndActivate([
@@ -123,10 +127,11 @@ class InvestmentsAdminController extends Controller
                 'last_name' => $request->get('last_name'),
                 'email' => $request->get('email'),
                 'password' => $request->get('password'),
+                'permissions' => $permissions
             ]);
 
             //add user to 'User' group as Investor
-            $role = Sentinel::findRoleById(1);
+            $role = Sentinel::findRoleById(6);
             $role->users()->attach($user);
 
 
@@ -332,5 +337,18 @@ class InvestmentsAdminController extends Controller
             'transformedInvestment',
             'editInvestment',
             ]));
+    }
+
+    /**
+     * Logout page.
+     *
+     * @return Redirect
+     */
+    public function getLogout()
+    {
+        $user = Sentinel::getUser();
+        Sentinel::logout($user);
+        // Redirect to the users page
+        return Redirect::route("investments-admin-login")->with('success', 'You have successfully logged out!');
     }
 }

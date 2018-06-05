@@ -43,10 +43,12 @@ Route::pattern('slug', '[a-z0-9- _]+');
             Route::post('/update-investments/{id}', 'InvestmentsAdminController@update');
         });
 
-        Route::post('signin', 'InvestmentsAdminController@postSignIn')
-            ->name('investments-admin-sign-in');
         Route::get('login', 'InvestmentsAdminController@getSignIn')
             ->name('investments-admin-login');
+        Route::get('logout', 'InvestmentsAdminController@getLogout')
+            ->name('investments-admin-logout');
+        Route::post('signin', 'InvestmentsAdminController@postSignIn')
+            ->name('investments-admin-sign-in');
         Route::post('investment-signup', 'InvestmentsAdminController@postSignup')
             ->name('investments-admin-sign-up');
     });
