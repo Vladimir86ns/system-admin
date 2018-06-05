@@ -75,14 +75,14 @@
                         </li>
                         <!-- Menu Body -->
                         <li>
-                            <a href="{{ URL::route('users.show',Sentinel::getUser()->id) }}">
+                            <a href="{{ route('investments-admin-dashboard') }}">
                                 <i class="livicon" data-name="user" data-s="18"></i>
                                 My Profile
                             </a>
                         </li>
                         <li role="presentation"></li>
                         <li>
-                            <a href="{{ route('users.edit', Sentinel::getUser()->id) }}">
+                            <a href="{{ route('investments-admin-dashboard') }}">
                                 <i class="livicon" data-name="gears" data-s="18"></i>
                                 Account Settings
                             </a>
@@ -90,13 +90,13 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="{{ URL::route('lockscreen',Sentinel::getUser()->id) }}">
+                                <a href="{{ route('investments-admin-dashboard') }}">
                                     <i class="livicon" data-name="lock" data-size="16" data-c="#555555" data-hc="#555555" data-loop="true"></i>
                                     Lock
                                 </a>
                             </div>
                             <div class="pull-right">
-                                <a href="{{ URL::to('logout') }}">
+                                <a href="{{ route('investments-admin-dashboard') }}">
                                     <i class="livicon" data-name="sign-out" data-s="18"></i>
                                     Logout
                                 </a>
@@ -116,25 +116,25 @@
                 <div class="nav_icons">
                     <ul class="sidebar_threeicons">
                         <li>
-                            <a href="{{ URL::to('datatables') }}">
+                            <a href="{{ route('investments-admin-dashboard') }}">
                                 <i class="livicon" data-name="table" title="Advanced tables" data-loop="true"
                                    data-color="#418BCA" data-hc="#418BCA" data-s="25"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ URL::to('tasks') }}">
+                            <a href="{{ route('investments-admin-dashboard') }}">
                                 <i class="livicon" data-name="list-ul" title="Tasks" data-loop="true"
                                    data-color="#e9573f" data-hc="#e9573f" data-s="25"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ URL::to('admin/gallery') }}">
+                            <a href="{{ route('investments-admin-dashboard') }}">
                                 <i class="livicon" data-name="image" title="Gallery" data-loop="true"
                                    data-color="#F89A14" data-hc="#F89A14" data-s="25"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ URL::to('users') }}">
+                            <a href="{{ route('investments-admin-dashboard') }}">
                                 <i class="livicon" data-name="user" title="Users" data-loop="true"
                                    data-color="#6CC66C" data-hc="#6CC66C" data-s="25"></i>
                             </a>
