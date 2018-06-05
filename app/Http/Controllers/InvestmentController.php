@@ -76,6 +76,22 @@ class InvestmentController extends JoshController
      */
     public function postSignup(InvestorRequest $request)
     {
+        $user = Sentinel::authenticate($request->only(['email', 'password']));
+
+        if ($user) {
+            $permissions = $user->permissions;
+
+            $permissions['investor'] = 1;
+            $user->permissions = $permissions;
+            $user->update();
+
+            return Redirect::route("investor-dashboard")->with('success', trans('auth/message.signin.success'));
+        }
+
+        $permissions = [
+            'investor' => 1,
+        ];
+
         try {
             // Register the user as investor
             $user = Sentinel::registerAndActivate([
@@ -83,6 +99,7 @@ class InvestmentController extends JoshController
                 'last_name' => $request->get('last_name'),
                 'email' => $request->get('email'),
                 'password' => $request->get('password'),
+                'permissions' => $permissions
             ]);
 
             //add user to 'User' group as Investor

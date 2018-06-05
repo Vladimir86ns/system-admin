@@ -117,7 +117,7 @@ class InvestmentsAdminController extends Controller
     public function postSignup(InvestorRequest $request)
     {
         $permissions = [
-            'investor' => 1,
+            'admin_investitions' => 1,
         ];
 
         try {

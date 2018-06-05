@@ -26,7 +26,7 @@ class InvestorRequest extends FormRequest
         return [
             'first_name' => 'required|min:3',
             'last_name' => 'required|min:3',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email',
             'password' => 'required|between:3,32',
             'password_confirm' => 'required|same:password',
             // 'pic_file' => 'mimes:jpg,jpeg,bmp,png,gif|max:10000'
