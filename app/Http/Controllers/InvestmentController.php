@@ -28,7 +28,6 @@ class InvestmentController extends JoshController
         InvestmentValidationService $investmentValidationService
     ) {
 		$this->investmentValidationService = $investmentValidationService;
-
 	}
 
     /**
