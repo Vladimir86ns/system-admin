@@ -58,6 +58,7 @@ Route::pattern('slug', '[a-z0-9- _]+');
         # Dashboard / Index
         Route::get('/', 'InvestmentController@showHome')->name('investor-dashboard');
         Route::get('/get-all-serbia', 'InvestmentController@indexSerbia')->name('investor-index-serbia');
+        Route::get('/get-all-and-selected/{id}', 'InvestmentController@show')->name('investor-index-selected');
 
         // WITHOUT MIDDLEWARE
         Route::get('login', 'InvestmentController@getSignIn')->name('investment-login');

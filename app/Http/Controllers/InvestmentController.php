@@ -161,7 +161,10 @@ class InvestmentController extends JoshController
     {
         $allInvestments = $this->service->getAllFromTransformer(Investment::SERBIA);
 
-        return view('investor.show_all_investments', compact('allInvestments'));
+        // selected investment not included
+        $transformedInvestment = null;
+
+        return view('investor.show_all_investments', compact(['allInvestments', 'transformedInvestment']));
     }
 
     /**
@@ -191,9 +194,13 @@ class InvestmentController extends JoshController
      * @param  \App\Investment  $investment
      * @return \Illuminate\Http\Response
      */
-    public function show(Investment $investment)
+    public function show($id)
     {
-        //
+        $allInvestments = $this->service->getAllFromTransformer(Investment::SERBIA);
+
+        $transformedInvestment = $this->service->getInvestmentFromTransformer($id);
+
+        return view('investor.show_all_investments', compact(['allInvestments', 'transformedInvestment']));
     }
 
     /**
