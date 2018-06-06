@@ -2,17 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use Sentinel;
-use Redirect;
-use App\Investment;
 use App\User;
+use Redirect;
+use Sentinel;
+use App\Investment;
+use Illuminate\Http\Request;
 use App\Http\Requests\InvestorRequest;
 use App\Http\Controllers\JoshController;
-use Illuminate\Http\Request;
+use App\Services\Investment\InvestmentValidationService;
 
 class InvestmentController extends JoshController
 {
     const USER_INVESTOR_ROLE = 'Investor';
+
+    /**
+     * @var InvestmentValidationService
+     */
+    protected $investmentValidationService;
+
+    /**
+     * InvestmentController
+     *
+     */
+	public function __construct(
+        InvestmentValidationService $investmentValidationService
+    ) {
+		$this->investmentValidationService = $investmentValidationService;
+	}
 
     /**
      * Account sign in.
@@ -86,6 +102,12 @@ class InvestmentController extends JoshController
             $user->update();
 
             return Redirect::route("investor-dashboard")->with('success', trans('auth/message.signin.success'));
+        }
+
+        $available = $this->investmentValidationService->isEmailAvailable($request->get('email'));
+
+        if ($available) {
+            return view('investor.login')->with('error', trans('auth/message.account_already_exists'));
         }
 
         $permissions = [
