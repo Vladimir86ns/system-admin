@@ -9,6 +9,7 @@ use App\Investment;
 use Illuminate\Http\Request;
 use App\Http\Requests\InvestorRequest;
 use App\Http\Controllers\JoshController;
+use App\Services\Investment\InvestmentService;
 use App\Services\Investment\InvestmentValidationService;
 
 class InvestmentController extends JoshController
@@ -18,16 +19,23 @@ class InvestmentController extends JoshController
     /**
      * @var InvestmentValidationService
      */
-    protected $investmentValidationService;
+    protected $validationService;
+
+    /**
+     * @var InvestmentService
+     */
+    protected $service;
 
     /**
      * InvestmentController
      *
      */
 	public function __construct(
-        InvestmentValidationService $investmentValidationService
+        InvestmentValidationService $investmentValidationService,
+        InvestmentService $investmentService
     ) {
-		$this->investmentValidationService = $investmentValidationService;
+        $this->validationService = $investmentValidationService;
+        $this->service = $investmentService;
 	}
 
     /**
@@ -104,7 +112,7 @@ class InvestmentController extends JoshController
             return Redirect::route("investor-dashboard")->with('success', trans('auth/message.signin.success'));
         }
 
-        $available = $this->investmentValidationService->isEmailAvailable($request->get('email'));
+        $available = $this->validationService->isEmailAvailable($request->get('email'));
 
         if ($available) {
             return view('investor.login')->with('error', trans('auth/message.account_already_exists'));
@@ -145,13 +153,15 @@ class InvestmentController extends JoshController
 
 
     /**
-     * Display a listing of the resource.
+     * Get all investments from Serbia
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function indexSerbia()
     {
-        //
+        $allInvestments = $this->service->getAllFromTransformer(Investment::SERBIA);
+
+        return view('investor.show_all_investments', compact('allInvestments'));
     }
 
     /**
