@@ -33,6 +33,16 @@ class InvestmentService
     }
 
     /**
+     * Get single investment
+     *
+     * @param FractalManager $fractal
+     */
+    public function getInvestment($id)
+    {
+        return InvestmentsAdmin::find($id);
+    }
+
+    /**
      * Get all investments from country where status approved
      *
      * @param string $country
@@ -54,5 +64,15 @@ class InvestmentService
         $result = new Collection($this->getAllApprovedInvestments($country), $this->investmentsAdminTransformer);
 
         return $this->fractal->createData($result)->toArray();
+    }
+
+    /**
+     * Get single investment
+     *
+     * @param FractalManager $fractal
+     */
+    public function getInvestmentFromTransformer($id)
+    {
+        return $this->investmentsAdminTransformer->transform($this->getInvestment($id));
     }
 }
