@@ -8,6 +8,8 @@ use App\User;
 
 class Investment extends Model
 {
+    const SERBIA = 'Serbia';
+    
     protected $fillable = [
         'users_id',
         'total_investment',

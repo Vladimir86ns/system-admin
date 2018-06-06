@@ -57,6 +57,7 @@ Route::pattern('slug', '[a-z0-9- _]+');
     Route::group([ 'prefix' => 'investment'], function () {
         # Dashboard / Index
         Route::get('/', 'InvestmentController@showHome')->name('investor-dashboard');
+        Route::get('/get-all-serbia', 'InvestmentController@indexSerbia')->name('investor-index-serbia');
 
         // WITHOUT MIDDLEWARE
         Route::get('login', 'InvestmentController@getSignIn')->name('investment-login');
