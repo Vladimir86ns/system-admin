@@ -1,6 +1,7 @@
 <?php namespace App;
 use Cartalyst\Sentinel\Users\EloquentUser;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Investment;
 
 class User extends EloquentUser {
 
@@ -36,6 +37,14 @@ class User extends EloquentUser {
 	*/
 	use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+	protected $dates = ['deleted_at'];
+	
+	/**
+     * Get investments.
+     */
+    public function investments()
+    {
+        return $this->hasMany(Investment::class);
+    }
 
 }
