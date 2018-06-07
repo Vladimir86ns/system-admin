@@ -129,6 +129,7 @@ Blank Page
     </div>
   </div>
 </section>
+  @include('investor.form.add-investment')
 @endif  
 
 @stop

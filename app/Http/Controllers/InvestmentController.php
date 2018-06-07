@@ -178,14 +178,22 @@ class InvestmentController extends JoshController
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Invest in ivestion.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function invest(Request $request, $id)
     {
-        //
+        $request->validate([
+            'total_investment' => 'required|numeric'
+        ]);
+
+        $attributes = $request->all();
+
+        $investment = $this->service->updateInvestment($id, $attributes);
+
+        return $this->show($id);
     }
 
     /**
