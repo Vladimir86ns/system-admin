@@ -36,8 +36,8 @@
                   <td class="numeric">{{ $investment['collected_to_date'] }}</td>
                   <td class="numeric">{{ $investment['closed'] ? 'Yes' : 'No' }}</td>
                   <td>
-                    <a href="/investment/get-all-and-selected/{{ $investment['id'] }}">
-                      <i class="fa fa-fw fa-sign-in"></i>
+                    <a href="/investment/selected-investments/{{ $investment['id'] }}">
+                      <i class="fa fa-fw fa-search"></i>
                     </a>                            
                   </td>
                 </tr>
