@@ -189,7 +189,12 @@ class InvestmentController extends JoshController
 
         $investment = $this->service->updateInvestment($id, $attributes);
 
-        return $this->show($id);
+        $formated = number_format($attributes['total_investment'] ,2);
+
+        return Redirect::back()->with(
+            "success",
+            "You just invested {$formated} in {$investment['name']}."
+        );
     }
 
     /**
