@@ -101,7 +101,6 @@ class InvestmentService
     public function updateInvestment(int $id, array $attributes)
     {
         $investment = $this->getInvestment($id);
-        $investment->total_investition -= $attributes['total_investment'];
         $investment->collected_to_date += $attributes['total_investment'];
         $investment->update();
 
