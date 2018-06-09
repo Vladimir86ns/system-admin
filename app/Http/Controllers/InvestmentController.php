@@ -239,7 +239,7 @@ class InvestmentController extends JoshController
         $allUserAdminInvestments = $this->service->findAllUserAdminInvestments($allUserInvestments);
 
         // find selected investment
-        $userInvestment = $this->service->findInvestmentIfAlreadyHave($id);
+        $userInvestment = $this->service->findInvestment($id);
 
         // get admin selected investment before transform
         $adminSelected = $allUserAdminInvestments->where('id', $userInvestment->project_id)->first();
