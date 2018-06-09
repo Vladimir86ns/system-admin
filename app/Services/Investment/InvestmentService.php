@@ -135,8 +135,10 @@ class InvestmentService
             return;
         }
 
+        $newInvestment = $this->findAdminSelectedToInvest($id);
+
         $user = Sentinel::getUser();
-        $attributes['project_id'] = $investment->id;
+        $attributes['project_id'] = $newInvestment->id;
         $user->investments()->create($attributes);
     }
 
@@ -151,6 +153,31 @@ class InvestmentService
     {
         $user = $this->getUser();
         return Investment::where('id', $id)->where('user_id', $user->id)->first();
+    }
+
+    /**
+     * Find investition if already have
+     *
+     * @param int $id
+     * 
+     * @return Investment
+     */
+    public function findInvestment($id)
+    {
+        $user = $this->getUser();
+        return Investment::where('project_id', $id)->where('user_id', $user->id)->first(); 
+    }
+
+    /**
+     * Find admin investition where want to invest
+     *
+     * @param int $id
+     * 
+     * @return InvestmentsAdmin
+     */
+    private function findAdminSelectedToInvest($id)
+    {
+        return InvestmentsAdmin::where('id', $id)->first();
     }
 
     /**
