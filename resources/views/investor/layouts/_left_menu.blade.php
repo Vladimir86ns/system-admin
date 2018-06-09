@@ -17,7 +17,7 @@
             <span class="fa arrow"></span>
         </a>
         <ul class="sub-menu">
-            <li {!! (Request::is('groups') ? 'class="active" id="active"' : '') !!}>
+            <li>
                 <a href="{{ route('investor-index-serbia') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Serbia

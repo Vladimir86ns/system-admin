@@ -31,11 +31,8 @@ Blank Page
   </ol>
 </section>
 
-@include('investor.show.all.admin_investitions');
-@include('investor.show.all.investitions');
+@include('investor.show.all.admin_investitions')
+@include('investor.show.all.investitions')
+@include('investor.show.single.chart')
 
-@stop
-
-{{-- page level scripts --}}
-@section('footer_scripts')
 @stop
