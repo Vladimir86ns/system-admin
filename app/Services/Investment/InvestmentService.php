@@ -5,6 +5,7 @@ namespace App\Services\Investment;
 use App\Investment;
 use App\InvestmentsAdmin;
 use Sentinel;
+use Charts;
 use League\Fractal\Resource\Collection;
 use Illuminate\Database\Eloquent\Collection as ObjectCollection;
 use League\Fractal\Manager as FractalManager;
@@ -193,15 +194,34 @@ class InvestmentService
     }
 
     /**
+     * Get statistic for selected investment
+     * 
+     * @param Investment $investment
+     * @param InvestmentsAdmin $investmentsAdmin
+     */
+    public function getChartPie(Investment $investment, InvestmentsAdmin $investmentsAdmin)
+    {   
+        $collected = $investment->investment_collected_total;
+        $invested = $investment->total_investment;
+
+        return Charts::create('pie', 'fusioncharts')
+            ->title($investmentsAdmin->name)
+            ->labels(['Collected', 'Invested'])
+            //    ->responsive(true)
+            ->values([$collected, $invested])
+            ->dimensions(0,400);
+    }
+
+    /**
      * Data from investments transformer
      * 
-     * @param array $attributes
+     * @param Investment $investment
+     * @param InvestmentsAdmin $adminSelected
+     * @return array
      */
-    public function useInvestmentsTransformer(ObjectCollection $investment)
+    public function useInvestmentsTransformer(Investment $investment, InvestmentsAdmin $adminSelected)
     {
-        $result = new Collection($investment, $this->investmentTransformer);
-
-        return $this->fractal->createData($result)->toArray();
+        return $this->investmentTransformer->transform($investment, $adminSelected);
     }
 
     /**

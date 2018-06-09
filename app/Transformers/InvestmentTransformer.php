@@ -4,6 +4,7 @@ namespace App\Transformers;
 
 use League\Fractal\TransformerAbstract;
 use App\Investment;
+use App\InvestmentsAdmin;
 
 class InvestmentTransformer extends TransformerAbstract
 {
@@ -11,9 +12,10 @@ class InvestmentTransformer extends TransformerAbstract
      * A Fractal transformer.
      *
      * @param Investment $investment
+     * @param InvestmentsAdmin $investmentsAdmin
      * @return array
      */
-    public function transform(Investment $investment)
+    public function transform(Investment $investment, InvestmentsAdmin $investmentsAdmin)
     {
         return [
             'id' => $investment->id,
@@ -22,7 +24,7 @@ class InvestmentTransformer extends TransformerAbstract
             'investment_collected_total' => number_format($investment->investment_collected_total, 2),
             'monthly_collected' => number_format($investment->monthly_collected, 2),
             'investment_collected' => number_format($investment->monthly_collected, 2),
-            'name' => 'Project Name',
+            'name' => $investmentsAdmin->name,
         ];
     }
 }

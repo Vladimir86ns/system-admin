@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\User;
 use Redirect;
 use Sentinel;
-use Charts;
 use App\Investment;
 use Illuminate\Http\Request;
 use App\Http\Requests\InvestorRequest;
@@ -203,29 +202,56 @@ class InvestmentController extends JoshController
     }
 
     /**
-     * Display all user investments.
+     * Get all user investments
      *
-     * @param  \App\Investment  $investment
      * @return \Illuminate\Http\Response
      */
-    public function getUserAllInvestments()
+    public function getUserInvestments()
     {
         $allUserInvestments = $this->service->findAllUserInvestments();
         $allUserAdminInvestments = $this->service->findAllUserAdminInvestments($allUserInvestments);
 
-        $transformedInvestments = $this->service->useInvestmentsTransformer($allUserInvestments);
         $transformedAdminInvestments = $this->service->useInvestmentsAdminTransformer($allUserAdminInvestments);
 
-        $pie = Charts::create('pie', 'fusioncharts')
-            ->title('Name of investition')
-            ->labels(['Invested', 'Collected'])
-            //    ->responsive(true)
-            ->values([10000,54000])
-            ->dimensions(0,400);
+        // without transformedInvestment and pie
+        $transformedInvestment = null;
+        $pie = null;
 
         return view('investor.show.index', compact([
             'transformedAdminInvestments',
-            'transformedInvestments',
+            'transformedInvestment',
+            'pie'
+        ]));
+    }
+
+    /**
+     * Display all user investments and selected investition with statistic.
+     *
+     * @param  \App\Investment  $investment
+     * @return \Illuminate\Http\Response
+     */
+    public function getAllAndSelected($id)
+    {
+        // find all user investments to get Ids of admin investments
+        $allUserInvestments = $this->service->findAllUserInvestments();
+
+        // find all admin investments to display
+        $allUserAdminInvestments = $this->service->findAllUserAdminInvestments($allUserInvestments);
+
+        // find selected investment
+        $userInvestment = $this->service->findInvestmentIfAlreadyHave($id);
+
+        // get admin selected investment before transform
+        $adminSelected = $allUserAdminInvestments->where('id', $userInvestment->project_id)->first();
+
+        $transformedInvestment = $this->service->useInvestmentsTransformer($userInvestment, $adminSelected);
+        $transformedAdminInvestments = $this->service->useInvestmentsAdminTransformer($allUserAdminInvestments);
+
+        $pie = $this->service->getChartPie($userInvestment, $adminSelected);
+
+        return view('investor.show.index', compact([
+            'transformedAdminInvestments',
+            'transformedInvestment',
             'pie'
         ]));
     }

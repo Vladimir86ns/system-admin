@@ -31,8 +31,13 @@ Blank Page
   </ol>
 </section>
 
+{{-- DISPLAY ALL USER INVESTMENTS --}}
 @include('investor.show.all.admin_investitions')
-@include('investor.show.all.investitions')
-@include('investor.show.single.chart')
+
+{{-- DISPLAY SELECTED INVESTMENT --}}
+@if($transformedInvestment)
+  @include('investor.show.single.investition')
+  @include('investor.show.single.chart')
+@endIF
 
 @stop

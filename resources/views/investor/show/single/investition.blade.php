@@ -18,25 +18,17 @@
                 <th class="numeric">Investment Collected</th>
                 <th class="numeric">Monthly Collected</th>
                 <th class="numeric">Percent Of Income</th>
-                <th class="numeric">Action</th>
               </tr>
             </thead>
-            @foreach ($transformedInvestments['data'] as $investment)
               <tbody>
                   <tr>
-                    <td>{{ $investment['name'] }}</td>
-                    <td class="numeric">{{ $investment['total_investment'] }}</td>
-                    <td class="numeric">{{ $investment['investment_collected_total'] }}</td>
-                    <td class="numeric">{{ $investment['monthly_collected'] }}</td>
-                    <td class="numeric">{{ $investment['percent_of_income'] }}</td>
-                    <td>
-                      <a href="*">
-                        <i class="fa fa-fw fa-search"></i>
-                      </a>                            
-                    </td>
+                    <td>{{ $transformedInvestment['name'] }}</td>
+                    <td class="numeric">{{ $transformedInvestment['total_investment'] }}</td>
+                    <td class="numeric">{{ $transformedInvestment['investment_collected_total'] }}</td>
+                    <td class="numeric">{{ $transformedInvestment['monthly_collected'] }}</td>
+                    <td class="numeric">{{ $transformedInvestment['percent_of_income'] }}</td>
                   </tr>
               </tbody>
-            @endforeach
           </table>
         </div>
       </div>

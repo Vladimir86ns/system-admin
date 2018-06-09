@@ -61,7 +61,8 @@ Route::pattern('slug', '[a-z0-9- _]+');
         Route::get('/get-all-and-selected/{id}', 'InvestmentController@show')->name('investor-index-selected');
         Route::post('/invest/{id}', 'InvestmentController@invest')->name('invest-in-investion');
 
-        Route::get('/get-user-investments', 'InvestmentController@getUserAllInvestments')->name('user-all-investments');
+        Route::get('/get-user-investments', 'InvestmentController@getUserInvestments')->name('user-all-investments');
+        Route::get('/selected-investments/{id}', 'InvestmentController@getAllAndSelected')->name('selected-investments');
 
         // WITHOUT MIDDLEWARE
         Route::get('login', 'InvestmentController@getSignIn')->name('investment-login');
