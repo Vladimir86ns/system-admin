@@ -164,17 +164,7 @@ class InvestmentController extends JoshController
         // selected investment not included
         $transformedInvestment = null;
 
-        return view('investor.show_all_investments', compact(['allInvestments', 'transformedInvestment']));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('investor.find.show_all_investments', compact(['allInvestments', 'transformedInvestment']));
     }
 
     /**
@@ -208,40 +198,26 @@ class InvestmentController extends JoshController
 
         $transformedInvestment = $this->service->getInvestmentFromTransformer($id);
 
-        return view('investor.show_all_investments', compact(['allInvestments', 'transformedInvestment']));
+        return view('investor.find.show_all_investments', compact(['allInvestments', 'transformedInvestment']));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Display all user investments.
      *
      * @param  \App\Investment  $investment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Investment $investment)
+    public function getUserAllInvestments()
     {
-        //
-    }
+        $allUserInvestments = $this->service->findAllUserInvestments();
+        $allUserAdminInvestments = $this->service->findAllUserAdminInvestments($allUserInvestments);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Investment  $investment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Investment $investment)
-    {
-        //
-    }
+        $transformedInvestments = $this->service->useInvestmentsTransformer($allUserInvestments);
+        $transformedAdminInvestments = $this->service->useInvestmentsAdminTransformer($allUserAdminInvestments);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Investment  $investment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Investment $investment)
-    {
-        //
+        return view('investor.show.index', compact([
+            'transformedAdminInvestments',
+            'transformedInvestments'
+        ]));
     }
 }
