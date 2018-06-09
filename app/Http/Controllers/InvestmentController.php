@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Redirect;
 use Sentinel;
+use Charts;
 use App\Investment;
 use Illuminate\Http\Request;
 use App\Http\Requests\InvestorRequest;
@@ -215,9 +216,17 @@ class InvestmentController extends JoshController
         $transformedInvestments = $this->service->useInvestmentsTransformer($allUserInvestments);
         $transformedAdminInvestments = $this->service->useInvestmentsAdminTransformer($allUserAdminInvestments);
 
+        $pie = Charts::create('pie', 'fusioncharts')
+            ->title('Name of investition')
+            ->labels(['Invested', 'Collected'])
+            //    ->responsive(true)
+            ->values([10000,54000])
+            ->dimensions(0,400);
+
         return view('investor.show.index', compact([
             'transformedAdminInvestments',
-            'transformedInvestments'
+            'transformedInvestments',
+            'pie'
         ]));
     }
 }

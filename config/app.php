@@ -179,6 +179,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
 
 
         /*
@@ -252,6 +253,7 @@ return [
         'Reminder'   => Cartalyst\Sentinel\Laravel\Facades\Reminder::class,
         'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
+        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
 
 
 
