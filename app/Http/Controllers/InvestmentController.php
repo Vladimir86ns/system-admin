@@ -181,6 +181,12 @@ class InvestmentController extends JoshController
 
         $attributes = $request->all();
 
+        $error = $this->validationService->validateInvest($attributes['total_investment'], $id);
+
+        if ($error) {
+            return Redirect::back()->with('error', $error['total_investment']);
+        }
+
         $investment = $this->service->updateInvestment($id, $attributes);
 
         return $this->show($id);

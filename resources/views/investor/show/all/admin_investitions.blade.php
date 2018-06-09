@@ -17,6 +17,7 @@
               <tr>
                 <th>Name</th>
                 <th class="numeric">Total Investition</th>
+                <th class="numeric">Left To Invest</th>
                 <th class="numeric">Country</th>
                 <th class="numeric">City</th>
                 <th class="numeric">Address</th>
@@ -30,6 +31,7 @@
                 <tr>
                   <td>{{ $investment['name'] }}</td>
                   <td class="numeric">{{ $investment['total_investition'] }}</td>
+                  <td class="numeric">{{ $investment['left_to_invest'] }}</td>
                   <td class="numeric">{{ $investment['country'] }}</td>
                   <td class="numeric">{{ $investment['city'] }}</td>
                   <td class="numeric">{{ $investment['address'] }}</td>

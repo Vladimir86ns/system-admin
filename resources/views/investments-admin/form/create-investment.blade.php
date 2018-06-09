@@ -25,16 +25,16 @@
             </div>
 
             <div class="col-md-12">
-              <div class="form-group {{ $errors->first('city', 'has-error') }}">
-                <input type="text" name="city" id="city" class="form-control input-md" placeholder="City">
-                {!! $errors->first('city', '<span class="help-block">:message</span>') !!}
+              <div class="form-group {{ $errors->first('country', 'has-error') }}">
+                <input type="text" name="country" id="country" class="form-control input-md" placeholder="Country">
+                {!! $errors->first('country', '<span class="help-block">:message</span>') !!}
               </div>
             </div>
 
             <div class="col-md-12">
-              <div class="form-group {{ $errors->first('country', 'has-error') }}">
-                <input type="text" name="country" id="country" class="form-control input-md" placeholder="Country">
-                {!! $errors->first('country', '<span class="help-block">:message</span>') !!}
+              <div class="form-group {{ $errors->first('city', 'has-error') }}">
+                <input type="text" name="city" id="city" class="form-control input-md" placeholder="City">
+                {!! $errors->first('city', '<span class="help-block">:message</span>') !!}
               </div>
             </div>
 
