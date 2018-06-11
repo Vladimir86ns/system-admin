@@ -60,5 +60,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\SentinelAdmin::class,
         'user' => \App\Http\Middleware\SentinelUser::class,
         'admin-investments' => \App\Http\Middleware\RedirectIfAuthenticatedInvestments::class,
+        'check-investitor' => \App\Http\Middleware\CheckInvestitor::class,
     ];
 }
