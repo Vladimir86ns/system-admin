@@ -25,8 +25,12 @@ Route::pattern('slug', '[a-z0-9- _]+');
     Route::post('signup', 'AuthController@postSignup')->name('signup');
     Route::post('forgot-password', 'AuthController@postForgotPassword')->name('signup');
 
-    //  INVESTMENTS-ONLY-ADMIN
+
+
+
+    //  INVESTMENTS-ADMIN
     Route::group([ 'prefix' => 'investments-admin'], function () {
+        // MIDDLEWARE
         Route::group(['middleware' => ['admin-investments']], function () {
             Route::get('/', 'InvestmentsAdminController@showHome')
                 ->name('investments-admin-dashboard');
@@ -42,6 +46,7 @@ Route::pattern('slug', '[a-z0-9- _]+');
             Route::get('/edit-investments/{id}', 'InvestmentsAdminController@edit');
             Route::post('/update-investments/{id}', 'InvestmentsAdminController@update');
         });
+
         // WITHOUT MIDDLEWARE
         Route::get('login', 'InvestmentsAdminController@getSignIn')
             ->name('investments-admin-login');
@@ -53,22 +58,31 @@ Route::pattern('slug', '[a-z0-9- _]+');
             ->name('investments-admin-sign-up');
     });
 
+    
+
     //  INVESTMENT
     Route::group([ 'prefix' => 'investment'], function () {
-        # Dashboard / Index
-        Route::get('/', 'InvestmentController@showHome')->name('investor-dashboard');
-        Route::get('/get-all-serbia', 'InvestmentController@indexSerbia')->name('investor-index-serbia');
-        Route::get('/get-all-and-selected/{id}', 'InvestmentController@show')->name('investor-index-selected');
-        Route::post('/invest/{id}', 'InvestmentController@invest')->name('invest-in-investion');
 
-        Route::get('/get-user-investments', 'InvestmentController@getUserInvestments')->name('user-all-investments');
-        Route::get('/selected-investments/{id}', 'InvestmentController@getAllAndSelected')->name('selected-investments');
+        // MIDDLEWARE
+        Route::group(['middleware' => ['check-investitor']], function () {
+            Route::get('/', 'InvestmentController@showHome')->name('investor-dashboard');
+            Route::get('/get-all-serbia', 'InvestmentController@indexSerbia')->name('investor-index-serbia');
+            Route::get('/get-all-and-selected/{id}', 'InvestmentController@show')->name('investor-index-selected');
+            Route::post('/invest/{id}', 'InvestmentController@invest')->name('invest-in-investion');
+    
+            Route::get('/get-user-investments', 'InvestmentController@getUserInvestments')->name('user-all-investments');
+            Route::get('/selected-investments/{id}', 'InvestmentController@getAllAndSelected')->name('selected-investments');
+        });
 
         // WITHOUT MIDDLEWARE
         Route::get('login', 'InvestmentController@getSignIn')->name('investment-login');
         Route::post('signin', 'InvestmentController@postSignIn')->name('investment-signin');
         Route::post('investment-signup', 'InvestmentController@postSignup')->name('investment-signup');
     });
+
+
+
+
 
     # Forgot Password Confirmation
     Route::get('forgot-password/{userId}/{passwordResetCode}', 'AuthController@getForgotPasswordConfirm')->name('forgot-password-confirm');
