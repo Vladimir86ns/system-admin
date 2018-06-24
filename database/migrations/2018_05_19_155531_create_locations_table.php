@@ -20,7 +20,7 @@ class CreateLocationsTable extends Migration
             $table->string('country', 50);
             $table->string('address', 100);
             $table->integer('zip_code');
-            $table->unsignedInteger('project_id');
+            $table->integer('project_id')->unsigned();
             $table->foreign('project_id')->references('id')->on('projects');
             $table->timestamps();
         });

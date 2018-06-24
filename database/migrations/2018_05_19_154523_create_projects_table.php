@@ -23,7 +23,7 @@ class CreateProjectsTable extends Migration
             $table->decimal('profit_sharing');
             $table->decimal('investment_collected');
             $table->string('phone_number')->nullable();
-            $table->unsignedInteger('investment_id');
+            $table->integer('investment_id')->unsigned();
             $table->foreign('investment_id')->references('id')->on('investments');
             $table->timestamps();
         });

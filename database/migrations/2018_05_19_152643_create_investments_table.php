@@ -15,7 +15,7 @@ class CreateInvestmentsTable extends Migration
     {
         Schema::create('investments', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id');
+            $table->integer('user_id')->unsigned();
             $table->decimal('total_investment');
             $table->decimal('percent_of_income');
             $table->decimal('investment_collected_total');

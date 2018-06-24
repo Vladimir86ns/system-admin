@@ -27,7 +27,7 @@ class RedirectIfAuthenticatedInvestments
         if ($permissions['admin_investitions'] == 1) {
             return $next($request);
         }
-        
+
         return redirect(self::ROUTE . '/login');
     }
 }
