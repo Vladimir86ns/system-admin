@@ -68,7 +68,7 @@ Blank Page
                   <td class="numeric">{{ $investment['address'] }}</td>
                   <td class="numeric">{{ $investment['collected_to_date'] }}</td>
                   <td class="numeric">{{ $investment['closed'] ? 'Yes' : 'No' }}</td>
-                  <td>  
+                  <td>
                     @if ($investment['status'] === 'PENDING')
                       <span class="label label-sm label-info">{{ $investment['status'] }}</span>
                     @elseif  ($investment['status'] === 'APPROVED')
@@ -78,22 +78,26 @@ Blank Page
                     @endif
                   </td>
                   <td>
-                    <a href="/investments-admin/edit-investments/{{ $investment['id'] }}">
-                      <i class="fa fa-fw fa-pencil"></i>
-                    </a>
-                    <a href="/investments-admin/all-and-selected-investments/{{ $investment['id'] }}">
-                      <i class="fa fa-fw fa-search"></i>
-                    </a>
-                    @if ($investment['status'] === 'APPROVED')
-                      <a href="/investments-admin/before-confirm-investment/{{ $investment['id'] }}">
-                        <i class="fa fa-fw fa-hand-o-right"></i>
-                      </a>  
-                    @endif  
-                    @if ($investment['status'] === 'REJECTED')
-                      <a href="/investments-admin/rejected-or-delete-investment/{{ $investment['id'] }}">
-                        <i class="fa fa-fw fa-trash-o"></i>
-                      </a>  
-                    @endif                               
+                    @if(!$investment['on_production'])
+                      <a href="/investments-admin/edit-investments/{{ $investment['id'] }}">
+                        <i class="fa fa-fw fa-pencil"></i>
+                      </a>
+                      <a href="/investments-admin/all-and-selected-investments/{{ $investment['id'] }}">
+                        <i class="fa fa-fw fa-search"></i>
+                      </a>
+                      @if ($investment['status'] === 'APPROVED')
+                        <a href="/investments-admin/before-confirm-investment/{{ $investment['id'] }}">
+                          <i class="fa fa-fw fa-hand-o-right"></i>
+                        </a>
+                      @endif
+                      @if ($investment['status'] === 'REJECTED')
+                        <a href="/investments-admin/rejected-or-delete-investment/{{ $investment['id'] }}">
+                          <i class="fa fa-fw fa-trash-o"></i>
+                        </a>
+                      @endif
+                    @else
+                      <span class="label label-sm label-success">PRODUCTION</span>
+                    @endIf
                   </td>
                 </tr>
               @endforeach
@@ -183,7 +187,7 @@ Blank Page
     <!--JUST INCLUDED FORM COMPONENT IN THIS PAGE-->
     @include('investments-admin.form.edit-investment')
   @endif
-</section>        
+</section>
   @stop
 
 {{-- page level scripts --}}

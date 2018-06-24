@@ -9,7 +9,7 @@ class InvestmentsAdminTransformer extends TransformerAbstract
 {
     /**
      * A Fractal transformer.
-     * 
+     *
      * @param InvestmentsAdmin $investmentsAdmin
      * @return array
      */
@@ -27,6 +27,7 @@ class InvestmentsAdminTransformer extends TransformerAbstract
             'status' => $investmentsAdmin->status,
             'left_to_invest' =>number_format(
                 ($investmentsAdmin->total_investition - $investmentsAdmin->collected_to_date), 2),
+            'on_production' => $investmentsAdmin->on_production,
         ];
     }
 }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Services\Investment;
 
@@ -65,12 +65,13 @@ class InvestmentService
     {
         return InvestmentsAdmin::where('country', $country)
             ->where('status', InvestmentsAdmin::APPROVED)
+            ->where('on_production', 1)
             ->get();
     }
 
     /**
      * Get all investments from transformer
-     * 
+     *
      * @param array $attributes
      */
     public function getAllFromTransformer(string $country)
@@ -95,8 +96,8 @@ class InvestmentService
      *
      * @param int $id
      * @param array $attributes
-     * 
-     * @return 
+     *
+     * @return
      */
     public function updateInvestment(int $id, array $attributes)
     {
@@ -111,13 +112,13 @@ class InvestmentService
     }
 
     /**
-     * Update also and user investition data 
+     * Update also and user investition data
      *
      * @param int $id
      * @param array $attributes
      * @param InvestmentsAdmin $investment
-     * 
-     * @return 
+     *
+     * @return
      */
     public function updateUserInvestmentData(
         int $id,
@@ -145,7 +146,7 @@ class InvestmentService
      * Find investition if already have
      *
      * @param int $id
-     * 
+     *
      * @return Investment
      */
     public function findInvestmentIfAlreadyHave($id)
@@ -158,20 +159,20 @@ class InvestmentService
      * Find investition if already have
      *
      * @param int $id
-     * 
+     *
      * @return Investment
      */
     public function findInvestment($id)
     {
         $user = $this->getUser();
-        return Investment::where('project_id', $id)->where('user_id', $user->id)->first(); 
+        return Investment::where('project_id', $id)->where('user_id', $user->id)->first();
     }
 
     /**
      * Find admin investition where want to invest
      *
      * @param int $id
-     * 
+     *
      * @return InvestmentsAdmin
      */
     private function findAdminSelectedToInvest($id)
@@ -183,7 +184,7 @@ class InvestmentService
      * Find user all investments
      *
      * @param int $id
-     * 
+     *
      * @return Investment
      */
     public function findAllUserInvestments()
@@ -208,7 +209,7 @@ class InvestmentService
 
     /**
      * Data from investments admin transformer
-     * 
+     *
      * @param array $InvestmentsAdmin
      * @return array
      */
@@ -221,12 +222,12 @@ class InvestmentService
 
     /**
      * Get statistic for selected investment
-     * 
+     *
      * @param Investment $investment
      * @param InvestmentsAdmin $investmentsAdmin
      */
     public function getChartPie(Investment $investment, InvestmentsAdmin $investmentsAdmin)
-    {   
+    {
         $collected = $investment->investment_collected_total;
         $invested = $investment->total_investment;
 
@@ -240,7 +241,7 @@ class InvestmentService
 
     /**
      * Data from investments transformer
-     * 
+     *
      * @param Investment $investment
      * @param InvestmentsAdmin $adminSelected
      * @return array

@@ -16,8 +16,8 @@ class CreateInvestmentsAdminsTable extends Migration
         Schema::create('investments_admins', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->decimal('total_investition');
-            $table->decimal('collected_to_date');
+            $table->decimal('total_investition', 10, 2);
+            $table->decimal('collected_to_date', 10, 2);
             $table->string('city');
             $table->string('country');
             $table->string('address');
