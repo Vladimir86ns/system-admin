@@ -40,6 +40,10 @@ Route::pattern('slug', '[a-z0-9- _]+');
                 ->name('investments-admin-create-investments');
             Route::post('/store-investments', 'InvestmentsAdminController@store')
                 ->name('investments-admin-store-investments');
+            Route::get('/before-confirm-investment/{id}', 'InvestmentsAdminController@beforeConfirm')
+                ->name('before-confirm');
+            Route::post('/confirm-investment/{id}', 'InvestmentsAdminController@confirm')
+                ->name('confirm');
             Route::get('/all-and-selected-investments/{id}', 'InvestmentsAdminController@getAllInvestmentsAndSelected');
             Route::get('/approve-or-un-approve-investment/{id}', 'InvestmentsAdminController@approveOrUnApproveInvestment');
             Route::get('/rejected-or-delete-investment/{id}', 'InvestmentsAdminController@rejectOrDelete');

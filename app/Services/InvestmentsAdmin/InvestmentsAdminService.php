@@ -3,6 +3,7 @@
 namespace App\Services\InvestmentsAdmin;
 
 use App\InvestmentsAdmin;
+use App\Project;
 use App\Transformers\InvestmentsAdminTransformer;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Manager as FractalManager;
@@ -134,5 +135,31 @@ class InvestmentsAdminService
         {
             $InvestmentsAdmin->update(['status' => InvestmentsAdmin::REJECTED]);
         }
+    }
+
+    /**
+     * Rejected investment
+     * 
+     * @param array $attributes
+     * @param int $id
+     */
+    public function createProject(array &$attributes, int $id)
+    {
+        $investmentsAdmin = InvestmentsAdmin::find($id);
+
+        if ($investmentsAdmin['on_production']) {
+            return false;
+        }
+
+        $attributes['total_amount'] = $investmentsAdmin->total_investition;
+        $attributes['expense'] = $investmentsAdmin->total_investition;
+        $attributes['investment_id'] = $investmentsAdmin->id;
+
+        Project::create($attributes);
+
+        $investmentsAdmin->on_production = true;
+        $investmentsAdmin->update();
+
+        return $investmentsAdmin->on_production;
     }
 }
