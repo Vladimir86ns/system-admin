@@ -103,6 +103,7 @@ class InvestmentService
     {
         $investment = $this->getInvestment($id);
         $investment->collected_to_date += $attributes['total_investment'];
+        $investment->closed = $investment->total_investition == $investment->collected_to_date;
         $investment->update();
 
         // update user investition
