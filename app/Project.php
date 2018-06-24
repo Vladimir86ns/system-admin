@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Investment;
 use App\Order;
+use App\InvestmentsAdmin;
 
 class Project extends Model
 {
@@ -17,7 +18,7 @@ class Project extends Model
         'profit_sharing',
         'investment_collected',
         'phone_number',
-        'investment_id',        
+        'investment_id',
     ];
 
     protected $casts = [
@@ -38,5 +39,13 @@ class Project extends Model
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    /**
+     * Get the admin investments.
+     */
+    public function adminInvestment()
+    {
+        return $this->belongsTo(InvestmentsAdmin::class);
     }
 }

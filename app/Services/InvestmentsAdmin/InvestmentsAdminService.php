@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Services\InvestmentsAdmin;
 
@@ -8,7 +8,7 @@ use App\Transformers\InvestmentsAdminTransformer;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Manager as FractalManager;
 
-class InvestmentsAdminService 
+class InvestmentsAdminService
 {
     /**
      * @var FractalManager
@@ -45,7 +45,7 @@ class InvestmentsAdminService
 
     /**
      * Get all investments from transformer
-     * 
+     *
      * @param array $attributes
      */
     public function getAllInvestmentsFromTransformer()
@@ -77,7 +77,7 @@ class InvestmentsAdminService
 
     /**
      * Store new investments in DB
-     * 
+     *
      * @param array $attributes
      */
     public function storeInvestments(array &$attributes)
@@ -88,7 +88,7 @@ class InvestmentsAdminService
 
     /**
      * Update investment
-     * 
+     *
      * @param array $attributes
      * @param int $id
      */
@@ -99,7 +99,7 @@ class InvestmentsAdminService
 
     /**
      * Approve investment
-     * 
+     *
      * @param array $attributes
      */
     public function approveOrUnApproveInvestment(int $id)
@@ -107,7 +107,7 @@ class InvestmentsAdminService
         $InvestmentsAdmin = InvestmentsAdmin::find($id);
 
         if (
-            $InvestmentsAdmin['status'] === InvestmentsAdmin::APPROVED || 
+            $InvestmentsAdmin['status'] === InvestmentsAdmin::APPROVED ||
             $InvestmentsAdmin['status'] === InvestmentsAdmin::REJECTED
         ) {
             $InvestmentsAdmin->update(['status' => InvestmentsAdmin::PENDING]);
@@ -121,7 +121,7 @@ class InvestmentsAdminService
 
     /**
      * Rejected investment
-     * 
+     *
      * @param array $attributes
      */
     public function rejectOrDelete(int $id)
@@ -131,7 +131,7 @@ class InvestmentsAdminService
         if ($InvestmentsAdmin['status'] === InvestmentsAdmin::REJECTED)
         {
             $InvestmentsAdmin = InvestmentsAdmin::where('id', $id)->delete();
-        } else 
+        } else
         {
             $InvestmentsAdmin->update(['status' => InvestmentsAdmin::REJECTED]);
         }
@@ -139,7 +139,7 @@ class InvestmentsAdminService
 
     /**
      * Rejected investment
-     * 
+     *
      * @param array $attributes
      * @param int $id
      */
@@ -153,10 +153,8 @@ class InvestmentsAdminService
 
         $attributes['total_amount'] = $investmentsAdmin->total_investition;
         $attributes['expense'] = $investmentsAdmin->total_investition;
-        $attributes['investment_id'] = $investmentsAdmin->id;
 
-        Project::create($attributes);
-
+        $investmentsAdmin->project()->create($attributes);
         $investmentsAdmin->on_production = true;
         $investmentsAdmin->update();
 
