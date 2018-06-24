@@ -16,12 +16,12 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 50);
-            $table->decimal('total_amount');
-            $table->decimal('income');
-            $table->decimal('expense');
-            $table->decimal('profit');
-            $table->decimal('profit_sharing');
-            $table->decimal('investment_collected');
+            $table->decimal('total_amount', 10, 2);
+            $table->decimal('income', 10, 2);
+            $table->decimal('expense', 10, 2);
+            $table->decimal('profit', 10, 2);
+            $table->decimal('profit_sharing', 10, 2);
+            $table->decimal('investment_collected', 10, 2);
             $table->string('phone_number')->nullable();
             $table->integer('investments_admin_id')->unsigned();
             $table->foreign('investments_admin_id')->references('id')->on('investments_admins');

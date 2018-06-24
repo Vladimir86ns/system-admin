@@ -16,10 +16,10 @@ class CreateInvestmentsTable extends Migration
         Schema::create('investments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->decimal('total_investment');
-            $table->decimal('percent_of_income');
-            $table->decimal('investment_collected_total');
-            $table->decimal('monthly_collected');
+            $table->decimal('total_investment', 10, 2);
+            $table->decimal('percent_of_income', 10, 2);
+            $table->decimal('investment_collected_total', 10, 2);
+            $table->decimal('monthly_collected', 10, 2);
             $table->boolean('investment_collected');
             $table->integer('project_id');
             $table->foreign('user_id')->references('id')->on('users');
