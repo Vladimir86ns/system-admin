@@ -22,7 +22,8 @@ class CreateInvestmentsAdminsTable extends Migration
             $table->string('country');
             $table->string('address');
             $table->string('status');
-            $table->boolean('closed');
+            $table->boolean('closed')->default(false);;
+            $table->boolean('on_production')->default(false);
             $table->timestamps();
         });
     }

@@ -30,7 +30,7 @@ class InvestmentsAdminController extends Controller
     /**
      * @var \App\Services\InvestmentsAdmin\InvestmentsAdminService
      */
-    private $investmentsAdminService;
+    private $service;
 
     /**
      * @var FractalManager
@@ -49,7 +49,7 @@ class InvestmentsAdminController extends Controller
         InvestmentsAdminTransformer $investmentsAdminTransformer,
         FractalManager $fractalManager
     ) {
-        $this->investmentsAdminService = $investmentsAdminService;
+        $this->service = $investmentsAdminService;
         $this->investmentsAdminTransformer = $investmentsAdminTransformer;
         $this->fractal = $fractalManager;
     }
@@ -179,7 +179,7 @@ class InvestmentsAdminController extends Controller
     {   
         $inputs = $request->all();
 
-        $this->investmentsAdminService->storeInvestments($inputs);
+        $this->service->storeInvestments($inputs);
 
         return Redirect::route("investments-admin-all-investments")->with('success', 'Created new investments successfully!');
     }
@@ -203,8 +203,8 @@ class InvestmentsAdminController extends Controller
      */
     public function edit($id)
     {
-        $allInvestments = $this->investmentsAdminService->getAllInvestmentsFromTransformer();
-        $editInvestment = $this->investmentsAdminService->getInvestment($id);
+        $allInvestments = $this->service->getAllInvestmentsFromTransformer();
+        $editInvestment = $this->service->getInvestment($id);
         
         // selected investment is not included
         $transformedInvestment = null;
@@ -227,7 +227,7 @@ class InvestmentsAdminController extends Controller
     {
         $inputs = $request->except(['_token', 'btnSubmit']);
 
-        $this->investmentsAdminService->updateInvestment($inputs, $id);
+        $this->service->updateInvestment($inputs, $id);
 
         return Redirect::route("investments-admin-all-investments")->with('success', 'Updated investment successfully!');
     }
@@ -250,7 +250,7 @@ class InvestmentsAdminController extends Controller
      */
     public function getAllInvestments()
     {
-        $allInvestments = $this->investmentsAdminService->getAllInvestmentsFromTransformer();
+        $allInvestments = $this->service->getAllInvestmentsFromTransformer();
 
         // selected and edit investment is not included
         $transformedInvestment = null;
@@ -270,10 +270,10 @@ class InvestmentsAdminController extends Controller
      */
     public function getAllInvestmentsAndSelected($id)
     {
-        $allInvestments = $this->investmentsAdminService->getAllInvestmentsFromTransformer();
+        $allInvestments = $this->service->getAllInvestmentsFromTransformer();
 
         // selected investment is included
-        $transformedInvestment = $this->investmentsAdminService->getInvestmentFromTransformer($id);
+        $transformedInvestment = $this->service->getInvestmentFromTransformer($id);
 
         // edit investment is not included
         $editInvestment = null;
@@ -293,12 +293,12 @@ class InvestmentsAdminController extends Controller
      */
     public function approveOrUnApproveInvestment($id)
     {
-        $this->investmentsAdminService->approveOrUnApproveInvestment($id);
+        $this->service->approveOrUnApproveInvestment($id);
 
-        $allInvestments = $this->investmentsAdminService->getAllInvestmentsFromTransformer();
+        $allInvestments = $this->service->getAllInvestmentsFromTransformer();
 
         // selected investment is included
-        $transformedInvestment = $this->investmentsAdminService->getInvestmentFromTransformer($id);
+        $transformedInvestment = $this->service->getInvestmentFromTransformer($id);
 
         // edit investment is not included
         $editInvestment = null;
@@ -318,15 +318,15 @@ class InvestmentsAdminController extends Controller
      */
     public function rejectOrDelete($id)
     {
-        $this->investmentsAdminService->rejectOrDelete($id);
+        $this->service->rejectOrDelete($id);
 
-        $allInvestments = $this->investmentsAdminService->getAllInvestmentsFromTransformer();
+        $allInvestments = $this->service->getAllInvestmentsFromTransformer();
 
         // selected investment is included and check is maybe deleted
         $transformedInvestment = false;
-        $investment = $this->investmentsAdminService->getInvestment($id);
+        $investment = $this->service->getInvestment($id);
         if ($investment) {
-            $transformedInvestment = $this->investmentsAdminService->getInvestmentFromTransformer($id);;
+            $transformedInvestment = $this->service->getInvestmentFromTransformer($id);;
         }
 
         // edit investment is not included
@@ -337,6 +337,50 @@ class InvestmentsAdminController extends Controller
             'transformedInvestment',
             'editInvestment',
             ]));
+    }
+
+    /**
+     * Before confirm investments fill up with more data
+     *
+     * @param  \App\InvestmentsAdmin  $investmentsAdmin
+     * @return \Illuminate\Http\Response
+     */
+    public function beforeConfirm($id)
+    {
+        $allInvestments = $this->service->getAllInvestmentsFromTransformer();
+        $editInvestment = $this->service->getInvestment($id);
+        
+        // selected investment is not included
+        $transformedInvestment = null;
+
+        return view('investments-admin.before-production.selected', compact([
+            'allInvestments',
+            'transformedInvestment',
+            'editInvestment',
+        ]));
+    }
+
+    /**
+     * Confirm investment and save in project
+     *
+     * @param  \App\InvestmentsAdmin  $investmentsAdmin
+     * @return \Illuminate\Http\Response
+     */
+    public function confirm(Request $request, $id)
+    {
+        $request->validate([
+            'phone_number' => 'required|numeric',
+        ]);
+
+        $inputs = $request->all();
+
+        $isCreated = $this->service->createProject($inputs, $id);
+
+        if (!$isCreated) {
+            return Redirect::back()->with('error', 'This investment is already on production!');
+        }
+
+        return $this->getAllInvestments();
     }
 
     /**

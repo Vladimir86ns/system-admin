@@ -22,5 +22,6 @@ class InvestmentsAdmin extends Model
 
     protected $casts = [
         'closed' => 'boolean',
+        'on_production' => 'boolean',
     ];
 }
