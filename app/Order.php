@@ -17,7 +17,7 @@ class Order extends Model
         'address',
         'flat_number',
         'delivery_boy_id',
-        'time_delivered',            
+        'time_delivered',
     ];
 
     protected $casts = [
