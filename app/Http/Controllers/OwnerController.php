@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Sentinel;
+use App\User;
 use Redirect;
+use Sentinel;
 use Illuminate\Http\Request;
 use App\Http\Requests\OwnerRequest;
 use App\Services\Owner\OwnerService;
@@ -56,43 +57,17 @@ class OwnerController extends Controller
      */
     public function postSignUp(OwnerRequest $request)
     {
-        $user = Sentinel::authenticate($request->only(['email', 'password']));
+        $inputs =$request->all();
+        $this->service->checkDoseUserExistsUpdatePermissionAndRedirect($inputs);
 
-        if ($user) {
-            $permissions = $user->permissions;
-
-            $permissions['owner'] = 1;
-            $user->permissions = $permissions;
-            $user->update();
-
-            return Redirect::route("owner-dashboard")->with('success', trans('auth/message.signin.success'));
-        }
-
-        $available = $this->validationService->isEmailAvailable($request->get('email'));
+        $available = $this->validationService->isEmailAvailable($inputs['email']);
 
         if ($available) {
             return view('owner.login')->with('error', trans('auth/message.account_already_exists'));
         }
 
-        $permissions = [
-            'owner' => 1,
-        ];
-
         try {
-            // Register the user as investor
-            $user = Sentinel::registerAndActivate([
-                'first_name' => $request->get('first_name'),
-                'last_name' => $request->get('last_name'),
-                'email' => $request->get('email'),
-                'password' => $request->get('password'),
-                'permissions' => $permissions
-            ]);
-
-            // TO DO SOME DAY
-            //add user to 'User' group as Investor
-            // $role = Sentinel::findRoleById(1);
-            // $role->users()->attach($user);
-
+            $user = $this->service->registerAndActivateUser($inputs);
 
             // Log the user in
             Sentinel::login($user, false);

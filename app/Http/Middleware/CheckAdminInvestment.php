@@ -5,9 +5,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Sentinel;
 
-class CheckInvestitor
+class CheckAdminInvestment
 {
-    const ROUTE = 'investment';
+    const ROUTE = 'investments-admin';
 
     /**
      * Handle an incoming request.
@@ -24,7 +24,7 @@ class CheckInvestitor
 
         $permissions = Sentinel::getUser()->permissions;
 
-        if ($permissions['investor'] == 1) {
+        if ($permissions['admin_investitions'] == 1) {
             return $next($request);
         }
 

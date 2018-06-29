@@ -32,7 +32,7 @@ Route::pattern('slug', '[a-z0-9- _]+');
     //  INVESTMENTS-ADMIN
     Route::group([ 'prefix' => 'investments-admin'], function () {
         // MIDDLEWARE
-        Route::group(['middleware' => ['admin-investments']], function () {
+        Route::group(['middleware' => ['check-admin-investments']], function () {
             Route::get('/', 'InvestmentsAdminController@showHome')
                 ->name('investments-admin-dashboard');
             Route::get('/all-investments', 'InvestmentsAdminController@getAllInvestments')
@@ -91,15 +91,9 @@ Route::pattern('slug', '[a-z0-9- _]+');
         Route::group([ 'prefix' => 'owner'], function () {
 
             // MIDDLEWARE
-            // Route::group(['middleware' => ['check-investitor']], function () {
+            Route::group(['middleware' => ['check-owner']], function () {
                 Route::get('/', 'OwnerController@showHome')->name('owner-dashboard');
-                // Route::get('/get-all-serbia', 'InvestmentController@indexSerbia')->name('investor-index-serbia');
-                // Route::get('/get-all-and-selected/{id}', 'InvestmentController@show')->name('investor-index-selected');
-                // Route::post('/invest/{id}', 'InvestmentController@invest')->name('invest-in-investion');
-
-                // Route::get('/get-user-investments', 'InvestmentController@getUserInvestments')->name('user-all-investments');
-                // Route::get('/selected-investments/{id}', 'InvestmentController@getAllAndSelected')->name('selected-investments');
-            // });
+            });
 
             // WITHOUT MIDDLEWARE
             Route::get('login', 'OwnerController@getSignIn')->name('owner-login');
