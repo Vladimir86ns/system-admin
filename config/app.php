@@ -169,6 +169,8 @@ return [
          * Package Service Providers...
          */
 
+        Spatie\Fractal\FractalServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -177,6 +179,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
 
 
         /*
@@ -184,11 +187,13 @@ return [
          */
        // App\Providers\LocalServiceProvider::class,
 
+
         /*
          * Third party Service Providers
          */
         Collective\Html\HtmlServiceProvider::class,
         Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
+        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
 
     ],
 
@@ -247,6 +252,8 @@ return [
         'Activation' => Cartalyst\Sentinel\Laravel\Facades\Activation::class,
         'Reminder'   => Cartalyst\Sentinel\Laravel\Facades\Reminder::class,
         'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
+        'Alert' => UxWeb\SweetAlert\SweetAlert::class,
+        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
 
 
 

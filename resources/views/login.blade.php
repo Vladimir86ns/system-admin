@@ -32,7 +32,8 @@
                         <div id="login" class="animate form">
                             <form action="{{ route('signin') }}" autocomplete="on" method="post" role="form" id="login_form">
                                 <h3 class="black_bg">
-                                    <img src="{{ asset('assets/img/logo.png') }}" alt="josh logo">
+                                    <!-- Add picture logo here when create it -->
+                                    <!-- <img src="{{ asset('assets/img/logo.png') }}" alt="josh logo"> -->
                                     <br>Log In</h3>
                                     <!-- CSRF Token -->
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
@@ -78,7 +79,8 @@
                         <div id="register" class="animate form">
                             <form action="{{ route('signup') }}" autocomplete="on" method="post" role="form" id="register_here">
                                 <h3 class="black_bg">
-                                    <img src="{{ asset('assets/img/logo.png') }}" alt="josh logo">
+                                    <!-- Add picture logo here when create it -->
+                                    <!-- <img src="{{ asset('assets/img/logo.png') }}" alt="josh logo"> -->
                                     <br>Sign Up</h3>
                                     <!-- CSRF Token -->
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
@@ -88,7 +90,7 @@
                                             <i class="livicon" data-name="user" data-size="16" data-loop="true" data-c="#3c8dbc" data-hc="#3c8dbc"></i>
                                             First Name
                                         </label>
-                                        <input id="first_name" name="first_name" required type="text" placeholder="John"
+                                        <input id="first_name" name="first_name" required type="text" placeholder="First name"
                                                value="{!! old('first_name') !!}"/>
                                         <div class="col-sm-12">
                                             {!! $errors->first('first_name', '<span class="help-block">:message</span>') !!}
@@ -100,7 +102,7 @@
                                             <i class="livicon" data-name="user" data-size="16" data-loop="true" data-c="#3c8dbc" data-hc="#3c8dbc"></i>
                                             Last Name
                                         </label>
-                                        <input id="last_name" name="last_name" required type="text" placeholder="Doe"
+                                        <input id="last_name" name="last_name" required type="text" placeholder="Last name"
                                                value="{!! old('last_name') !!}"/>
                                         <div class="col-sm-12">
                                             {!! $errors->first('last_name', '<span class="help-block">:message</span>') !!}
