@@ -87,6 +87,28 @@ Route::pattern('slug', '[a-z0-9- _]+');
 
 
 
+        //  OWNER
+        Route::group([ 'prefix' => 'owner'], function () {
+
+            // MIDDLEWARE
+            // Route::group(['middleware' => ['check-investitor']], function () {
+                Route::get('/', 'OwnerController@showHome')->name('owner-dashboard');
+                // Route::get('/get-all-serbia', 'InvestmentController@indexSerbia')->name('investor-index-serbia');
+                // Route::get('/get-all-and-selected/{id}', 'InvestmentController@show')->name('investor-index-selected');
+                // Route::post('/invest/{id}', 'InvestmentController@invest')->name('invest-in-investion');
+
+                // Route::get('/get-user-investments', 'InvestmentController@getUserInvestments')->name('user-all-investments');
+                // Route::get('/selected-investments/{id}', 'InvestmentController@getAllAndSelected')->name('selected-investments');
+            // });
+
+            // WITHOUT MIDDLEWARE
+            Route::get('login', 'OwnerController@getSignIn')->name('owner-login');
+            Route::post('signin', 'OwnerController@postSignIn')->name('owner-signin');
+            Route::post('signup', 'OwnerController@postSignup')->name('owner-signup');
+        });
+
+
+
 
 
     # Forgot Password Confirmation
