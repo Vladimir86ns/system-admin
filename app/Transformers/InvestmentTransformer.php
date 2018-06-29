@@ -25,7 +25,9 @@ class InvestmentTransformer extends TransformerAbstract
             'monthly_collected' => number_format($investment->monthly_collected, 2),
             'investment_collected' => number_format($investment->monthly_collected, 2),
             'left_to_invest' => number_format(
-                ($investmentsAdmin->total_investition - $investmentsAdmin->collected_to_date), 2),
+                ($investmentsAdmin->total_investition - $investmentsAdmin->collected_to_date),
+                2
+            ),
             'name' => $investmentsAdmin->name,
         ];
     }

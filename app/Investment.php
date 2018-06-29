@@ -9,7 +9,7 @@ use App\User;
 class Investment extends Model
 {
     const SERBIA = 'Serbia';
-    
+
     protected $fillable = [
         'users_id',
         'total_investment',
@@ -17,7 +17,7 @@ class Investment extends Model
         'investment_collected_total',
         'monthly_collected',
         'investment_collected',
-        'project_id',        
+        'project_id',
     ];
 
     protected $casts = [

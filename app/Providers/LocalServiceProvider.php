@@ -14,11 +14,11 @@ use Illuminate\Support\ServiceProvider;
 
 class LocalServiceProvider extends ServiceProvider
 {
- 
+
     // add any local only servive providers here:
     protected $providers = [
     \Barryvdh\Debugbar\ServiceProvider::class,
-	\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class
+    \Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class
     ];
 
     // and local only aliases here:
@@ -35,7 +35,7 @@ class LocalServiceProvider extends ServiceProvider
     {
         //
     }
- 
+
     /**
      * Register any application services.
      *
@@ -56,6 +56,5 @@ class LocalServiceProvider extends ServiceProvider
                 }
             }
         }
- 
     }
 }

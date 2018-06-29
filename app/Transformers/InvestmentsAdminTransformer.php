@@ -26,7 +26,9 @@ class InvestmentsAdminTransformer extends TransformerAbstract
             'closed' => $investmentsAdmin->closed,
             'status' => $investmentsAdmin->status,
             'left_to_invest' =>number_format(
-                ($investmentsAdmin->total_investition - $investmentsAdmin->collected_to_date), 2),
+                ($investmentsAdmin->total_investition - $investmentsAdmin->collected_to_date),
+                2
+            ),
             'on_production' => $investmentsAdmin->on_production,
         ];
     }
