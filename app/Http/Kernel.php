@@ -59,7 +59,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'admin' => \App\Http\Middleware\SentinelAdmin::class,
         'user' => \App\Http\Middleware\SentinelUser::class,
-        'admin-investments' => \App\Http\Middleware\RedirectIfAuthenticatedInvestments::class,
+        'check-admin-investments' => \App\Http\Middleware\CheckAdminInvestment::class,
         'check-investitor' => \App\Http\Middleware\CheckInvestitor::class,
+        'check-owner' => \App\Http\Middleware\CheckOwner::class,
     ];
 }

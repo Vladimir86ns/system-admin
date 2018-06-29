@@ -32,7 +32,7 @@ Route::pattern('slug', '[a-z0-9- _]+');
     //  INVESTMENTS-ADMIN
     Route::group([ 'prefix' => 'investments-admin'], function () {
         // MIDDLEWARE
-        Route::group(['middleware' => ['admin-investments']], function () {
+        Route::group(['middleware' => ['check-admin-investments']], function () {
             Route::get('/', 'InvestmentsAdminController@showHome')
                 ->name('investments-admin-dashboard');
             Route::get('/all-investments', 'InvestmentsAdminController@getAllInvestments')
@@ -84,6 +84,22 @@ Route::pattern('slug', '[a-z0-9- _]+');
         Route::post('signin', 'InvestmentController@postSignIn')->name('investment-signin');
         Route::post('investment-signup', 'InvestmentController@postSignup')->name('investment-signup');
     });
+
+
+
+        //  OWNER
+        Route::group([ 'prefix' => 'owner'], function () {
+
+            // MIDDLEWARE
+            Route::group(['middleware' => ['check-owner']], function () {
+                Route::get('/', 'OwnerController@showHome')->name('owner-dashboard');
+            });
+
+            // WITHOUT MIDDLEWARE
+            Route::get('login', 'OwnerController@getSignIn')->name('owner-login');
+            Route::post('signin', 'OwnerController@postSignIn')->name('owner-signin');
+            Route::post('signup', 'OwnerController@postSignup')->name('owner-signup');
+        });
 
 
 

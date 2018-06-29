@@ -5,9 +5,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Sentinel;
 
-class RedirectIfAuthenticatedInvestments
+class CheckOwner
 {
-    const ROUTE = 'investments-admin';
+    const ROUTE = 'owner';
 
     /**
      * Handle an incoming request.
@@ -24,7 +24,7 @@ class RedirectIfAuthenticatedInvestments
 
         $permissions = Sentinel::getUser()->permissions;
 
-        if ($permissions['admin_investitions'] == 1) {
+        if ($permissions['owner'] == 1) {
             return $next($request);
         }
 
