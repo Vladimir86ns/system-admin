@@ -19,6 +19,7 @@ Route::pattern('slug', '[a-z0-9- _]+');
     Route::get('{id}/lockscreen', 'UsersController@lockscreen')->name('lockscreen');
     Route::post('{id}/lockscreen', 'UsersController@postLockscreen')->name('lockscreen');
     # All basic routes defined here
+    Route::get('chose-status', 'AuthController@choseStatus')->name('chose-status');
     Route::get('login', 'AuthController@getSignin')->name('login');
     Route::get('signin', 'AuthController@getSignin')->name('signin');
     Route::post('signin', 'AuthController@postSignin')->name('postSignin');
@@ -62,7 +63,7 @@ Route::pattern('slug', '[a-z0-9- _]+');
             ->name('investments-admin-sign-up');
     });
 
-    
+
 
     //  INVESTMENT
     Route::group([ 'prefix' => 'investment'], function () {
@@ -73,7 +74,7 @@ Route::pattern('slug', '[a-z0-9- _]+');
             Route::get('/get-all-serbia', 'InvestmentController@indexSerbia')->name('investor-index-serbia');
             Route::get('/get-all-and-selected/{id}', 'InvestmentController@show')->name('investor-index-selected');
             Route::post('/invest/{id}', 'InvestmentController@invest')->name('invest-in-investion');
-    
+
             Route::get('/get-user-investments', 'InvestmentController@getUserInvestments')->name('user-all-investments');
             Route::get('/selected-investments/{id}', 'InvestmentController@getAllAndSelected')->name('selected-investments');
         });

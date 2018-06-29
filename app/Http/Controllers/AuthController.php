@@ -22,6 +22,17 @@ use App\User;
 class AuthController extends JoshController
 {
     /**
+     * Before login chose
+     *
+     * @return View
+     */
+    public function choseStatus()
+    {
+        // Show the page
+        return view('before_login');
+    }
+
+    /**
      * Account sign in.
      *
      * @return View
