@@ -350,7 +350,6 @@ class InvestmentsAdminController extends Controller
         $allInvestments = $this->service->getAllInvestmentsFromTransformer();
         $editInvestment = $this->service->getInvestment($id);
         $allOwners = $this->service->getAllOwners();
-        // dd($allOwners);
 
         // selected investment is not included
         $transformedInvestment = null;
