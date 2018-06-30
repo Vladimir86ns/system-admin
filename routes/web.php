@@ -55,8 +55,7 @@ Route::pattern('slug', '[a-z0-9- _]+');
         // WITHOUT MIDDLEWARE
         Route::get('login', 'InvestmentsAdminController@getSignIn')
             ->name('investments-admin-login');
-        Route::get('logout', 'InvestmentsAdminController@getLogout')
-            ->name('investments-admin-logout');
+        Route::get('logout', 'InvestmentsAdminController@getLogout');
         Route::post('signin', 'InvestmentsAdminController@postSignIn')
             ->name('investments-admin-sign-in');
         Route::post('investment-signup', 'InvestmentsAdminController@postSignup')
@@ -83,6 +82,7 @@ Route::pattern('slug', '[a-z0-9- _]+');
         Route::get('login', 'InvestmentController@getSignIn')->name('investment-login');
         Route::post('signin', 'InvestmentController@postSignIn')->name('investment-signin');
         Route::post('investment-signup', 'InvestmentController@postSignup')->name('investment-signup');
+        Route::get('logout', 'InvestmentController@getLogout');
     });
 
 
@@ -99,6 +99,7 @@ Route::pattern('slug', '[a-z0-9- _]+');
             Route::get('login', 'OwnerController@getSignIn')->name('owner-login');
             Route::post('signin', 'OwnerController@postSignIn')->name('owner-signin');
             Route::post('signup', 'OwnerController@postSignup')->name('owner-signup');
+            Route::get('logout', 'OwnerController@getLogout');
         });
 
 

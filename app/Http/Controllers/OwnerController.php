@@ -125,4 +125,16 @@ class OwnerController extends Controller
 		else
 			return view('owner.login')->with('error', 'You must be logged in!');
     }
+
+    /**
+     * Logout page and redirect to chose status.
+     *
+     * @return Redirect
+     */
+    public function getLogout()
+    {
+        Sentinel::logout(Sentinel::getUser());
+
+        return Redirect::route('chose-status')->with('success', 'You have successfully logged out!');
+    }
 }

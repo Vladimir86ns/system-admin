@@ -96,7 +96,7 @@
                                 </a>
                             </div>
                             <div class="pull-right">
-                                <a href="{{ URL::to('logout') }}">
+                                <a href="{{ URL::to('owner/logout') }}">
                                     <i class="livicon" data-name="sign-out" data-s="18"></i>
                                     Logout
                                 </a>

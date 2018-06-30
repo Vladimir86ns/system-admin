@@ -30,13 +30,13 @@ class InvestmentController extends JoshController
      * InvestmentController
      *
      */
-	public function __construct(
+    public function __construct(
         InvestmentValidationService $investmentValidationService,
         InvestmentService $investmentService
     ) {
         $this->validationService = $investmentValidationService;
         $this->service = $investmentService;
-	}
+    }
 
     /**
      * Account sign in.
@@ -76,7 +76,6 @@ class InvestmentController extends JoshController
             }
 
             $this->messageBag->add('email', trans('auth/message.account_not_found'));
-
         } catch (NotActivatedException $e) {
             $this->messageBag->add('email', trans('auth/message.account_not_activated'));
         } catch (ThrottlingException $e) {
@@ -87,10 +86,11 @@ class InvestmentController extends JoshController
 
     public function showHome()
     {
-        if(Sentinel::check())
-			return view('investor.index');
-		else
-			return view('investor.login')->with('error', 'You must be logged in!');
+        if (Sentinel::check()) {
+            return view('investor.index');
+        } else {
+            return view('investor.login')->with('error', 'You must be logged in!');
+        }
     }
 
     /**
@@ -142,7 +142,6 @@ class InvestmentController extends JoshController
 
             // Redirect to the dashboard page
             return Redirect::route("investor-dashboard")->with('success', trans('auth/message.signin.success'));
-
         } catch (UserExistsException $e) {
             $this->messageBag->add('email', trans('auth/message.account_already_exists'));
         }
@@ -189,7 +188,7 @@ class InvestmentController extends JoshController
 
         $investment = $this->service->updateInvestment($id, $attributes);
 
-        $formated = number_format($attributes['total_investment'] ,2);
+        $formated = number_format($attributes['total_investment'], 2);
 
         return Redirect::back()->with(
             "success",
@@ -265,5 +264,17 @@ class InvestmentController extends JoshController
             'transformedInvestment',
             'pie'
         ]));
+    }
+
+    /**
+     * Logout page and redirect to chose status.
+     *
+     * @return Redirect
+     */
+    public function getLogout()
+    {
+        Sentinel::logout(Sentinel::getUser());
+
+        return Redirect::route("chose-status")->with('success', 'You have successfully logged out!');
     }
 }

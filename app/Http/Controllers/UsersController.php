@@ -14,7 +14,7 @@ use URL;
 use View;
 use Yajra\DataTables\DataTables;
 use Validator;
-Use App\Mail\Restore;
+use App\Mail\Restore;
 use stdClass;
 
 class UsersController extends JoshController
@@ -44,22 +44,27 @@ class UsersController extends JoshController
         $users = User::get(['id', 'first_name', 'last_name', 'email','created_at']);
 
         return DataTables::of($users)
-            ->editColumn('created_at',function(User $user) {
+            ->editColumn('created_at', function (User $user) {
                 return $user->created_at->diffForHumans();
             })
-            ->addColumn('status',function($user){
-
-                if($activation = Activation::completed($user)){
-
-                    return 'Activated';} else
+            ->addColumn('status', function ($user) {
+                if ($activation = Activation::completed($user)) {
+                    return 'Activated';
+                } else {
                     return 'Pending';
-
+                }
             })
-            ->addColumn('actions',function($user) {
-                $actions = '<a href='. route('users.show', $user->id) .'><i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i></a>
-                            <a href='. route('users.edit', $user->id) .'><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update user"></i></a>';
+            ->addColumn('actions', function ($user) {
+                $actions = '<a href='. route('users.show', $user->id) .'><i class="livicon" data-name="info" ' .
+                    'data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" ' .
+                    'title="view user"></i></a>
+                            <a href='. route('users.edit', $user->id) .'><i class="livicon" data-name="edit" ' .
+                            'data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" ' .
+                            'title="update user"></i></a>';
                 if ((Sentinel::getUser()->id != $user->id) && ($user->id != 1)) {
-                    $actions .= '<a href='. route('users.confirm-delete', $user->id) .' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="user-remove" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete user"></i></a>';
+                    $actions .= '<a href='. route('users.confirm-delete', $user->id) .' data-toggle="modal" ' .
+                    'data-target="#delete_confirm"><i class="livicon" data-name="user-remove" data-size="18" ' .
+                    'data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete user"></i></a>';
                 }
                 return $actions;
             })
@@ -105,7 +110,10 @@ class UsersController extends JoshController
 
         try {
             // Register the user
-            $user = Sentinel::register($request->except('_token', 'password_confirm', 'group', 'activate', 'pic_file'), $activate);
+            $user = Sentinel::register(
+                $request->except('_token', 'password_confirm', 'group', 'activate', 'pic_file'),
+                $activate
+            );
 
             //add user to 'User' group
             $role = Sentinel::findRoleById($request->get('group'));
@@ -125,7 +133,6 @@ class UsersController extends JoshController
 
             // Redirect to the home page with success menu
             return Redirect::route('users.index')->with('success', trans('users/message.success.create'));
-
         } catch (LoginRequiredException $e) {
             $error = trans('admin/users/message.user_login_required');
         } catch (PasswordRequiredException $e) {
@@ -172,8 +179,7 @@ class UsersController extends JoshController
         $data = new stdClass();
 
         try {
-            $user->update($request->except('pic_file','password','password_confirm','groups','activate'));
-
+            $user->update($request->except('pic_file', 'password', 'password_confirm', 'groups', 'activate'));
             if ($password = $request->has('password')) {
                 $user->password = Hash::make($request->password);
             }
@@ -241,7 +247,6 @@ class UsersController extends JoshController
                     // Send the activation code through email
                     Mail::to($user->email)
                         ->send(new Restore($data));
-
                 }
             }
 
@@ -404,7 +409,6 @@ class UsersController extends JoshController
         }
         // Show the page
         return view('users.show', compact('user'));
-
     }
 
     public function passwordreset($id, Request $request)
@@ -415,16 +419,18 @@ class UsersController extends JoshController
         $user->save();
     }
 
-    public function lockscreen($id){
+    public function lockscreen($id)
+    {
         $user = Sentinel::findUserById($id);
-        return view('lockscreen',compact('user'));
+        return view('lockscreen', compact('user'));
     }
 
-    public function postLockscreen(Request $request){
+    public function postLockscreen(Request $request)
+    {
         $password = Sentinel::getUser()->password;
-        if(Hash::check($request->password,$password)){
+        if (Hash::check($request->password, $password)) {
             return 'success';
-        } else{
+        } else {
             return 'error';
         }
     }
