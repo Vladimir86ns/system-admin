@@ -16,7 +16,7 @@ class Product extends Model
         'cost',
         'price',
         'picture',
-        'time_to_prepare'
+        'time_to_prepare',
     ];
 
     protected $casts = [

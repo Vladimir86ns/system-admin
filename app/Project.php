@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Investment;
 use App\Order;
 use App\InvestmentsAdmin;
+use App\User;
 
 class Project extends Model
 {
@@ -19,6 +20,7 @@ class Project extends Model
         'investment_collected',
         'phone_number',
         'investment_id',
+        'owner_id',
     ];
 
     protected $casts = [
@@ -26,11 +28,11 @@ class Project extends Model
     ];
 
     /**
-     * Get the investments record associated with the project.
+     * Get the owner of projects.
      */
-    public function investments()
+    public function owner()
     {
-        return $this->hasOne(Investment::class);
+        return $this->belongsTo(User::class, 'owner_id');
     }
 
     /**

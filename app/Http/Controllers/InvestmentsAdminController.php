@@ -349,6 +349,8 @@ class InvestmentsAdminController extends Controller
     {
         $allInvestments = $this->service->getAllInvestmentsFromTransformer();
         $editInvestment = $this->service->getInvestment($id);
+        $allOwners = $this->service->getAllOwners();
+        // dd($allOwners);
 
         // selected investment is not included
         $transformedInvestment = null;
@@ -357,6 +359,7 @@ class InvestmentsAdminController extends Controller
             'allInvestments',
             'transformedInvestment',
             'editInvestment',
+            'allOwners'
         ]));
     }
 
@@ -369,7 +372,7 @@ class InvestmentsAdminController extends Controller
     public function confirm(Request $request, $id)
     {
         $request->validate([
-            'phone_number' => 'required|numeric',
+            'owner_id' => 'required|integer',
         ]);
 
         $inputs = $request->all();

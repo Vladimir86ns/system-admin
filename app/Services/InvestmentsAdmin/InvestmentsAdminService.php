@@ -2,11 +2,12 @@
 
 namespace App\Services\InvestmentsAdmin;
 
-use App\InvestmentsAdmin;
+use App\User;
 use App\Project;
-use App\Transformers\InvestmentsAdminTransformer;
+use App\InvestmentsAdmin;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Manager as FractalManager;
+use App\Transformers\InvestmentsAdminTransformer;
 
 class InvestmentsAdminService
 {
@@ -159,5 +160,22 @@ class InvestmentsAdminService
         $investmentsAdmin->update();
 
         return $investmentsAdmin->on_production;
+    }
+
+    /**
+     * Get all owners
+     *
+     * @return User
+     */
+    public function getAllOwners()
+    {
+        return User::all()->filter(function ($value) {
+            if (array_has($value['permissions'], 'owner')) {
+                return $value;
+            }
+        })
+        ->filter(function ($value) {
+            return $value['permissions']['owner'] == 1;
+        })->toArray();
     }
 }
