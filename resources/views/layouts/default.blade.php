@@ -20,6 +20,7 @@
     <!-- global css -->
 
     <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="{{ asset('css/sweetalert.css')}}">
     <!-- font Awesome -->
 
     <!-- end of global css -->
@@ -29,6 +30,7 @@
 
 <body class="skin-josh">
 <header class="header">
+    <script src="js/sweetalert.min.js"></script>
     <a href="{{ route('dashboard') }}" class="logo">
         <img src="{{ asset('assets/img/logo.png') }}" alt="logo">
     </a>
@@ -43,6 +45,7 @@
             <ul class="nav navbar-nav">
                 @include('layouts._messages')
                 @include('layouts._notifications')
+                @include('sweet::alert')
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         @if(Sentinel::getUser()->pic)

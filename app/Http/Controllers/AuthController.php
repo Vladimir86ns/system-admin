@@ -22,6 +22,17 @@ use App\User;
 class AuthController extends JoshController
 {
     /**
+     * Before login chose
+     *
+     * @return View
+     */
+    public function choseStatus()
+    {
+        // Show the page
+        return view('before_login');
+    }
+
+    /**
      * Account sign in.
      *
      * @return View
@@ -44,7 +55,6 @@ class AuthController extends JoshController
      */
     public function postSignin(Request $request)
     {
-
         $user = User::where('email', $request->email)->get();
         $user = Sentinel::findById($user[0]->id);
         try {
@@ -74,7 +84,6 @@ class AuthController extends JoshController
      */
     public function postSignup(UserRequest $request)
     {
-
         try {
             // Register the user
             $user = Sentinel::registerAndActivate([

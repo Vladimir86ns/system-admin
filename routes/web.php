@@ -19,11 +19,91 @@ Route::pattern('slug', '[a-z0-9- _]+');
     Route::get('{id}/lockscreen', 'UsersController@lockscreen')->name('lockscreen');
     Route::post('{id}/lockscreen', 'UsersController@postLockscreen')->name('lockscreen');
     # All basic routes defined here
+    Route::get('chose-status', 'AuthController@choseStatus')->name('chose-status');
     Route::get('login', 'AuthController@getSignin')->name('login');
     Route::get('signin', 'AuthController@getSignin')->name('signin');
     Route::post('signin', 'AuthController@postSignin')->name('postSignin');
     Route::post('signup', 'AuthController@postSignup')->name('signup');
     Route::post('forgot-password', 'AuthController@postForgotPassword')->name('signup');
+
+
+
+
+    //  INVESTMENTS-ADMIN
+    Route::group([ 'prefix' => 'investments-admin'], function () {
+        // MIDDLEWARE
+        Route::group(['middleware' => ['check-admin-investments']], function () {
+            Route::get('/', 'InvestmentsAdminController@showHome')
+                ->name('investments-admin-dashboard');
+            Route::get('/all-investments', 'InvestmentsAdminController@getAllInvestments')
+                ->name('investments-admin-all-investments');
+            Route::get('/create-investments', 'InvestmentsAdminController@create')
+                ->name('investments-admin-create-investments');
+            Route::post('/store-investments', 'InvestmentsAdminController@store')
+                ->name('investments-admin-store-investments');
+            Route::get('/before-confirm-investment/{id}', 'InvestmentsAdminController@beforeConfirm')
+                ->name('before-confirm');
+            Route::post('/confirm-investment/{id}', 'InvestmentsAdminController@confirm')
+                ->name('confirm');
+            Route::get('/all-and-selected-investments/{id}', 'InvestmentsAdminController@getAllInvestmentsAndSelected');
+            Route::get('/approve-or-un-approve-investment/{id}', 'InvestmentsAdminController@approveOrUnApproveInvestment');
+            Route::get('/rejected-or-delete-investment/{id}', 'InvestmentsAdminController@rejectOrDelete');
+            Route::get('/edit-investments/{id}', 'InvestmentsAdminController@edit');
+            Route::post('/update-investments/{id}', 'InvestmentsAdminController@update');
+        });
+
+        // WITHOUT MIDDLEWARE
+        Route::get('login', 'InvestmentsAdminController@getSignIn')
+            ->name('investments-admin-login');
+        Route::get('logout', 'InvestmentsAdminController@getLogout');
+        Route::post('signin', 'InvestmentsAdminController@postSignIn')
+            ->name('investments-admin-sign-in');
+        Route::post('investment-signup', 'InvestmentsAdminController@postSignup')
+            ->name('investments-admin-sign-up');
+    });
+
+
+
+    //  INVESTMENT
+    Route::group([ 'prefix' => 'investment'], function () {
+
+        // MIDDLEWARE
+        Route::group(['middleware' => ['check-investitor']], function () {
+            Route::get('/', 'InvestmentController@showHome')->name('investor-dashboard');
+            Route::get('/get-all-serbia', 'InvestmentController@indexSerbia')->name('investor-index-serbia');
+            Route::get('/get-all-and-selected/{id}', 'InvestmentController@show')->name('investor-index-selected');
+            Route::post('/invest/{id}', 'InvestmentController@invest')->name('invest-in-investion');
+
+            Route::get('/get-user-investments', 'InvestmentController@getUserInvestments')->name('user-all-investments');
+            Route::get('/selected-investments/{id}', 'InvestmentController@getAllAndSelected')->name('selected-investments');
+        });
+
+        // WITHOUT MIDDLEWARE
+        Route::get('login', 'InvestmentController@getSignIn')->name('investment-login');
+        Route::post('signin', 'InvestmentController@postSignIn')->name('investment-signin');
+        Route::post('investment-signup', 'InvestmentController@postSignup')->name('investment-signup');
+        Route::get('logout', 'InvestmentController@getLogout');
+    });
+
+
+
+        //  OWNER
+        Route::group([ 'prefix' => 'owner'], function () {
+
+            // MIDDLEWARE
+            Route::group(['middleware' => ['check-owner']], function () {
+                Route::get('/', 'OwnerController@showHome')->name('owner-dashboard');
+            });
+
+            // WITHOUT MIDDLEWARE
+            Route::get('login', 'OwnerController@getSignIn')->name('owner-login');
+            Route::post('signin', 'OwnerController@postSignIn')->name('owner-signin');
+            Route::post('signup', 'OwnerController@postSignup')->name('owner-signup');
+            Route::get('logout', 'OwnerController@getLogout');
+        });
+
+
+
 
 
     # Forgot Password Confirmation

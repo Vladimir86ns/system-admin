@@ -25,27 +25,25 @@ class GroupRequest extends FormRequest
      */
     public function rules()
     {
-
         switch ($this->method()) {
             case 'GET':
-            case 'DELETE': {
+            case 'DELETE':
                 return [];
-            }
-            case 'POST': {
+                break;
+            case 'POST':
                 return [
                     'name' => 'required|unique:roles,name'
-            ];
-            }
+                ];
+                break;
             case 'PUT':
-            case 'PATCH': {
+            case 'PATCH':
                 return [
                     'name' => 'required|unique:roles,name,'. $this->group
                 ];
-            }
+                break;
             default:
+                return [];
                 break;
         }
-
     }
-
 }

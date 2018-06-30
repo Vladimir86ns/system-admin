@@ -6,7 +6,6 @@ use Redirect;
 use Sentinel;
 use View;
 
-
 class GroupsController extends JoshController
 {
     /**
@@ -31,7 +30,7 @@ class GroupsController extends JoshController
     public function create()
     {
         // Show the page
-        return view ('groups.create');
+        return view('groups.create');
     }
 
     /**
@@ -46,15 +45,12 @@ class GroupsController extends JoshController
             'slug' => str_slug($request->get('name'))
         ])
         ) {
-          
-
             // Redirect to the new group page
             return Redirect::route('groups.index')->with('success', trans('groups/message.success.create'));
         }
 
         // Redirect to the group create page
         return Redirect::route('groups.create')->withInput()->with('error', trans('groups/message.error.create'));
-
     }
 
 
@@ -69,7 +65,6 @@ class GroupsController extends JoshController
         try {
             // Get the group information
             $role = Sentinel::findRoleById($group);
-
         } catch (GroupNotFoundException $e) {
             // Redirect to the groups management page
             return Redirect::route('groups')->with('error', trans('groups/message.group_not_found', compact('id')));
@@ -100,7 +95,6 @@ class GroupsController extends JoshController
             // Redirect to the group page
             return Redirect::route('groups.edit', $group)->with('error', trans('groups/message.error.update'));
         }
-
     }
 
     /**
@@ -143,8 +137,10 @@ class GroupsController extends JoshController
             return Redirect::route('groups.index')->with('success', trans('groups/message.success.delete'));
         } catch (GroupNotFoundException $e) {
             // Redirect to the group management page
-            return Redirect::route('groups.index')->with('error', trans('groups/message.group_not_found', compact('id')));
+            return Redirect::route('groups.index')->with(
+                'error',
+                trans('groups/message.group_not_found', compact('id'))
+            );
         }
     }
-
 }
