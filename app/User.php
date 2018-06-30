@@ -3,6 +3,7 @@
 use Cartalyst\Sentinel\Users\EloquentUser;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Investment;
+use App\Project;
 
 class User extends EloquentUser
 {
@@ -45,5 +46,13 @@ class User extends EloquentUser
     public function investments()
     {
         return $this->hasMany(Investment::class);
+    }
+
+    /**
+     * Get project.
+    */
+    public function project()
+    {
+        return $this->hasOne(Project::class);
     }
 }

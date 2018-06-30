@@ -132,11 +132,6 @@ class InvestmentController extends JoshController
                 'permissions' => $permissions
             ]);
 
-            //add user to 'User' group as Investor
-            $role = Sentinel::findRoleById(1);
-            $role->users()->attach($user);
-
-
             // Log the user in
             Sentinel::login($user, false);
 
