@@ -176,7 +176,7 @@ class InvestmentsAdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(CreateInvestmentsRequest $request)
-    {   
+    {
         $inputs = $request->all();
 
         $this->service->storeInvestments($inputs);
@@ -205,7 +205,7 @@ class InvestmentsAdminController extends Controller
     {
         $allInvestments = $this->service->getAllInvestmentsFromTransformer();
         $editInvestment = $this->service->getInvestment($id);
-        
+
         // selected investment is not included
         $transformedInvestment = null;
 
@@ -349,7 +349,7 @@ class InvestmentsAdminController extends Controller
     {
         $allInvestments = $this->service->getAllInvestmentsFromTransformer();
         $editInvestment = $this->service->getInvestment($id);
-        
+
         // selected investment is not included
         $transformedInvestment = null;
 
@@ -384,15 +384,14 @@ class InvestmentsAdminController extends Controller
     }
 
     /**
-     * Logout page.
+     * Logout page and redirect to chose status.
      *
      * @return Redirect
      */
     public function getLogout()
     {
-        $user = Sentinel::getUser();
-        Sentinel::logout($user);
-        // Redirect to the users page
-        return Redirect::route("investments-admin-login")->with('success', 'You have successfully logged out!');
+        Sentinel::logout(Sentinel::getUser());
+
+        return Redirect::route("chose-status")->with('success', 'You have successfully logged out!');
     }
 }

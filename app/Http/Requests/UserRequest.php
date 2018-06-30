@@ -26,10 +26,10 @@ class UserRequest extends FormRequest
     {
         switch ($this->method()) {
             case 'GET':
-            case 'DELETE': {
+            case 'DELETE':
                 return [];
-            }
-            case 'POST': {
+                break;
+            case 'POST':
                 return [
                     'first_name' => 'required|min:3',
                     'last_name' => 'required|min:3',
@@ -38,9 +38,9 @@ class UserRequest extends FormRequest
                     'password_confirm' => 'required|same:password',
                     'pic_file' => 'mimes:jpg,jpeg,bmp,png,gif|max:10000'
                 ];
-            }
+                break;
             case 'PUT':
-            case 'PATCH': {
+            case 'PATCH':
                 return [
                     'first_name' => 'required|min:3',
                     'last_name' => 'required|min:3',
@@ -48,16 +48,10 @@ class UserRequest extends FormRequest
                     'password_confirm' => 'sometimes|same:password',
                     'pic_file' => 'image|mimes:jpg,jpeg,bmp,png|max:10000'
                 ];
-            }
+                break;
             default:
+                return [];
                 break;
         }
-
-        return [
-
-        ];
     }
-
-
 }
-
