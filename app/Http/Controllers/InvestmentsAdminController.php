@@ -17,7 +17,6 @@ use Illuminate\Http\Request;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Manager as FractalManager;
 
-
 class InvestmentsAdminController extends Controller
 {
     const USER_INVESTOR_ROLE = 'admin_investitions';
@@ -88,11 +87,11 @@ class InvestmentsAdminController extends Controller
             // Try to log the user in
             if (Sentinel::authenticate($request->only(['email', 'password']), $request->get('remember-me', false))) {
                 // Redirect to the dashboard page
-                return Redirect::route("investments-admin-dashboard")->with('success', trans('auth/message.signin.success'));
+                return Redirect::route("investments-admin-dashboard")
+                    ->with('success', trans('auth/message.signin.success'));
             }
 
             $this->messageBag->add('email', trans('auth/message.account_not_found'));
-
         } catch (NotActivatedException $e) {
             $this->messageBag->add('email', trans('auth/message.account_not_activated'));
         } catch (ThrottlingException $e) {
@@ -103,10 +102,11 @@ class InvestmentsAdminController extends Controller
 
     public function showHome()
     {
-        if(Sentinel::check())
-			return view('investments-admin.index');
-		else
-			return view('investments-admin.login')->with('error', 'You must be logged in!');
+        if (Sentinel::check()) {
+            return view('investments-admin.index');
+        } else {
+            return view('investments-admin.login')->with('error', 'You must be logged in!');
+        }
     }
 
     /**
@@ -139,8 +139,8 @@ class InvestmentsAdminController extends Controller
             Sentinel::login($user, false);
 
             // Redirect to the dashboard page
-            return Redirect::route("investments-admin-dashboard")->with('success', trans('auth/message.signin.success'));
-
+            return Redirect::route("investments-admin-dashboard")
+                ->with('success', trans('auth/message.signin.success'));
         } catch (UserExistsException $e) {
             $this->messageBag->add('email', trans('auth/message.account_already_exists'));
         }
@@ -181,7 +181,8 @@ class InvestmentsAdminController extends Controller
 
         $this->service->storeInvestments($inputs);
 
-        return Redirect::route("investments-admin-all-investments")->with('success', 'Created new investments successfully!');
+        return Redirect::route("investments-admin-all-investments")
+            ->with('success', 'Created new investments successfully!');
     }
 
     /**
@@ -229,7 +230,8 @@ class InvestmentsAdminController extends Controller
 
         $this->service->updateInvestment($inputs, $id);
 
-        return Redirect::route("investments-admin-all-investments")->with('success', 'Updated investment successfully!');
+        return Redirect::route("investments-admin-all-investments")
+            ->with('success', 'Updated investment successfully!');
     }
 
     /**
@@ -326,7 +328,7 @@ class InvestmentsAdminController extends Controller
         $transformedInvestment = false;
         $investment = $this->service->getInvestment($id);
         if ($investment) {
-            $transformedInvestment = $this->service->getInvestmentFromTransformer($id);;
+            $transformedInvestment = $this->service->getInvestmentFromTransformer($id);
         }
 
         // edit investment is not included

@@ -18,7 +18,6 @@ use stdClass;
 use App\Mail\ForgotPassword;
 use App\User;
 
-
 class AuthController extends JoshController
 {
     /**
@@ -65,7 +64,6 @@ class AuthController extends JoshController
             }
 
             $this->messageBag->add('email', trans('auth/message.account_not_found'));
-
         } catch (NotActivatedException $e) {
             $this->messageBag->add('email', trans('auth/message.account_not_activated'));
         } catch (ThrottlingException $e) {
@@ -103,7 +101,6 @@ class AuthController extends JoshController
 
             // Redirect to the dashboard page
             return Redirect::route("dashboard")->with('success', trans('auth/message.signin.success'));
-
         } catch (UserExistsException $e) {
             $this->messageBag->add('email', trans('auth/message.account_already_exists'));
         }
@@ -119,7 +116,7 @@ class AuthController extends JoshController
      * @param string $activationCode
      * @return
      */
-    public function getActivate($userId,$activationCode = null)
+    public function getActivate($userId, $activationCode = null)
     {
         // Is user logged in?
         if (Sentinel::check()) {
@@ -138,7 +135,6 @@ class AuthController extends JoshController
             $error = trans('auth/message.activate.error');
             return Redirect::route('signin')->with('error', $error);
         }
-
     }
 
     /**
@@ -159,20 +155,19 @@ class AuthController extends JoshController
                 return back()->with('error', trans('auth/message.account_email_not_found'));
             }
             $activation = Activation::completed($user);
-            if(!$activation){
+            if (!$activation) {
                 return back()->with('error', trans('auth/message.account_not_activated'));
             }
             $reminder = Reminder::exists($user) ?: Reminder::create($user);
             // Data to be used on the email view
 
-            $data->user_name = $user->first_name .' ' .$user->last_name;
+            $data->user_name = $user->first_name . ' ' .$user->last_name;
             $data->forgotPasswordUrl = URL::route('forgot-password-confirm', [$user->id, $reminder->code]);
 
             // Send the activation code through email
 
             Mail::to($user->email)
                 ->send(new ForgotPassword($data));
-
         } catch (UserNotFoundException $e) {
             // Even though the email was not found, we will pretend
             // we have sent the password reset code through email,
@@ -190,17 +185,17 @@ class AuthController extends JoshController
      * @param  string $passwordResetCode
      * @return View
      */
-    public function getForgotPasswordConfirm($userId,$passwordResetCode = null)
+    public function getForgotPasswordConfirm($userId, $passwordResetCode = null)
     {
         // Find the user using the password reset code
-        if(!$user = Sentinel::findById($userId)) {
+        if (!$user = Sentinel::findById($userId)) {
             // Redirect to the forgot password page
             return Redirect::route('forgot-password')->with('error', trans('auth/message.account_not_found'));
         }
-        if($reminder = Reminder::exists($user)) {
-            if($passwordResetCode == $reminder->code) {
+        if ($reminder = Reminder::exists($user)) {
+            if ($passwordResetCode == $reminder->code) {
                 return view('auth.forgot-password-confirm');
-            } else{
+            } else {
                 return 'code does not match';
             }
         } else {
@@ -274,7 +269,6 @@ class AuthController extends JoshController
 
             // Redirect to the home page with success menu
             return Redirect::route("dashboard")->with('success', trans('auth/message.signup.success'));
-
         } catch (UserExistsException $e) {
             $this->messageBag->add('email', trans('auth/message.account_already_exists'));
         }
@@ -282,5 +276,4 @@ class AuthController extends JoshController
         // Ooops.. something went wrong
         return Redirect::back()->withInput()->withErrors($this->messageBag);
     }
-
 }
