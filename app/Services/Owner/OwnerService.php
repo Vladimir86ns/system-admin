@@ -4,9 +4,36 @@ namespace App\Services\Owner;
 
 use Sentinel;
 use Redirect;
+use League\Fractal\Manager as FractalManager;
+use App\Transformers\OwnerTransformer;
 
 class OwnerService
 {
+
+    /**
+     * @var FractalManager
+     */
+    protected $fractal;
+
+    /**
+     * @var transformer
+     */
+    protected $transformer;
+
+    /**
+     * Controller
+     *
+     * @param FractalManager $fractalManager
+     * @param OwnerTransformer $transformer
+     */
+    public function __construct(
+        FractalManager $fractalManager,
+        OwnerTransformer $transformer
+    ) {
+        $this->fractal = $fractalManager;
+        $this->transformer = $transformer;
+    }
+
     /**
      * If user already exists just update permissions
      *
@@ -47,5 +74,17 @@ class OwnerService
             'password' => $attributes['password'],
             'permissions' => $permissions
         ]);
+    }
+
+    /**
+     * Get owner project.
+     *
+     * @return array
+     */
+    public function getProject()
+    {
+        $ownerProject = Sentinel::getUser()->project;
+
+        return $this->transformer->transform($ownerProject);
     }
 }

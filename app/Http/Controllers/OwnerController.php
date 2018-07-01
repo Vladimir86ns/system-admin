@@ -137,4 +137,16 @@ class OwnerController extends Controller
 
         return Redirect::route('chose-status')->with('success', 'You have successfully logged out!');
     }
+
+    /**
+     * Show owner project.
+     *
+     * @return Redirect
+     */
+    public function showProject()
+    {
+        $ownerProject = $this->service->getProject();
+
+        return view('owner.show.index', compact('ownerProject'));
+    }
 }

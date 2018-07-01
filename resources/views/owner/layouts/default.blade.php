@@ -41,8 +41,8 @@
         </div>
         <div class="navbar-right">
             <ul class="nav navbar-nav">
-                @include('investor.layouts._messages')
-                @include('investor.layouts._notifications')
+                @include('owner.layouts._messages')
+                @include('owner.layouts._notifications')
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         @if(Sentinel::getUser()->pic)
@@ -143,7 +143,7 @@
                 </div>
                 <div class="clearfix"></div>
                 <!-- BEGIN SIDEBAR MENU -->
-                @include('investor.layouts._left_menu')
+                @include('owner.layouts._left_menu')
                 <!-- END SIDEBAR MENU -->
             </div>
         </section>
