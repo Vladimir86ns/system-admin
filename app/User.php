@@ -53,6 +53,6 @@ class User extends EloquentUser
     */
     public function project()
     {
-        return $this->hasOne(Project::class);
+        return $this->hasOne(Project::class, 'owner_id');
     }
 }
