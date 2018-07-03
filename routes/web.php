@@ -86,23 +86,39 @@ Route::pattern('slug', '[a-z0-9- _]+');
     });
 
 
+    //  EMPLOYEE
+    Route::group([ 'prefix' => 'employee'], function () {
 
-        //  OWNER
-        Route::group([ 'prefix' => 'owner'], function () {
+        // MIDDLEWARE
+        // Route::group(['middleware' => ['check-investitor']], function () {
+            Route::get('/', 'EmployeeController@showHome')->name('employee-dashboard');
+        // });
 
-            // MIDDLEWARE
-            Route::group(['middleware' => ['check-owner']], function () {
-                Route::get('/', 'OwnerController@showHome')->name('owner-dashboard');
-                Route::get('/show-project', 'OwnerController@showProject')->name('owner-show-project');
-                Route::get('/add-employees/{id}', 'OwnerController@addEmployees')->name('owner-add-employees');
-            });
+        // WITHOUT MIDDLEWARE
+        Route::get('login', 'EmployeeController@getSignIn')->name('employee-login');
+        Route::post('signin', 'EmployeeController@postSignIn')->name('employee-signin');
+        Route::post('signup', 'EmployeeController@postSignup')->name('employee-signup');
+        Route::get('logout', 'EmployeeController@getLogout');
+    });
 
-            // WITHOUT MIDDLEWARE
-            Route::get('login', 'OwnerController@getSignIn')->name('owner-login');
-            Route::post('signin', 'OwnerController@postSignIn')->name('owner-signin');
-            Route::post('signup', 'OwnerController@postSignup')->name('owner-signup');
-            Route::get('logout', 'OwnerController@getLogout');
+
+
+    //  OWNER
+    Route::group([ 'prefix' => 'owner'], function () {
+
+        // MIDDLEWARE
+        Route::group(['middleware' => ['check-owner']], function () {
+            Route::get('/', 'OwnerController@showHome')->name('owner-dashboard');
+            Route::get('/show-project', 'OwnerController@showProject')->name('owner-show-project');
+            Route::get('/add-employees/{id}', 'OwnerController@addEmployees')->name('owner-add-employees');
         });
+
+        // WITHOUT MIDDLEWARE
+        Route::get('login', 'OwnerController@getSignIn')->name('owner-login');
+        Route::post('signin', 'OwnerController@postSignIn')->name('owner-signin');
+        Route::post('signup', 'OwnerController@postSignup')->name('owner-signup');
+        Route::get('logout', 'OwnerController@getLogout');
+    });
 
 
 

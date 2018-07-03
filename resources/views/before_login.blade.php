@@ -23,7 +23,7 @@
                     <h3 class="panel-title text-center">Chose Status</h3>
                 </div>
                 <div class="panel-body">
-                    <a href="/login" class="btn btn-primary btn-block btn-lg">Employee</a>
+                    <a href="employee/login" class="btn btn-primary btn-block btn-lg">Employee</a>
                     <a href="/owner/login" class="btn btn-primary btn-block btn-lg">Owner</a>
                     <a href="/investment/login" class="btn btn-primary btn-block btn-lg">Investitor</a>
                     <a href="/investments-admin/login" class="btn btn-primary btn-block btn-lg">Investment-Admin</a
