@@ -12,7 +12,7 @@
 
           <div class="col-md-12">
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-            
+
             <div class="form-group {{ $errors->first('name', 'has-error') }}">
               <input type="text" name="name" id="name" class="form-control input-md" value="{{ $editInvestment['name'] }}">
               {!! $errors->first('name', '<span class="help-block">:message</span>') !!}

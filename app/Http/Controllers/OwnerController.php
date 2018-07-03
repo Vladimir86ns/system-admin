@@ -147,8 +147,9 @@ class OwnerController extends Controller
     {
         $ownerProject = $this->service->getProject();
         $showProjectForm = false;
+        $employee = false;
 
-        return view('owner.show.index', compact(['ownerProject', 'showProjectForm']));
+        return view('owner.show.index', compact(['ownerProject', 'showProjectForm', 'employee']));
     }
 
     /**
@@ -159,8 +160,29 @@ class OwnerController extends Controller
     public function addEmployees($id)
     {
         $ownerProject = $this->service->getProject();
+        $employees = User::all()->where('project_id', $id)->toArray();
+        $showProjectForm = true;
+        $employee = false;
+
+        return view('owner.show.index', compact(['ownerProject', 'showProjectForm', 'employees', 'employee']));
+    }
+
+    /**
+     * Show project and employee details
+     *
+     * @return Redirect
+     */
+    public function employeeDetails($id, Request $request)
+    {
+        $request->validate([
+            'employee_id' => 'required|integer',
+        ]);
+
+        $ownerProject = $this->service->getProject();
+        $employees = User::all()->where('project_id', $id)->toArray();
+        $employee = User::findOrFail($request->only('employee_id'))->first()->toArray();
         $showProjectForm = true;
 
-        return view('owner.show.index', compact(['ownerProject', 'showProjectForm']));
+        return view('owner.show.index', compact(['ownerProject', 'showProjectForm', 'employees', 'employee']));
     }
 }
