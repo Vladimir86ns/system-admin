@@ -94,6 +94,7 @@ Route::pattern('slug', '[a-z0-9- _]+');
             Route::group(['middleware' => ['check-owner']], function () {
                 Route::get('/', 'OwnerController@showHome')->name('owner-dashboard');
                 Route::get('/show-project', 'OwnerController@showProject')->name('owner-show-project');
+                Route::get('/add-employees/{id}', 'OwnerController@addEmployees')->name('owner-add-employees');
             });
 
             // WITHOUT MIDDLEWARE

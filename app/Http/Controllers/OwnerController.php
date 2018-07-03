@@ -146,7 +146,21 @@ class OwnerController extends Controller
     public function showProject()
     {
         $ownerProject = $this->service->getProject();
+        $showProjectForm = false;
 
-        return view('owner.show.index', compact('ownerProject'));
+        return view('owner.show.index', compact(['ownerProject', 'showProjectForm']));
+    }
+
+    /**
+     * Show form to add employees.
+     *
+     * @return Redirect
+     */
+    public function addEmployees($id)
+    {
+        $ownerProject = $this->service->getProject();
+        $showProjectForm = true;
+
+        return view('owner.show.index', compact(['ownerProject', 'showProjectForm']));
     }
 }
