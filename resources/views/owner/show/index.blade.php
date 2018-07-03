@@ -31,13 +31,13 @@ Blank Page
   </ol>
 </section>
 
-{{-- DISPLAY ALL USER INVESTMENTS --}}
- <!-- SEE ALL INVESTMENTS -->
+{{-- DISPLAY OWNERS PROJECT --}}
+
  <section class="content">
     <div class="row">
       <div class="col-md-12">
 
-        <!-- BEGIN ALL INVESTMENTS TABLE-->
+        <!-- BEGGINING OWNER PROJECT -->
         <div class="portlet box primary">
           <div class="portlet-title">
             <div class="caption">
@@ -73,7 +73,7 @@ Blank Page
                 <td class="numeric">{{ $ownerProject['phone_number'] }}</td>
                 <td class="numeric">{{ $ownerProject['income'] }}</td>
                 <td>
-                    <a href="/investment/selected-investments/{{ $ownerProject['id'] }}">
+                    <a href="/owner/add-employees/{{ $ownerProject['id'] }}">
                     <i class="fa fa-fw fa-search"></i>
                     </a>
                 </td>
@@ -82,10 +82,14 @@ Blank Page
             </table>
           </div>
         </div>
-        <!-- END ALL INVESTMENTS TABLE-->
+        <!-- END BEGGINING OWNER PROJECT-->
 
       </div>
     </div>
   </section>
 
+  {{-- DISPLAY PROJECT DETAILS--}}
+  @if($showProjectForm)
+    @include('owner.show.project-details');
+  @endif
 @stop
