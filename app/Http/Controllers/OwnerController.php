@@ -8,6 +8,7 @@ use Sentinel;
 use Illuminate\Http\Request;
 use App\Http\Requests\OwnerRequest;
 use App\Services\Owner\OwnerService;
+use App\Http\Requests\Owner\SaveEmployeeToProject;
 use App\Services\Owner\OwnerValidationService;
 
 class OwnerController extends Controller
@@ -160,7 +161,7 @@ class OwnerController extends Controller
     public function addEmployees($id)
     {
         $ownerProject = $this->service->getProject();
-        $employees = User::all()->where('project_id', $id)->toArray();
+        $employees = User::all()->where('project_id', $id)->where('employee_active', 0)->toArray();
         $showProjectForm = true;
         $employee = false;
 
@@ -179,10 +180,27 @@ class OwnerController extends Controller
         ]);
 
         $ownerProject = $this->service->getProject();
-        $employees = User::all()->where('project_id', $id)->toArray();
+        $employees = true;
         $employee = User::findOrFail($request->only('employee_id'))->first()->toArray();
         $showProjectForm = true;
 
         return view('owner.show.index', compact(['ownerProject', 'showProjectForm', 'employees', 'employee']));
+    }
+
+    /**
+     * Save employee to project.
+     *
+     * @return Redirect
+     */
+    public function saveEmployee($projectId, $employeeId, SaveEmployeeToProject $request)
+    {
+        $inputs = $request->all();
+        $user = $this->service->saveEmployeeToProject($inputs, $projectId, $employeeId);
+
+        if (!$user) {
+            return Redirect::back()->with("error", "Employee {$inputs['name']} not found!");
+        }
+
+        return Redirect::back()->with("success", "You successfully added {$inputs['name']} to project.");
     }
 }

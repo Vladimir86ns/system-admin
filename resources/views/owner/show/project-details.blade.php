@@ -87,7 +87,7 @@
         @if(!$employee)
           <form action="/owner/select-employee/{{ $ownerProject['id'] }}" method="GET" onsubmit="return Validation()" role="form" id="create_investments">
               <div class="col-md-12">
-                <label>Select Employees:</label>
+                <label>Add new employee:</label>
               </div>
               <div class="col-md-6">
               <div class="form-group {{ $errors->first('employee_id', 'has-error') }}">

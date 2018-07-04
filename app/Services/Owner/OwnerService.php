@@ -2,10 +2,11 @@
 
 namespace App\Services\Owner;
 
-use Sentinel;
+use App\User;
 use Redirect;
-use League\Fractal\Manager as FractalManager;
+use Sentinel;
 use App\Transformers\OwnerTransformer;
+use League\Fractal\Manager as FractalManager;
 
 class OwnerService
 {
@@ -86,5 +87,25 @@ class OwnerService
         $ownerProject = Sentinel::getUser()->project;
 
         return $this->transformer->transform($ownerProject);
+    }
+
+    /**
+     * Save employee to project.
+     *
+     * @return array
+     */
+    public function saveEmployeeToProject(array $attributes, string $projectId, string $employeeId)
+    {
+        $user = User::findOrFail($employeeId);
+
+        if (!$user) {
+            return;
+        }
+
+        $attributesToSave = collect($attributes)->except(['name', 'email', 'btnSubmit'])->toArray();
+        $user->employee_active = true;
+        $user->update($attributesToSave);
+
+        return $user;
     }
 }
