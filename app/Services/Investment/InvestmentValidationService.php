@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Services\Investment;
 
@@ -6,7 +6,7 @@ use App\User;
 use App\InvestmentsAdmin;
 use App\Services\Investment\InvestmentService;
 
-class InvestmentValidationService 
+class InvestmentValidationService
 {
     /**
      * @var InvestmentService
@@ -30,7 +30,7 @@ class InvestmentValidationService
      * @param string $email
      */
     public function isEmailAvailable(string $email)
-    {   
+    {
         return User::where('email', $email)->exists();
     }
 

@@ -63,7 +63,6 @@ class FrontEndController extends JoshController
                 return redirect('login')->with('error', 'Email or password is incorrect.');
                 //return Redirect::back()->withInput()->withErrors($validator);
             }
-
         } catch (UserNotFoundException $e) {
             $this->messageBag->add('email', trans('auth/message.account_not_found'));
         } catch (NotActivatedException $e) {
@@ -101,7 +100,7 @@ class FrontEndController extends JoshController
     {
         $user = Sentinel::getUser();
         //update values
-        $user->update($request->except('password','pic','password_confirm'));
+        $user->update($request->except('password', 'pic', 'password_confirm'));
 
         if ($password = $request->get('password')) {
             $user->password = Hash::make($password);
@@ -120,7 +119,6 @@ class FrontEndController extends JoshController
             }
             //save new file path into db
             $user->pic = $safeName;
-
         }
 
         // Was the user updated?
@@ -138,8 +136,6 @@ class FrontEndController extends JoshController
 
         // Redirect to the user page
         return Redirect::route('my-account')->withInput()->with('error', $error);
-
-
     }
 
     /**
@@ -161,10 +157,16 @@ class FrontEndController extends JoshController
     public function postRegister(UserRequest $request)
     {
         $data = new stdClass();
-        $activate = $this->user_activation; //make it false if you don't want to activate user automatically it is declared above as global variable
+            // make it false if you don't want to activate user automatically
+            // it is declared above as global variable
+        $activate = $this->user_activation;
+
         try {
             // Register the user
-            $user = Sentinel::register($request->only(['first_name', 'last_name', 'email', 'password', 'gender']), $activate);
+            $user = Sentinel::register(
+                $request->only(['first_name', 'last_name', 'email', 'password', 'gender']),
+                $activate
+            );
 
             //add user to 'User' group
             $role = Sentinel::findRoleByName('User');
@@ -179,7 +181,8 @@ class FrontEndController extends JoshController
                 Mail::to($user->email)
                     ->send(new Restore($data));
                 //Redirect to login page
-                return redirect('login')->with('success', trans('auth/message.signup.success'));
+                return redirect('login')
+                    ->with('success', trans('auth/message.signup.success'));
             }
             // login user automatically
             Sentinel::login($user, false);
@@ -188,7 +191,6 @@ class FrontEndController extends JoshController
             $user = Sentinel::getUser();
 
             return Redirect::route("my-account")->with('success', trans('auth/message.signup.success'));
-
         } catch (UserExistsException $e) {
             $this->messageBag->add('email', trans('auth/message.account_already_exists'));
         }
@@ -232,7 +234,6 @@ class FrontEndController extends JoshController
     {
         // Show the page
         return view('forgotpwd');
-
     }
 
     /**
@@ -263,13 +264,11 @@ class FrontEndController extends JoshController
             // Send the activation code through email
             Mail::to($user->email)
                 ->send(new ForgotPassword($data));
-
         } catch (UserNotFoundException $e) {
             // Even though the email was not found, we will pretend
             // we have sent the password reset code through email,
             // this is a security measure against hackers.
         }
-
         //  Redirect to the forgot password
         return back()->with('success', trans('auth/message.forgot-password.success'));
     }
@@ -287,21 +286,15 @@ class FrontEndController extends JoshController
             return Redirect::route('forgot-password')->with('error', trans('auth/message.account_not_found'));
         }
 
-        if($reminder = Reminder::exists($user))
-        {
-            if($passwordResetCode == $reminder->code)
-            {
+        if ($reminder = Reminder::exists($user)) {
+            if ($passwordResetCode == $reminder->code) {
                 return view('forgotpwd-confirm', compact(['userId', 'passwordResetCode']));
-            }
-            else{
+            } else {
                 return 'code does not match';
             }
-        }
-        else
-        {
+        } else {
             return 'does not exists';
         }
-
     }
 
     /**
@@ -325,21 +318,18 @@ class FrontEndController extends JoshController
 
     /**
      * Contact form processing.
+     *
      * @param Request $request
      * @return Redirect
      */
-    public function showFrontEndView($name=null)
+    public function showFrontEndView($name = null)
     {
-        if(View::exists($name))
-        {
+        if (View::exists($name)) {
             return view($name);
-        }
-        else
-        {
+        } else {
             abort('404');
         }
     }
-
 
     /**
      * Logout page.
@@ -356,6 +346,4 @@ class FrontEndController extends JoshController
         // Redirect to the users page
         return redirect('login')->with('success', 'You have successfully logged out!');
     }
-
-
 }

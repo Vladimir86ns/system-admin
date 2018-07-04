@@ -13,7 +13,7 @@ class Location extends Model
         'country',
         'address',
         'zip_code',
-        'project_id',    
+        'project_id',
     ];
 
     /**

@@ -237,7 +237,7 @@ class InvestmentService
             ->labels(['Collected', 'Invested'])
             //    ->responsive(true)
             ->values([$collected, $invested])
-            ->dimensions(0,400);
+            ->dimensions(0, 400);
     }
 
     /**

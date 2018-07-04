@@ -27,7 +27,7 @@ class EmployeeController extends Controller
      * OwnerController
      *
      */
-	public function __construct(
+    public function __construct(
         EmployeeValidationService $employeeValidationService,
         EmployeeService $service
     ) {
@@ -77,7 +77,6 @@ class EmployeeController extends Controller
 
             // Redirect to the dashboard page
             return Redirect::route("employee-dashboard")->with('success', trans('auth/message.signin.success'));
-
         } catch (UserExistsException $e) {
             $this->messageBag->add('email', trans('auth/message.account_already_exists'));
         }
@@ -108,7 +107,6 @@ class EmployeeController extends Controller
             }
 
             $this->messageBag->add('email', trans('auth/message.account_not_found'));
-
         } catch (NotActivatedException $e) {
             $this->messageBag->add('email', trans('auth/message.account_not_activated'));
         } catch (ThrottlingException $e) {
@@ -125,10 +123,11 @@ class EmployeeController extends Controller
     public function showHome()
     {
         dd('showHome');
-        if (Sentinel::check())
-			return view('employee.index');
-		else
-			return view('employee.login')->with('error', 'You must be logged in!');
+        if (Sentinel::check()) {
+            return view('employee.index');
+        } else {
+            return view('employee.login')->with('error', 'You must be logged in!');
+        }
     }
 
     /**

@@ -7,15 +7,6 @@ use Sentinel;
 class EmployeeService
 {
     /**
-     * EmployeeController
-     *
-     */
-    public function __construct(
-    ) {
-        //
-    }
-
-    /**
      * If user already exists just update permissions
      *
      * @param array $attributes

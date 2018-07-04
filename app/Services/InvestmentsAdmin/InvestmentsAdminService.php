@@ -107,13 +107,11 @@ class InvestmentsAdminService
     {
         $InvestmentsAdmin = InvestmentsAdmin::find($id);
 
-        if (
-            $InvestmentsAdmin['status'] === InvestmentsAdmin::APPROVED ||
+        if ($InvestmentsAdmin['status'] === InvestmentsAdmin::APPROVED ||
             $InvestmentsAdmin['status'] === InvestmentsAdmin::REJECTED
         ) {
             $InvestmentsAdmin->update(['status' => InvestmentsAdmin::PENDING]);
-        } else if (
-            $InvestmentsAdmin['status'] === InvestmentsAdmin::PENDING ||
+        } elseif ($InvestmentsAdmin['status'] === InvestmentsAdmin::PENDING ||
             $InvestmentsAdmin['status'] === InvestmentsAdmin::REJECTED
         ) {
             $InvestmentsAdmin->update(['status' => InvestmentsAdmin::APPROVED]);
@@ -129,11 +127,9 @@ class InvestmentsAdminService
     {
         $InvestmentsAdmin = InvestmentsAdmin::find($id);
 
-        if ($InvestmentsAdmin['status'] === InvestmentsAdmin::REJECTED)
-        {
+        if ($InvestmentsAdmin['status'] === InvestmentsAdmin::REJECTED) {
             $InvestmentsAdmin = InvestmentsAdmin::where('id', $id)->delete();
-        } else
-        {
+        } else {
             $InvestmentsAdmin->update(['status' => InvestmentsAdmin::REJECTED]);
         }
     }

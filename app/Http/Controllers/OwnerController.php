@@ -27,7 +27,7 @@ class OwnerController extends Controller
      * OwnerController
      *
      */
-	public function __construct(
+    public function __construct(
         OwnerValidationService $investmentValidationService,
         OwnerService $investmentService
     ) {
@@ -75,11 +75,9 @@ class OwnerController extends Controller
 
             // Redirect to the dashboard page
             return Redirect::route("owner-dashboard")->with('success', trans('auth/message.signin.success'));
-
         } catch (UserExistsException $e) {
             $this->messageBag->add('email', trans('auth/message.account_already_exists'));
         }
-
         // Ooops.. something went wrong
         return Redirect::back()->withInput()->withErrors($this->messageBag);
     }
@@ -105,7 +103,6 @@ class OwnerController extends Controller
             }
 
             $this->messageBag->add('email', trans('auth/message.account_not_found'));
-
         } catch (NotActivatedException $e) {
             $this->messageBag->add('email', trans('auth/message.account_not_activated'));
         } catch (ThrottlingException $e) {
@@ -121,10 +118,11 @@ class OwnerController extends Controller
      */
     public function showHome()
     {
-        if (Sentinel::check())
-			return view('owner.index');
-		else
-			return view('owner.login')->with('error', 'You must be logged in!');
+        if (Sentinel::check()) {
+            return view('owner.index');
+        } else {
+            return view('owner.login')->with('error', 'You must be logged in!');
+        }
     }
 
     /**

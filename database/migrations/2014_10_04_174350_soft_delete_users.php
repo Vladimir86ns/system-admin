@@ -15,7 +15,6 @@ class SoftDeleteUsers extends Migration {
 		// Update the users table
 		Schema::table('users', function(Blueprint $table)
 		{
-			//
 			$table->softDeletes();
 		});
 	}
@@ -31,7 +30,6 @@ class SoftDeleteUsers extends Migration {
 		Schema::table('users', function(Blueprint $table)
 		{
 			$table->dropSoftDeletes();
-			
 		});
 	}
 
