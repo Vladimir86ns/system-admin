@@ -201,4 +201,16 @@ class OwnerController extends Controller
 
         return Redirect::back()->with("success", "You successfully added {$inputs['name']} to project.");
     }
+
+    /**
+     * Get all employees.
+     *
+     * @return Redirect
+     */
+    public function allEmployees()
+    {
+        $employees = $this->service->getAllEmployees()['data'];
+
+        return view('owner/employee/index-employees', compact('employees'));
+    }
 }

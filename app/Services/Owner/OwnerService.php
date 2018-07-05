@@ -5,12 +5,13 @@ namespace App\Services\Owner;
 use App\User;
 use Redirect;
 use Sentinel;
+use League\Fractal\Resource\Collection;
 use App\Transformers\OwnerTransformer;
 use League\Fractal\Manager as FractalManager;
+use App\Transformers\Owner\EmployeeTransformer;
 
 class OwnerService
 {
-
     /**
      * @var FractalManager
      */
@@ -33,6 +34,28 @@ class OwnerService
     ) {
         $this->fractal = $fractalManager;
         $this->transformer = $transformer;
+    }
+
+    /**
+     * Get owner project.
+     *
+     * @return array
+     */
+    public function getProject()
+    {
+        $ownerProject = Sentinel::getUser()->project;
+
+        return $this->transformer->transform($ownerProject);
+    }
+
+    /**
+     * Get owner project.
+     *
+     * @return array
+     */
+    public function getProjectId()
+    {
+        return Sentinel::getUser()->project->id;
     }
 
     /**
@@ -78,18 +101,6 @@ class OwnerService
     }
 
     /**
-     * Get owner project.
-     *
-     * @return array
-     */
-    public function getProject()
-    {
-        $ownerProject = Sentinel::getUser()->project;
-
-        return $this->transformer->transform($ownerProject);
-    }
-
-    /**
      * Save employee to project.
      *
      * @return array
@@ -107,5 +118,22 @@ class OwnerService
         $user->update($attributesToSave);
 
         return $user;
+    }
+
+    /**
+     * Get all employees.
+     *
+     * @return array
+     */
+    public function getAllEmployees()
+    {
+        $employeeTransformer = new EmployeeTransformer();
+
+        $employees = User::where('project_id', $this->getProjectId())
+            ->where('employee_active', 1)
+            ->get();
+        $result = new Collection($employees, $employeeTransformer);
+
+        return $this->fractal->createData($result)->toArray();
     }
 }
