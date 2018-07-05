@@ -212,7 +212,5 @@ class OwnerController extends Controller
         $employees = $this->service->getAllEmployees()['data'];
 
         return view('owner/employee/index-employees', compact('employees'));
-
-        return $employees['data'];
     }
 }
