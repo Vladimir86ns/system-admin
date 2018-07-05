@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeds;
+
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -23,6 +25,7 @@ class UsersTableSeeder extends Seeder
                 'city' => 'Novi Sad',
             ]
         );
+
         DB::table('users')->insert(
             [
                 'email' => 'milosInvestor@gmail.com',

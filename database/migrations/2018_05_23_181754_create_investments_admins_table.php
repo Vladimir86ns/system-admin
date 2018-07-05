@@ -1,5 +1,7 @@
 <?php
 
+namespace database\migrations;
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -22,7 +24,7 @@ class CreateInvestmentsAdminsTable extends Migration
             $table->string('country');
             $table->string('address');
             $table->string('status');
-            $table->boolean('closed')->default(false);;
+            $table->boolean('closed')->default(false);
             $table->boolean('on_production')->default(false);
             $table->timestamps();
         });

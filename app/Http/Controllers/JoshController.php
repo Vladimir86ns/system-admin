@@ -79,7 +79,7 @@ class JoshController extends Controller
     /**
      * Crop Demo
     */
-    public function crop_demo()
+    public function cropDemo()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $targ_w = $targ_h = 150;
@@ -133,7 +133,7 @@ class JoshController extends Controller
         }
     }
 
-    public function ActivityLog()
+    public function activityLog()
     {
         $activities = Activity::all();
 
