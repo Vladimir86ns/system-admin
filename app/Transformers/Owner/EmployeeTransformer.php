@@ -18,7 +18,16 @@ class EmployeeTransformer extends TransformerAbstract
         return [
             'id' => $employee->id,
             'name' => $employee->first_name . ' ' . $employee->first_name,
+            'first_name' => $employee->first_name,
+            'last_name' => $employee->last_name,
             'email' => $employee->email,
+            'male' => $employee->male,
+            'country' => $employee->country,
+            'gender' => $employee->gender,
+            'state' => $employee->state,
+            'city' => $employee->city,
+            'address' => $employee->address,
+            'postal' => $employee->postal,
             'position' => 'position'
         ];
     }
