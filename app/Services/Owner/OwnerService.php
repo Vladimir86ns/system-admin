@@ -23,17 +23,25 @@ class OwnerService
     protected $transformer;
 
     /**
+     * @var employeeTransformer
+     */
+    protected $employeeTransformer;
+
+    /**
      * Controller
      *
      * @param FractalManager $fractalManager
      * @param OwnerTransformer $transformer
+     * @param EmployeeTransformer $employeeTransformer
      */
     public function __construct(
         FractalManager $fractalManager,
-        OwnerTransformer $transformer
+        OwnerTransformer $transformer,
+        EmployeeTransformer $employeeTransformer
     ) {
         $this->fractal = $fractalManager;
         $this->transformer = $transformer;
+        $this->employeeTransformer = $employeeTransformer;
     }
 
     /**
@@ -127,13 +135,24 @@ class OwnerService
      */
     public function getAllEmployees()
     {
-        $employeeTransformer = new EmployeeTransformer();
-
         $employees = User::where('project_id', $this->getProjectId())
             ->where('employee_active', 1)
             ->get();
-        $result = new Collection($employees, $employeeTransformer);
+        $result = new Collection($employees, $this->employeeTransformer);
 
         return $this->fractal->createData($result)->toArray();
+    }
+
+    /**
+     * Get employee details.
+     *
+     * @param string
+     * @return array
+     */
+    public function getEmployee(string $id)
+    {
+        $employee = User::findOrFail($id);
+
+        return $this->employeeTransformer->transform($employee);
     }
 }

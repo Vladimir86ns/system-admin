@@ -60,7 +60,7 @@ Blank Page
                     <td>{{ $employee['email'] }}</td>
                     <td>{{ $employee['position'] }}</td>
                     <td>
-                      <a href="/owner/add-employees/{{ $employee['id'] }}">
+                      <a href="/owner/employee-details/{{ $employee['id'] }}">
                       <i class="fa fa-fw fa-search"></i>
                       </a>
                     </td>
@@ -75,4 +75,8 @@ Blank Page
       </div>
     </div>
   </section>
+
+  @if($employeeDetails)
+    @include('owner.employee.employee-details')
+  @endif
 @stop

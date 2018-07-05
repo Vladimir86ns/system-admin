@@ -114,6 +114,7 @@ Route::pattern('slug', '[a-z0-9- _]+');
             Route::post('/save-employee/{projectId}/{employeeId}', 'OwnerController@saveEmployee')->name('owner-save-employee');
             Route::get('/select-employee/{id}', 'OwnerController@employeeDetails');
             Route::get('/all-employees', 'OwnerController@allEmployees');
+            Route::get('/employee-details/{id}', 'OwnerController@employeeDetailsOnProject');
         });
 
         // WITHOUT MIDDLEWARE

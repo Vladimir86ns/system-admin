@@ -210,7 +210,21 @@ class OwnerController extends Controller
     public function allEmployees()
     {
         $employees = $this->service->getAllEmployees()['data'];
+        $employeeDetails = false;
 
-        return view('owner/employee/index-employees', compact('employees'));
+        return view('owner/employee/index-employees', compact(['employees', 'employeeDetails']));
+    }
+
+    /**
+     * Get employee details.
+     *
+     * @return array
+     */
+    public function employeeDetailsOnProject($id)
+    {
+        $employees = $this->service->getAllEmployees()['data'];
+        $employeeDetails = $this->service->getEmployee($id);
+
+        return view('owner/employee/index-employees', compact(['employees', 'employeeDetails']));
     }
 }
