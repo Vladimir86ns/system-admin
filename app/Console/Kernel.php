@@ -5,6 +5,9 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
+/**
+ * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+ **/
 class Kernel extends ConsoleKernel
 {
     /**
@@ -22,7 +25,7 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
-    protected function schedule()
+    protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')
         //          ->hourly();
