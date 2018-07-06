@@ -24,7 +24,7 @@ class FrontendRequest extends FormRequest
      */
     public function rules()
     {
-        $user_id = Sentinel::getUser()->id;
+        $userId = Sentinel::getUser()->id;
         switch ($this->method()) {
             case 'GET':
             case 'DELETE':
@@ -45,7 +45,7 @@ class FrontendRequest extends FormRequest
                 return [
                     'first_name' => 'required|min:3',
                     'last_name' => 'required|min:3',
-                    'email' => 'required|unique:users,email,' . $user_id,
+                    'email' => 'required|unique:users,email,' . $userId,
                     'password_confirm' => 'same:password',
                     'pic' => 'mimes:jpg,jpeg,bmp,png|max:10000'
                 ];

@@ -7,6 +7,9 @@ use Sentinel;
 use View;
 use Illuminate\Http\Request;
 
+/**
+ * @SuppressWarnings(PHPMD.Superglobals)
+ **/
 class JoshController extends Controller
 {
     protected $countries = [
@@ -82,32 +85,30 @@ class JoshController extends Controller
     public function cropDemo()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $targ_w = $targ_h = 150;
-            $jpeg_quality = 99;
+            $targW = $targH = 150;
+            $jpegQuality = 99;
 
             $src = base_path().'/public/assets/img/cropping-image.jpg';
 
-            $img_r = imagecreatefromjpeg($src);
+            $imgR = imagecreatefromjpeg($src);
 
-            $dst_r = ImageCreateTrueColor($targ_w, $targ_h);
+            $dstR = ImageCreateTrueColor($targW, $targH);
 
             imagecopyresampled(
-                $dst_r,
-                $img_r,
+                $dstR,
+                $imgR,
                 0,
                 0,
                 intval($_POST['x']),
                 intval($_POST['y']),
-                $targ_w,
-                $targ_h,
+                $targW,
+                $targH,
                 intval($_POST['w']),
                 intval($_POST['h'])
             );
 
             header('Content-type: image/jpeg');
-            imagejpeg($dst_r, null, $jpeg_quality);
-
-            exit;
+            imagejpeg($dstR, null, $jpegQuality);
         }
     }
 

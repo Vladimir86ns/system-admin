@@ -151,9 +151,5 @@ class EmployeeController extends Controller
     public function showProject()
     {
         dd('showProject');
-        $ownerProject = $this->service->getProject();
-        $showProjectForm = false;
-
-        // return view('employee.show.index', compact(['ownerProject', 'showProjectForm']));
     }
 }

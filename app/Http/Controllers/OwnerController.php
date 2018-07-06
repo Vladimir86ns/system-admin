@@ -171,7 +171,7 @@ class OwnerController extends Controller
      *
      * @return Redirect
      */
-    public function employeeDetails($id, Request $request)
+    public function employeeDetails(Request $request)
     {
         $request->validate([
             'employee_id' => 'required|integer',

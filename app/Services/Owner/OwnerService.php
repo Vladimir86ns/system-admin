@@ -113,7 +113,7 @@ class OwnerService
      *
      * @return array
      */
-    public function saveEmployeeToProject(array $attributes, string $projectId, string $employeeId)
+    public function saveEmployeeToProject(array $attributes, string $employeeId)
     {
         $user = User::findOrFail($employeeId);
 

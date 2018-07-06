@@ -12,6 +12,9 @@ use App\Http\Controllers\JoshController;
 use App\Services\Investment\InvestmentService;
 use App\Services\Investment\InvestmentValidationService;
 
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ **/
 class InvestmentController extends JoshController
 {
     const USER_INVESTOR_ROLE = 'Investor';

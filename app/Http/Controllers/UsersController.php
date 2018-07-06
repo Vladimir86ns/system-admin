@@ -17,6 +17,12 @@ use Validator;
 use App\Mail\Restore;
 use stdClass;
 
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+ * @SuppressWarnings(PHPMD.NPathComplexity)
+ **/
 class UsersController extends JoshController
 {
 
@@ -28,9 +34,8 @@ class UsersController extends JoshController
 
     public function index()
     {
-
         // Show the page
-        return view('users.index', compact('users'));
+        return view('users.index');
     }
 
     /*
@@ -48,7 +53,7 @@ class UsersController extends JoshController
                 return $user->created_at->diffForHumans();
             })
             ->addColumn('status', function ($user) {
-                if ($activation = Activation::completed($user)) {
+                if (Activation::completed($user)) {
                     return 'Activated';
                 } else {
                     return 'Pending';
@@ -180,7 +185,7 @@ class UsersController extends JoshController
 
         try {
             $user->update($request->except('pic_file', 'password', 'password_confirm', 'groups', 'activate'));
-            if ($password = $request->has('password')) {
+            if ($request->has('password')) {
                 $user->password = Hash::make($request->password);
             }
 
@@ -263,7 +268,7 @@ class UsersController extends JoshController
             $error = trans('users/message.error.update');
         } catch (UserNotFoundException $e) {
             // Prepare the error message
-            $error = trans('users/message.user_not_found', compact('id'));
+            $error = trans('users/message.user_not_found');
 
             // Redirect to the user management page
             return Redirect::route('users.index')->with('error', $error);
@@ -296,7 +301,7 @@ class UsersController extends JoshController
     public function getModalDelete($id)
     {
         $model = 'users';
-        $confirm_route = $error = null;
+        $confirmRoute = $error = null;
         try {
             // Get user information
             $user = Sentinel::findById($id);
@@ -306,15 +311,15 @@ class UsersController extends JoshController
                 // Prepare the error message
                 $error = trans('users/message.error.delete');
 
-                return view('layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
+                return view('layouts.modal_confirmation', compact('error', 'model', 'confirmRoute'));
             }
         } catch (UserNotFoundException $e) {
             // Prepare the error message
             $error = trans('users/message.user_not_found', compact('id'));
-            return view('layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
+            return view('layouts.modal_confirmation', compact('error', 'model', 'confirmRoute'));
         }
-        $confirm_route = route('users.delete', ['id' => $user->id]);
-        return view('layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
+        $confirmRoute = route('users.delete', ['id' => $user->id]);
+        return view('layouts.modal_confirmation', compact('error', 'model', 'confirmRoute'));
     }
 
     /**

@@ -18,6 +18,9 @@ use stdClass;
 use App\Mail\ForgotPassword;
 use App\User;
 
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
 class AuthController extends JoshController
 {
     /**
@@ -113,10 +116,9 @@ class AuthController extends JoshController
      * User account activation page.
      *
      * @param number $userId
-     * @param string $activationCode
      * @return
      */
-    public function getActivate($userId, $activationCode = null)
+    public function getActivate($userId)
     {
         // Is user logged in?
         if (Sentinel::check()) {
@@ -219,7 +221,7 @@ class AuthController extends JoshController
 
         // Find the user using the password reset code
         $user = Sentinel::findById($userId);
-        if (!$reminder = Reminder::complete($user, $passwordResetCode, $request->get('password'))) {
+        if (!Reminder::complete($user, $passwordResetCode, $request->get('password'))) {
             // Ooops.. something went wrong
             return Redirect::route('signin')->with('error', trans('auth/message.forgot-password-confirm.error'));
         }
