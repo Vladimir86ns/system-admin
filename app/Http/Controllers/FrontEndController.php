@@ -23,13 +23,16 @@ use View;
 use stdClass;
 use App\Mail\ForgotPassword ;
 
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ **/
 class FrontEndController extends JoshController
 {
     /*
      * $user_activation set to false makes the user activation via user registered email
      * and set to true makes user activated while creation
      */
-    private $user_activation = true;
+    private $userActivation = true;
 
     /**
      * Account sign in.
@@ -159,7 +162,7 @@ class FrontEndController extends JoshController
         $data = new stdClass();
             // make it false if you don't want to activate user automatically
             // it is declared above as global variable
-        $activate = $this->user_activation;
+        $activate = $this->userActivation;
 
         try {
             // Register the user
@@ -279,7 +282,7 @@ class FrontEndController extends JoshController
      * @param  string $passwordResetCode
      * @return View
      */
-    public function getForgotPasswordConfirm(Request $request, $userId, $passwordResetCode = null)
+    public function getForgotPasswordConfirm($userId, $passwordResetCode = null)
     {
         if (!$user = Sentinel::findById($userId)) {
             // Redirect to the forgot password page
@@ -307,7 +310,7 @@ class FrontEndController extends JoshController
     {
 
         $user = Sentinel::findById($userId);
-        if (!$reminder = Reminder::complete($user, $passwordResetCode, $request->get('password'))) {
+        if (!Reminder::complete($user, $passwordResetCode, $request->get('password'))) {
             // Ooops.. something went wrong
             return Redirect::route('login')->with('error', trans('auth/message.forgot-password-confirm.error'));
         }

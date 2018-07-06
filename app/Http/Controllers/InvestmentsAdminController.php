@@ -17,6 +17,10 @@ use Illuminate\Http\Request;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Manager as FractalManager;
 
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ **/
 class InvestmentsAdminController extends Controller
 {
     const USER_INVESTOR_ROLE = 'admin_investitions';
@@ -186,17 +190,6 @@ class InvestmentsAdminController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\InvestmentsAdmin  $investmentsAdmin
-     * @return \Illuminate\Http\Response
-     */
-    public function show(CreateInvestmentsRequest $request, $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\InvestmentsAdmin  $investmentsAdmin
@@ -232,17 +225,6 @@ class InvestmentsAdminController extends Controller
 
         return Redirect::route("investments-admin-all-investments")
             ->with('success', 'Updated investment successfully!');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\InvestmentsAdmin  $investmentsAdmin
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(InvestmentsAdmin $investmentsAdmin)
-    {
-        //
     }
 
     /**

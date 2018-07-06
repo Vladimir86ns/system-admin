@@ -105,16 +105,16 @@ class InvestmentsAdminService
      */
     public function approveOrUnApproveInvestment(int $id)
     {
-        $InvestmentsAdmin = InvestmentsAdmin::find($id);
+        $investmentsAdmin = InvestmentsAdmin::find($id);
 
-        if ($InvestmentsAdmin['status'] === InvestmentsAdmin::APPROVED ||
-            $InvestmentsAdmin['status'] === InvestmentsAdmin::REJECTED
+        if ($investmentsAdmin['status'] === InvestmentsAdmin::APPROVED ||
+            $investmentsAdmin['status'] === InvestmentsAdmin::REJECTED
         ) {
-            $InvestmentsAdmin->update(['status' => InvestmentsAdmin::PENDING]);
-        } elseif ($InvestmentsAdmin['status'] === InvestmentsAdmin::PENDING ||
-            $InvestmentsAdmin['status'] === InvestmentsAdmin::REJECTED
+            $investmentsAdmin->update(['status' => InvestmentsAdmin::PENDING]);
+        } elseif ($investmentsAdmin['status'] === InvestmentsAdmin::PENDING ||
+            $investmentsAdmin['status'] === InvestmentsAdmin::REJECTED
         ) {
-            $InvestmentsAdmin->update(['status' => InvestmentsAdmin::APPROVED]);
+            $investmentsAdmin->update(['status' => InvestmentsAdmin::APPROVED]);
         }
     }
 
@@ -125,12 +125,12 @@ class InvestmentsAdminService
      */
     public function rejectOrDelete(int $id)
     {
-        $InvestmentsAdmin = InvestmentsAdmin::find($id);
+        $investmentsAdmin = InvestmentsAdmin::find($id);
 
-        if ($InvestmentsAdmin['status'] === InvestmentsAdmin::REJECTED) {
-            $InvestmentsAdmin = InvestmentsAdmin::where('id', $id)->delete();
+        if ($investmentsAdmin['status'] === InvestmentsAdmin::REJECTED) {
+            $investmentsAdmin = InvestmentsAdmin::where('id', $id)->delete();
         } else {
-            $InvestmentsAdmin->update(['status' => InvestmentsAdmin::REJECTED]);
+            $investmentsAdmin->update(['status' => InvestmentsAdmin::REJECTED]);
         }
     }
 

@@ -40,7 +40,7 @@ class GroupsController extends JoshController
      */
     public function store(GroupRequest $request)
     {
-        if ($role = Sentinel::getRoleRepository()->createModel()->create([
+        if (Sentinel::getRoleRepository()->createModel()->create([
             'name' => $request->get('name'),
             'slug' => str_slug($request->get('name'))
         ])
@@ -67,7 +67,7 @@ class GroupsController extends JoshController
             $role = Sentinel::findRoleById($group);
         } catch (GroupNotFoundException $e) {
             // Redirect to the groups management page
-            return Redirect::route('groups')->with('error', trans('groups/message.group_not_found', compact('id')));
+            return Redirect::route('groups')->with('error', trans('groups/message.group_not_found'));
         }
 
         // Show the page
@@ -106,15 +106,15 @@ class GroupsController extends JoshController
     public function getModalDelete($id = null)
     {
         $model = 'groups';
-        $confirm_route = $error = null;
+        $confirmRoute = $error = null;
         try {
             // Get group information
             $role = Sentinel::findRoleById($id);
-            $confirm_route = route('groups.delete', ['id' => $role->id]);
-            return view('layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
+            $confirmRoute = route('groups.delete', ['id' => $role->id]);
+            return view('layouts.modal_confirmation', compact('error', 'model', 'confirmRoute'));
         } catch (GroupNotFoundException $e) {
             $error = trans('groups/message.group_not_found', compact('id'));
-            return view('layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
+            return view('layouts.modal_confirmation', compact('error', 'model', 'confirmRoute'));
         }
     }
 
