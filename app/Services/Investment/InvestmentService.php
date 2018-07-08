@@ -12,7 +12,7 @@ use League\Fractal\Resource\Collection;
 use Illuminate\Database\Eloquent\Collection as ObjectCollection;
 use League\Fractal\Manager as FractalManager;
 use App\Transformers\InvestmentsAdminTransformer;
-use App\Transformers\InvestmentTransformer;
+use App\Transformers\Investment\InvestmentTransformer;
 
 /**
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
