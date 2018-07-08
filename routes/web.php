@@ -81,7 +81,7 @@ Route::pattern('slug', '[a-z0-9- _]+');
         // WITHOUT MIDDLEWARE
         Route::get('login', 'InvestmentController@getSignIn')->name('investment-login');
         Route::post('signin', 'InvestmentController@postSignIn')->name('investment-signin');
-        Route::post('investment-signup', 'InvestmentController@postSignup')->name('investment-signup');
+        Route::post('investment-signup', 'InvestmentController@postSignUp')->name('investment-signup');
         Route::get('logout', 'InvestmentController@getLogout');
     });
 

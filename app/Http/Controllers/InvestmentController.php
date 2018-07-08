@@ -101,18 +101,13 @@ class InvestmentController extends JoshController
      *
      * @return Redirect
      */
-    public function postSignup(InvestorRequest $request)
+    public function postSignUp(InvestorRequest $request)
     {
-        $user = Sentinel::authenticate($request->only(['email', 'password']));
+        $inputs = $request->all();
+        $user = $this->service->checkUserAlreadyExist($inputs);
 
         if ($user) {
-            $permissions = $user->permissions;
-
-            $permissions['investor'] = 1;
-            $user->permissions = $permissions;
-            $user->update();
-
-            return Redirect::route("investor-dashboard")->with('success', trans('auth/message.signin.success'));
+            return $this->service->addNewPermissionToUserAndRedirect($user);
         }
 
         $available = $this->validationService->isEmailAvailable($request->get('email'));
@@ -121,30 +116,15 @@ class InvestmentController extends JoshController
             return view('investor.login')->with('error', trans('auth/message.account_already_exists'));
         }
 
-        $permissions = [
-            'investor' => 1,
-        ];
-
         try {
-            // Register the user as investor
-            $user = Sentinel::registerAndActivate([
-                'first_name' => $request->get('first_name'),
-                'last_name' => $request->get('last_name'),
-                'email' => $request->get('email'),
-                'password' => $request->get('password'),
-                'permissions' => $permissions
-            ]);
-
-            // Log the user in
+            $user = $this->service->registerAndActivateNewUser($inputs);
             Sentinel::login($user, false);
 
-            // Redirect to the dashboard page
             return Redirect::route("investor-dashboard")->with('success', trans('auth/message.signin.success'));
         } catch (UserExistsException $e) {
             $this->messageBag->add('email', trans('auth/message.account_already_exists'));
         }
 
-        // Ooops.. something went wrong
         return Redirect::back()->withInput()->withErrors($this->messageBag);
     }
 
