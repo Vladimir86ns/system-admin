@@ -28,6 +28,7 @@ class EmployeeTransformer extends TransformerAbstract
             'city' => $employee->city,
             'address' => $employee->address,
             'postal' => $employee->postal,
+            'project_id' => $employee->project_id,
             'position' => 'position'
         ];
     }

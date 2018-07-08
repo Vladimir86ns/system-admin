@@ -5,8 +5,11 @@ namespace App\Services\Owner;
 use App\User;
 use Redirect;
 use Sentinel;
-use League\Fractal\Resource\Collection;
+use App\Project;
+use App\ProjectPosition;
+use Illuminate\Support\Facades\DB;
 use App\Transformers\OwnerTransformer;
+use League\Fractal\Resource\Collection;
 use League\Fractal\Manager as FractalManager;
 use App\Transformers\Owner\EmployeeTransformer;
 
@@ -154,5 +157,28 @@ class OwnerService
         $employee = User::findOrFail($id);
 
         return $this->employeeTransformer->transform($employee);
+    }
+
+    /**
+     * Save project positions
+     *
+     * @param array $attributes
+     * @param string $id
+     * @return array
+     */
+    public function balkCreateProjectPositions(array $attributes, string $id)
+    {
+        $allNames = explode(',', $attributes['position']);
+        $project = Project::findOrFail($id);
+
+        DB::transaction(function () use ($allNames, $project) {
+            foreach ($allNames as $name) {
+                $projectPosition = new ProjectPosition();
+                $projectPosition->name = $name;
+                $project->positions()->save($projectPosition);
+            }
+        });
+
+        return $attributes['position'];
     }
 }

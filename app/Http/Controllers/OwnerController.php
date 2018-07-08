@@ -156,7 +156,7 @@ class OwnerController extends Controller
      *
      * @return Redirect
      */
-    public function addEmployees($id)
+    public function showProjectDetails($id)
     {
         $ownerProject = $this->service->getProject();
         $employees = User::all()->where('project_id', $id)->where('employee_active', 0)->toArray();
@@ -226,5 +226,19 @@ class OwnerController extends Controller
         $employeeDetails = $this->service->getEmployee($id);
 
         return view('owner/employee/index-employees', compact(['employees', 'employeeDetails']));
+    }
+
+    /**
+     * Save project details.
+     *
+     * @return array
+     */
+    public function saveProjectDetails(Request $request, $id)
+    {
+        $inputs = $request->all();
+
+        $names = $this->service->balkCreateProjectPositions($inputs, $id);
+
+        return Redirect::back()->with("success", "You successfully added {$names} positions to project.");
     }
 }

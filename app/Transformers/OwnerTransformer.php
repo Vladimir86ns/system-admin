@@ -28,6 +28,7 @@ class OwnerTransformer extends TransformerAbstract
             'income' => number_format($project->income, 2),
             'owner_id' => $project->owner_id,
             'investments_admin_id' => $project->investments_admin_id,
+            'positions' => $project->positions
         ];
     }
 }
