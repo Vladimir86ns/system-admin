@@ -2,11 +2,12 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Investment;
-use App\Order;
-use App\InvestmentsAdmin;
 use App\User;
+use App\Order;
+use App\Investment;
+use App\ProjectPosition;
+use App\InvestmentsAdmin;
+use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
@@ -49,5 +50,13 @@ class Project extends Model
     public function adminInvestment()
     {
         return $this->belongsTo(InvestmentsAdmin::class);
+    }
+
+    /**
+     * Get all project positions.
+     */
+    public function positions()
+    {
+        return $this->hasMany(ProjectPosition::class);
     }
 }

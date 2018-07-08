@@ -110,7 +110,8 @@ Route::pattern('slug', '[a-z0-9- _]+');
         Route::group(['middleware' => ['check-owner']], function () {
             Route::get('/', 'OwnerController@showHome')->name('owner-dashboard');
             Route::get('/show-project', 'OwnerController@showProject')->name('owner-show-project');
-            Route::get('/add-employees/{id}', 'OwnerController@addEmployees')->name('owner-add-employees');
+            Route::get('/show-project-details/{id}', 'OwnerController@showProjectDetails')->name('owner-show-project-details');
+            Route::post('/save-project-details/{id}', 'OwnerController@saveProjectDetails')->name('owner-save-project-details');
             Route::post('/save-employee/{projectId}/{employeeId}', 'OwnerController@saveEmployee')->name('owner-save-employee');
             Route::get('/select-employee/{id}', 'OwnerController@employeeDetails');
             Route::get('/all-employees', 'OwnerController@allEmployees');

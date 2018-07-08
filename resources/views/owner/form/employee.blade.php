@@ -1,4 +1,4 @@
-<div class="col-md-16">
+{{-- <div class="col-md-16">
 
 <form action="/owner/save-employee/{{$ownerProject['id']}}/{{ $employee['id'] }}" method="POST" onsubmit="return Validation()" role="form" id="create_investments">
     <div class="col-md-6">
@@ -112,4 +112,4 @@
     </div>
 
   </form>
-</div>
+</div> --}}

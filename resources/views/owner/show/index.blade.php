@@ -73,7 +73,7 @@ Blank Page
                 <td class="numeric">{{ $ownerProject['phone_number'] }}</td>
                 <td class="numeric">{{ $ownerProject['income'] }}</td>
                 <td>
-                    <a href="/owner/add-employees/{{ $ownerProject['id'] }}">
+                    <a href="/owner/show-project-details/{{ $ownerProject['id'] }}">
                     <i class="fa fa-fw fa-search"></i>
                     </a>
                 </td>

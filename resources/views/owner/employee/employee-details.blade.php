@@ -14,7 +14,7 @@
           <table class="table table-bordered table-striped table-condensed flip-content">
               <div class="col-md-16">
 
-                  <form action="#" method="POST" onsubmit="return Validation()" role="form" id="create_investments">
+                  <form action="/owner/save-employee/{{$employee['project_id']}}/{{ $employee['id'] }}" method="POST" onsubmit="return Validation()" role="form" id="create_investments">
                       <div class="col-md-6">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <div class="form-group {{ $errors->first('name', 'has-error') }}">
@@ -116,7 +116,7 @@
 
                       <div class="col-md-12 mar-10">
                         <div class="col-xs-6 col-md-6">
-                          <input type="submit" name="btnSubmit" id="btnSubmit" value="Add employee to project" class="btn btn-success btn-block btn-md btn-responsive">
+                          <input type="submit" name="btnSubmit" id="btnSubmit" value="Add employee to projectSSS" class="btn btn-success btn-block btn-md btn-responsive">
                         </div>
                         <div class="col-xs-6 col-md-6">
                         <a class="btn btn-danger btn-block btn-md btn-responsive" href="#">
