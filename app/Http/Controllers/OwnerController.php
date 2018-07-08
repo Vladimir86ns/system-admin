@@ -11,6 +11,9 @@ use App\Services\Owner\OwnerService;
 use App\Http\Requests\Owner\SaveEmployeeToProject;
 use App\Services\Owner\OwnerValidationService;
 
+/**
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ **/
 class OwnerController extends Controller
 {
     /**
