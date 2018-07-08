@@ -3,7 +3,9 @@
 namespace App\Services\Investment;
 
 use App\Investment;
+use App\User;
 use App\InvestmentsAdmin;
+use Redirect;
 use Sentinel;
 use Charts;
 use League\Fractal\Resource\Collection;
@@ -260,5 +262,55 @@ class InvestmentService
     private function getUser()
     {
         return Sentinel::getUser();
+    }
+
+    /**
+     * Check dose user already exist with given email and password.
+     *
+     * @param $attributes
+     * @return Redirect
+     */
+    public function checkUserAlreadyExist(array $attributes)
+    {
+        return Sentinel::authenticate(array_only($attributes, ['email', 'password']));
+    }
+
+    /**
+     * Add to existing user new permissions and redirect
+     *
+     * @param $user
+     * @return User
+     */
+    public function addNewPermissionToUserAndRedirect(User $user)
+    {
+        $permissions = $user->permissions;
+
+        $permissions['investor'] = 1;
+        $user->permissions = $permissions;
+        $user->update();
+
+        return Redirect::route("investor-dashboard")->with('success', trans('auth/message.signin.success'));
+    }
+
+    /**
+     * Register and activate new user
+     *
+     * @param $user
+     * @return User
+     */
+    public function registerAndActivateNewUser(array $attributes)
+    {
+        $permissions = [
+            'investor' => 1,
+        ];
+
+        // Register the user as investor
+        return Sentinel::registerAndActivate([
+            'first_name' => $attributes['first_name'],
+            'last_name' => $attributes['last_name'],
+            'email' => $attributes['email'],
+            'password' => $attributes['password'],
+            'permissions' => $permissions
+        ]);
     }
 }
