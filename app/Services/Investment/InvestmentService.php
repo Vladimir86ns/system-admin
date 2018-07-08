@@ -14,6 +14,9 @@ use League\Fractal\Manager as FractalManager;
 use App\Transformers\InvestmentsAdminTransformer;
 use App\Transformers\InvestmentTransformer;
 
+/**
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ **/
 class InvestmentService
 {
     /**
