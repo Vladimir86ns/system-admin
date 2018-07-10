@@ -25,4 +25,14 @@ class ProductController extends Controller
     {
         return view('owner.product.form.add-product');
     }
+
+    /**
+     * Save new project of company.
+     *
+     * @return View
+     */
+    public function store(Request $request)
+    {
+        dd($request->all());
+    }
 }
