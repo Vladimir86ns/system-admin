@@ -120,6 +120,7 @@ Route::pattern('slug', '[a-z0-9- _]+');
             Route::group([ 'prefix' => 'product'], function () {
                 Route::get('/', 'ProductController@index');
                 Route::get('/create', 'ProductController@create');
+                Route::post('/store', 'ProductController@store');
             });
         });
 
