@@ -116,6 +116,11 @@ Route::pattern('slug', '[a-z0-9- _]+');
             Route::get('/select-employee/{id}', 'OwnerController@employeeDetails');
             Route::get('/all-employees', 'OwnerController@allEmployees');
             Route::get('/employee-details/{id}', 'OwnerController@employeeDetailsOnProject');
+            // product
+            Route::group([ 'prefix' => 'product'], function () {
+                Route::get('/', 'ProductController@index');
+                Route::get('/create', 'ProductController@create');
+            });
         });
 
         // WITHOUT MIDDLEWARE
