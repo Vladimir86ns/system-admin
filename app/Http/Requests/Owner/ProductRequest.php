@@ -26,9 +26,9 @@ class ProductRequest extends FormRequest
         return [
             'name' => 'required|min:3',
             'size' => 'required|min:3',
-            'cost' => 'required|min:3',
-            'price' => 'required|numeric|min:3',
-            'time_to_prepare' => 'required|numeric',
+            'cost' => 'required|numeric|min:1',
+            'price' => 'required|numeric|min:1',
+            'time_to_prepare' => 'required|numeric|min:1',
         ];
     }
 }

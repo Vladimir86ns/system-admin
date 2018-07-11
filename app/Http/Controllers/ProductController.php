@@ -15,7 +15,7 @@ class ProductController extends Controller
     protected $service;
 
     /**
-     * OwnerController
+     * Product Controller
      *
      */
     public function __construct(
