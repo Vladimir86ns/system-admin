@@ -65,10 +65,10 @@ Product
           </div>
 
           <div class="col-md-6">
-            <div class="form-group {{ $errors->first('costs', 'has-error') }}">
+            <div class="form-group {{ $errors->first('cost', 'has-error') }}">
               <label>Costs:</label>
-              <input type="text" name="costs" id="costs" class="form-control input-md">
-              {!! $errors->first('costs', '<span class="help-block">:message</span>') !!}
+              <input type="text" name="cost" id="cost" class="form-control input-md">
+              {!! $errors->first('cost', '<span class="help-block">:message</span>') !!}
             </div>
           </div>
 
@@ -81,22 +81,37 @@ Product
           </div>
 
           <div class="col-md-6" data-provides="fileinput">
-            <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
-            <div>
-              <span class="btn btn-default btn-file">
-              <span class="fileinput-new">Select image</span>
-              <span class="fileinput-exists">Change</span>
-              <input type="file" name="picture" id="picture"></span>
-              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+            <div class="form-group {{ $errors->first('picture', 'has-error') }}">
+              <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+              <div>
+                <span class="btn btn-default btn-file">
+                <span class="fileinput-new">Select image</span>
+                <span class="fileinput-exists">Change</span>
+                <input type="file" name="picture" id="picture"></span>
+                <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+              </div>
+              {!! $errors->first('picture', '<span class="help-block">:message</span>') !!}
             </div>
           </div>
 
           <div class="col-md-6">
-            <div class="form-group {{ $errors->first('time_to_pripare', 'has-error') }}">
+
+            <div class="form-group {{ $errors->first('time_to_prepare', 'has-error') }}">
               <label>Time to pripare:</label>
-              <input type="text" name="time_to_pripare" id="time_to_pripare" class="form-control input-md">
-              {!! $errors->first('time_to_pripare', '<span class="help-block">:message</span>') !!}
+              <input type="text" name="time_to_prepare" id="time_to_prepare" class="form-control input-md">
+              {!! $errors->first('time_to_prepare', '<span class="help-block">:message</span>') !!}
             </div>
+
+            <div class="form-group {{ $errors->first('category', 'has-error') }}">
+              <label>Belongs to category product:</label>
+                <select class="form-control" name="category">
+                      <option value="" >Not selected</option>
+                      <option value="pizza">Pizza</option>
+                      <option value="Palacinke">Palacinke</option>
+                </select>
+                {!! $errors->first('category', '<span class="help-block">:message</span>') !!}
+              </div>
+
           </div>
 
           <div class="col-md-6">
