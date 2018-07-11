@@ -2,10 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use Redirect;
 use Illuminate\Http\Request;
+use App\Services\Owner\ProductService;
+use App\Http\Requests\Owner\ProductRequest;
 
 class ProductController extends Controller
 {
+    /**
+     * @var service
+     */
+    protected $service;
+
+    /**
+     * Product Controller
+     *
+     */
+    public function __construct(
+        ProductService $productService
+    ) {
+        $this->service = $productService;
+    }
+
     /**
      * Show all products for company.
      *
@@ -31,8 +49,15 @@ class ProductController extends Controller
      *
      * @return View
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        dd($request->all());
+        $inputs = $request->all();
+        $project = $this->service->save($inputs);
+
+        if ($project) {
+            return Redirect::back()->with("success", "You successfully added {$inputs['name']} product.");
+        }
+
+        return Redirect::back()->with("error", "Something went wrong!");
     }
 }

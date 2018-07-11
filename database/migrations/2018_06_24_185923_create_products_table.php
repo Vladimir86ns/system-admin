@@ -17,13 +17,13 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_categories_id')->unsigned();
-            $table->integer('project_id')->unsigned();
+            $table->integer('product_categories_id')->unsigned()->nullable();
+            $table->integer('project_id')->unsigned()->nullable();
             $table->string('name', 50);
             $table->string('size', 50);
             $table->decimal('cost', 10, 2);
             $table->decimal('price', 10, 2);
-            $table->string('picture');
+            $table->string('picture')->nullable();
             $table->integer('time_to_prepare');
             $table->foreign('product_categories_id')->references('id')->on('product_categories');
             $table->foreign('project_id')->references('id')->on('projects');
