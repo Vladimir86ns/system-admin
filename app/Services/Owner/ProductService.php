@@ -2,13 +2,64 @@
 
 namespace App\Services\Owner;
 
-use Sentinel;
 use App\User;
+use Sentinel;
 use App\Product;
 use App\ProductCategory;
+use App\Transformers\Owner\ProductTransformer;
+use League\Fractal\Manager as FractalManager;
+use League\Fractal\Resource\Collection;
 
 class ProductService
 {
+    /**
+     * @var FractalManager
+     */
+    protected $fractal;
+
+    /**
+     * @var transformer
+     */
+    protected $transformer;
+
+    /**
+     * Product service controller
+     *
+     * @param FractalManager $fractalManager
+     * @param ProductTransformer $transformer
+     */
+    public function __construct(
+        FractalManager $fractalManager,
+        ProductTransformer $transformer
+    ) {
+        $this->fractal = $fractalManager;
+        $this->transformer = $transformer;
+    }
+
+    /**
+     * Get all products.
+     *
+     * @return Product
+     */
+    public function getAll()
+    {
+        $companyId = $this->getCompanyId();
+
+        return Product::where('project_id', $companyId)->get();
+    }
+
+    /**
+     * Get all transformed products.
+     *
+     * @return Product
+     */
+    public function getAllTransformed()
+    {
+        $result = new Collection($this->getAll(), $this->transformer);
+
+        return $this->fractal->createData($result)->toArray();
+    }
+
     /**
      * Save new product of company.
      *
@@ -67,5 +118,15 @@ class ProductService
     public function getCategoryByName(string $categoryName)
     {
         return ProductCategory::where('name', $categoryName)->first();
+    }
+
+    /**
+     * Get company id.
+     *
+     * @return array
+     */
+    public function getCompanyId()
+    {
+        return $this->getUser()->project->id;
     }
 }

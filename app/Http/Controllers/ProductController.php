@@ -31,7 +31,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('owner.product.index');
+        $allProducts = $this->service->getAllTransformed();
+
+        return view('owner.product.index', compact('allProducts'));
     }
 
     /**
