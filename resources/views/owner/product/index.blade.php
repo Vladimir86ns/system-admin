@@ -48,34 +48,28 @@ Product
               <thead class="flip-content">
                 <tr>
                   <th>Name</th>
-                  <th class="numeric">Total Amount</th>
-                  <th class="numeric">Income</th>
-                  <th class="numeric">Expense</th>
-                  <th class="numeric">Profit</th>
-                  <th class="numeric">Profit Sharing</th>
-                  <th class="numeric">Investment Collected</th>
-                  <th class="numeric">Phone Number</th>
-                  <th class="numeric">Income</th>
-                  <th class="numeric">Action</th>
+                  <th>Size</th>
+                  <th>Cost</th>
+                  <th>Price</th>
+                  <th>Time to prepare</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
+                @foreach ($allProducts['data'] as $product)
                 <tr>
-                <td>Name</td>
-                <td class="numeric">Total amount</td>
-                <td class="numeric">Income</td>
-                <td class="numeric">Expense</td>
-                <td class="numeric">Add something</td>
-                <td class="numeric">Add something</td>
-                <td class="numeric">Add something</td>
-                <td class="numeric">Add something</td>
-                <td class="numeric">Add something</td>
-                <td>
-                    <a href="#">
+                  <td> {{$product['name']}} </td>
+                  <td> {{$product['size']}} </td>
+                  <td> {{$product['cost']}} </td>
+                  <td> {{$product['price']}} </td>
+                  <td> {{$product['time_to_prepare']}} </td>
+                  <td>
+                  <a href="#">
                     <i class="fa fa-fw fa-search"></i>
-                    </a>
+                  </a>
                 </td>
-                </tr>
+              </tr>
+                @endforeach
               </tbody>
             </table>
           </div>
