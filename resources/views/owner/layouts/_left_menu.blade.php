@@ -22,7 +22,7 @@
       <a href="{{ URL::to('owner/all-employees') }}">
         <i class="livicon" data-name="users" data-size="18" data-c="#418BCA" data-hc="#418BCA"
           data-loop="true"></i>
-        <span class="title">Employees</span>
+        <span class="title">Employee</span>
       </a>
     </li>
 
@@ -38,7 +38,7 @@
           <li {!! (Request::is('groups') ? 'class="active" id="active"' : '') !!}>
               <a href="{{ URL::to('owner/product') }}">
                   <i class="fa fa-angle-double-right"></i>
-                  All Product
+                  All Products
               </a>
           </li>
       </ul>

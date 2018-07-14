@@ -58,14 +58,17 @@ Product
               <tbody>
                 @foreach ($allProducts['data'] as $product)
                 <tr>
-                  <td> {{$product['name']}} </td>
-                  <td> {{$product['size']}} </td>
-                  <td> {{$product['cost']}} </td>
-                  <td> {{$product['price']}} </td>
-                  <td> {{$product['time_to_prepare']}} </td>
+                  <td>{{ $product['name'] }}</td>
+                  <td>{{ $product['size'] }}</td>
+                  <td>{{ $product['cost'] }}</td>
+                  <td>{{ $product['price'] }}</td>
+                  <td>{{ $product['time_to_prepare']}} </td>
                   <td>
                   <a href="#">
                     <i class="fa fa-fw fa-search"></i>
+                  </a>
+                  <a href="/owner/product/delete/{{ $product['id'] }}" data-method="DELETE">
+                    <i class="fa fa-fw fa-eraser"></i>
                   </a>
                 </td>
               </tr>
