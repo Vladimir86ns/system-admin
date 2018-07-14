@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Redirect;
+use App\Product;
 use Illuminate\Http\Request;
 use App\Services\Owner\ProductService;
 use App\Http\Requests\Owner\ProductRequest;
@@ -61,5 +62,21 @@ class ProductController extends Controller
         }
 
         return Redirect::back()->with("error", "Something went wrong!");
+    }
+
+    /**
+     * Delete product from company.
+     *
+     * @return View
+     */
+    public function delete($id)
+    {
+        $isDeleted = $this->service->delete($id);
+
+        if ($isDeleted) {
+            return Redirect::back()->with("success", "You successfully removed product.");
+        } else {
+            return Redirect::back()->with("error", "Product with {$id} not found!");
+        }
     }
 }

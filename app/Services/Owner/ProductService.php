@@ -129,4 +129,31 @@ class ProductService
     {
         return $this->getUser()->project->id;
     }
+
+    /**
+     * Delete product
+     *
+     * @return bool
+     */
+    public function delete($id)
+    {
+        $product = $this->getProductById($id);
+
+        if ($product) {
+            $product->delete();
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get product
+     *
+     * @return Product
+     */
+    public function getProductById($id)
+    {
+        return Product::find($id);
+    }
 }
