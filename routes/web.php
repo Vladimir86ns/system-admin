@@ -121,6 +121,8 @@ Route::pattern('slug', '[a-z0-9- _]+');
                 Route::get('/', 'ProductController@index');
                 Route::get('/create', 'ProductController@create');
                 Route::post('/store', 'ProductController@store');
+                Route::get('/edit/{id}', 'ProductController@edit');
+                Route::post('/edit/{id}/save', 'ProductController@editSave');
                 Route::get('/delete/{id}', 'ProductController@delete');
             });
         });

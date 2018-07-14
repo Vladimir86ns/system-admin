@@ -33,8 +33,9 @@ class ProductController extends Controller
     public function index()
     {
         $allProducts = $this->service->getAllTransformed();
+        $product = false;
 
-        return view('owner.product.index', compact('allProducts'));
+        return view('owner.product.index', compact(['allProducts', 'product']));
     }
 
     /**
@@ -75,8 +76,43 @@ class ProductController extends Controller
 
         if ($isDeleted) {
             return Redirect::back()->with("success", "You successfully removed product.");
-        } else {
-            return Redirect::back()->with("error", "Product with {$id} not found!");
         }
+
+        return Redirect::back()->with("error", "Product with {$id} not found!");
+    }
+
+    /**
+     * Get all products in table and selected product details.
+     *
+     * @return View
+     */
+    public function edit($id)
+    {
+        $product = $this->service->getProductById($id);
+
+        if ($product) {
+            $allProducts = $this->service->getAllTransformed();
+
+            return view('owner.product.index', compact(['allProducts', 'product']));
+        }
+
+        return Redirect::back()->with("error", "Product with {$id} not found!");
+    }
+
+    /**
+     * Save edited product.
+     *
+     * @return View
+     */
+    public function editSave($id, ProductRequest $request)
+    {
+        $inputs = $request->all();
+        $isSaved = $this->service->editSave($id, $inputs);
+
+        if ($isSaved) {
+            return Redirect::back()->with("success", "You successfully updated product.");
+        }
+
+        return Redirect::back()->with("error", "Product with {$id} not found!");
     }
 }
