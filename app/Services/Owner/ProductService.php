@@ -63,6 +63,7 @@ class ProductService
     /**
      * Save new product of company.
      *
+     * @param array $attributes
      * @return Product
      */
     public function save(array $attributes)
@@ -74,6 +75,8 @@ class ProductService
     }
 
     /**
+     * Append company id and category id to attributes before save to DB
+     *
      * @param array $attributes
      * @return array
      */
@@ -93,11 +96,25 @@ class ProductService
     /**
      * Return only attributes for save
      *
+     * @param array $attributes
      * @return array
      */
     public function getAttributesForSave(array $attributes)
     {
         return array_except($attributes, ['_token', 'btnSubmit']);
+    }
+
+    /**
+     * Return only attributes for save
+     *
+     * @param array $attributes
+     * @return array
+     */
+    public function getAttributesForEdit(array $attributes)
+    {
+        $attributes = $this->getAttributesForSave($attributes);
+
+        return array_except($attributes, ['picture']);
     }
 
     /**
@@ -113,6 +130,7 @@ class ProductService
     /**
      * Get category by name.
      *
+     * @param string $categoryName
      * @return ProductCategory
      */
     public function getCategoryByName(string $categoryName)
@@ -133,27 +151,67 @@ class ProductService
     /**
      * Delete product
      *
+     * @param int $id
      * @return bool
      */
-    public function delete($id)
+    public function delete(int $id)
     {
         $product = $this->getProductById($id);
 
         if ($product) {
             $product->delete();
-            return true;
         }
 
-        return false;
+        return $product;
     }
 
     /**
      * Get product
      *
+     * @param int $id
      * @return Product
      */
-    public function getProductById($id)
+    public function getProductById(int $id)
     {
         return Product::find($id);
+    }
+
+    /**
+     * Get product
+     *
+     * @param int $id
+     * @return array
+     */
+    public function getTransformedProduct(int $id)
+    {
+        $product = $this->getProductById($id);
+
+        if ($product) {
+            return $this->transformer->transform($product);
+        }
+
+        return $product;
+    }
+
+
+    /**
+     * Save edited product to DB
+     *
+     * @param int $id
+     * @param array $attributes
+     * @return array
+     */
+    public function editSave($id, $attributes)
+    {
+        $product = $this->getProductById($id);
+
+        if ($product) {
+            $attributes = $this->appendCompanyIdCategoryId($attributes);
+            $attributesToSave = $this->getAttributesForEdit($attributes);
+
+            return $product->update($attributesToSave);
+        }
+
+        return $product;
     }
 }
