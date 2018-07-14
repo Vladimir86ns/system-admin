@@ -160,10 +160,9 @@ class ProductService
 
         if ($product) {
             $product->delete();
-            return true;
         }
 
-        return false;
+        return $product;
     }
 
     /**
