@@ -194,6 +194,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
 
     ],
 

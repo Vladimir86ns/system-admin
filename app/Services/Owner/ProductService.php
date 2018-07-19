@@ -214,4 +214,26 @@ class ProductService
 
         return $product;
     }
+
+    /**
+     * Get all products.
+     *
+     * @return Product
+     */
+    public function apiGetAll($companyId)
+    {
+        return Product::where('project_id', $companyId)->get();
+    }
+
+    /**
+     * Get all transformed products.
+     *
+     * @return Product
+     */
+    public function apiGetAllTransformed($companyId)
+    {
+        $result = new Collection($this->apiGetAll($companyId), $this->transformer);
+
+        return $this->fractal->createData($result)->toArray();
+    }
 }
